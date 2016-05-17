@@ -6,6 +6,7 @@ public class Cursor extends GameObject{
 	
 	public Cursor(int x, int y) {
 		super(x, y);
+		this.load("ressources/cursor/Cursor.png");
 	}
 	public void moveRight(){
 		this.x++;

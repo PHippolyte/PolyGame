@@ -2,6 +2,7 @@ package map;
 
 import gameObject.Character;
 import gameObject.Tile;
+import team.Team;
 
 public class Map {
 	private int nrows;
@@ -10,8 +11,8 @@ public class Map {
 	private Generation generation;
 	
 	public Map(int x, int y){
-		this.nrows = x;
-		this.ncols = y;
+		this.nrows = y;
+		this.ncols = x;
 		this.generation = new Generation();
 		
 		this.createMap();
@@ -24,6 +25,11 @@ public class Map {
 	public void setCharacterAtTile(Character character, int x, int y){
 		this.getTile(x, y).setCharacter(character);
 		character.setPosition(x,y);
+	}
+	
+	public void moveCharacter(Character character, int x, int y){
+		this.getTile(character.getX(), character.getY()).setCharacter(null);
+		this.setCharacterAtTile(character, x, y);
 	}
 	
 	public void printMap(){

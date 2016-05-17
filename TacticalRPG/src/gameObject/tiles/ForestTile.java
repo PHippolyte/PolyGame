@@ -6,6 +6,7 @@ public class ForestTile extends Tile{
 	
 	public ForestTile(int x, int y){
 		super(x,y);
+		this.load("ressources/tiles/Forest.png");
 		this.consomation = 2;
 	}
 	

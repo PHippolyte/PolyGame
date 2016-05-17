@@ -4,12 +4,16 @@ import map.Map;
 import team.Team;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import gameObject.*;
+import gameObject.Character;
+import gameObject.Character.Type;
 import gameStates.modes.*;
 
 public class Match{
 	private int currentTeam;
+	private int nbCurrentCharacter;
 	
 	private Map map;
 	private Mode mode;
@@ -19,10 +23,11 @@ public class Match{
 		this.teams = new ArrayList<Team>();
 		this.currentTeam = 0;
 		this.createMap();//PROVISOIRE!!
+		
 	}
 	
 	public void createMap(){
-		this.map = new Map(10,10);
+		this.map = new Map(30,30);
 	}
 	
 	public Mode getMode(){
@@ -51,25 +56,74 @@ public class Match{
 		}
 	}
 	
-	//a revoir! pour une meilleur étape de placement des personages
-	//c'est que du brouillon la
 	public void addHeroToCurrentTeam(Hero hero){
+		this.nbCurrentCharacter++;
 		this.getCurrentTeam().addHero(hero);
-		this.map.getTile(hero.getX(), hero.getY()).setCharacter(hero);
+		hero.setTeam(this.getCurrentTeam());
 	}
 	public void addSoldierToCurrentTeam(Soldier soldier){
+		//incrementation nombre soldat 
+		this.nbCurrentCharacter++;
+		//ajout du soldat a l'équipe courante
 		this.getCurrentTeam().addSoldier(soldier);
-		this.map.getTile(soldier.getX(), soldier.getY()).setCharacter(soldier);
+		//sens inverse, associade l'équipe courante au soldat
+		soldier.setTeam(this.getCurrentTeam());
 	}
 	
 	public Map getMap(){
 		return this.map;
 	}
 	
+	public void removeCharacter(Character character){
+		this.nbCurrentCharacter--;
+		for (Team team : teams){
+			if (character.getType() == Type.HERO) team.removeHero(character);
+			else team.removeSoldier(character);
+		}
+		this.map.getTile(character.getX(), character.getY()).removeCharacter();
+	}
+	
+	public Character[] getCharacters(){
+		Character[] characters = new Character[this.nbCurrentCharacter];
+		int i = 0;
+		for (Team team : this.teams){
+			for(Character c : team.getCharacters()){
+				characters[i] = c;
+				i++;
+			}
+		}
+		return characters;
+	}
+	
+	public void printTeams(){
+		for (Team t : this.teams){
+			System.out.println(t);
+		}
+	}
+	
+	public void placeTeams(){
+		Random rand = new Random();
+		int placed =0;
+		int x = 0, y = 0;
+		for (Team team : this.teams){
+			for (Character c : team.getCharacters()){
+				while (this.map.getTile(x, y).getCharacter() != null){
+					if (rand.nextBoolean() == true) x++;
+					else y++;
+				}
+				this.map.setCharacterAtTile(c, x, y);
+			}
+			placed++;
+			x += placed*3;
+			y += placed *3;
+		}
+	}
+	
 	public int getNbTeam(){
 		return this.teams.size();
 	}
 	public void startMatch(){
+		this.placeTeams();
 		this.setCurrentTeam(0);
 	}
 	

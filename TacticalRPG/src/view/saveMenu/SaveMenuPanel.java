@@ -40,8 +40,8 @@ public class SaveMenuPanel extends GamePanel{
 		this.save2.setPreferredSize(new Dimension(500,100));
 		this.save3.setPreferredSize(new Dimension(500,100));
 		
+		//contraintes des boutons
 		this.layout.setConstraints(this.save1, this.constraints);
-		
 		this.layout.setConstraints(this.save2, this.constraints);
 		this.layout.setConstraints(this.save3, this.constraints);
 		

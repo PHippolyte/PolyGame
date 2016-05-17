@@ -1,14 +1,24 @@
 package gameStates.menus;
 
+import java.util.ArrayList;
+
 import game.Cursor;
 import game.Game;
+import gameObject.Soldier;
 import gameObject.soldiers.*;
 
 public class TeamMenu extends Menu{
-
-	public TeamMenu(Game game, Cursor cursor) {
+	private ArrayList<Soldier> soldiers;
+	
+	public TeamMenu(Game game, Cursor cursor) {	
 		super(game, cursor);
 		// TODO Auto-generated constructor stub
+		this.soldiers = new ArrayList<Soldier>();
+		
+		//ajout des soldats
+		this.soldiers.add(new Archer(0,0));
+		
+		this.nbButton = this.soldiers.size();
 	}
 
 	@Override
@@ -24,7 +34,8 @@ public class TeamMenu extends Menu{
 		// TODO Auto-generated method stub
 		switch(this.cursor.getY()){
 		case(0):
-			this.game.getMatch().addSoldierToCurrentTeam(new Archer(1,0));
+			this.game.getMatch().addSoldierToCurrentTeam(new Archer());
+			System.out.println("Added Soldier\n"+this.game.getMatch().getCurrentTeam());
 			break;
 		}
 		if (this.game.getMatch().getCurrentTeam().getNbSoldier() == this.game.getMatch().getMode().getNbMaxSoldier()){
@@ -33,10 +44,12 @@ public class TeamMenu extends Menu{
 				this.game.setState(HEROMENU);
 			} else {
 				//match finalization
+				this.game.getMatch().printTeams();
 				this.game.setState(MATCHSTATE);
 				this.game.getMatch().startMatch();
 			}
 		}
+
 		
 	}
 	

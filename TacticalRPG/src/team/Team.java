@@ -32,8 +32,13 @@ public class Team {
 		this.addCharacter(soldier);
 	}
 	
-	public void removeCharacter(Character character){
+	public void removeHero(Character character){
 		this.team.remove(character);
+		this.nbHero--;
+	}
+	public void removeSoldier(Character character){
+		this.team.remove(character);
+		this.nbSoldier--;
 	}
 	
 	public boolean isAlly(Character character){
@@ -58,10 +63,15 @@ public class Team {
 		return this.num;
 	}
 	
-	public void printTeam(){
-		System.out.println("Team "+(this.num+1)+" :");
+	public ArrayList<Character> getCharacters(){
+		return this.team;
+	}
+	
+	public String toString(){
+		String str = "Team "+ (this.num+1)+" :\n";
 		for (Character character : this.team){
-			System.out.println(character);
+			str += character.toString()+"\n";
 		}
+		return str;
 	}
 }

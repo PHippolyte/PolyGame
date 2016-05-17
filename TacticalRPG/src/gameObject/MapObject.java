@@ -5,8 +5,13 @@ public abstract class MapObject extends GameObject{
 		protected String name;
 		protected int attack;
 		protected int defense;
-		protected int agility;
+		protected int precision;
+		protected int range;
 		protected String icone;
+		
+		public MapObject(){
+			super();
+		}
 		
 		public MapObject(int x, int y) {
 			super(x, y);
@@ -25,10 +30,6 @@ public abstract class MapObject extends GameObject{
 			return defense;
 		}
 
-		public int getAgility() {
-			return agility;
-		}
-
 		public void setNom(String name) {
 			this.name = name;
 		}
@@ -40,13 +41,8 @@ public abstract class MapObject extends GameObject{
 		public void setDefense(int defense) {
 			this.defense = defense;
 		}
-
-		public void setAgility(int agility) {
-			this.agility = agility;
-		}
 		
 		public String getIcone(){
 			return this.icone;
 		}
-
 }

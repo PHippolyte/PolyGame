@@ -14,4 +14,8 @@ public abstract class Menu extends GameState{
 	public int getCurrentButton(){
 		return this.cursor.getY();
 	}
+	
+	public int getNbButton(){
+		return this.nbButton;
+	}
 }

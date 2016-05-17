@@ -5,9 +5,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import gameStates.GameStateConstant;
+import controlers.heroMenu.HeroMenuControler;
 import controlers.mainMenu.MainMenuControler;
+import controlers.matchState.MatchStateControler;
 import controlers.modeMenu.ModeMenuControler;
 import controlers.saveMenu.SaveMenuControler;
+import controlers.teamMenu.TeamMenuControler;
 import game.Game;
 import view.Window;
 
@@ -25,6 +28,9 @@ public class GameStateObserver implements Observer, GameStateConstant{
 		this.controlers.put(MAINMENU, new MainMenuControler(this.game.getMainMenuState()));
 		this.controlers.put(MODEMENU, new ModeMenuControler(this.game.getModeMenuState()));
 		this.controlers.put(SAVEMENU, new SaveMenuControler(this.game.getSaveMenuState()));
+		this.controlers.put(HEROMENU, new HeroMenuControler(this.game.getHeroMenuState()));
+		this.controlers.put(TEAMMENU, new TeamMenuControler(this.game.getTeamMenuState()));
+		this.controlers.put(MATCHSTATE, new MatchStateControler(this.game.getMatchMenuState()));
 		
 		//initialisation au menu Principal
 		this.view.setScreen(this.controlers.get(MAINMENU).getView());

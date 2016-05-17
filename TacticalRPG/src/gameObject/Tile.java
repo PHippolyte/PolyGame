@@ -18,5 +18,8 @@ public abstract class Tile extends MapObject{
 	public void setCharacter(Character character){
 		this.character = character;
 	}
+	public void removeCharacter(){
+		this.character = null;
+	}
 	public abstract String getInfo();
 }

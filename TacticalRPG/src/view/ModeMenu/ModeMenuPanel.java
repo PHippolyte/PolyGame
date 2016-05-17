@@ -22,6 +22,8 @@ public class ModeMenuPanel extends GamePanel{
 		
 		//ajout du layout
 		this.layout = new GridBagLayout();
+		this.setLayout(this.layout);
+		
 		
 		//contrainte du layout
 		this.constraints = new GridBagConstraints();

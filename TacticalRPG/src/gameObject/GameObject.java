@@ -1,14 +1,33 @@
 package gameObject;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 public abstract class GameObject {
 	protected int x;
 	protected int y;
-	private BufferedImage img;
+	protected BufferedImage sprite;
+	
+	public GameObject(){
+		this.x = 0;
+		this.y = 0;
+		this.sprite = null;
+	}
 	
 	public GameObject(int x, int y){
 		this.setPosition(x,y);
+		this.sprite = null;
+	}
+	
+	public void load(String path){
+		try {
+			this.sprite = ImageIO.read(new File(path));
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 	
 	public int getX() {
@@ -30,8 +49,6 @@ public abstract class GameObject {
 	}
 	
 	public BufferedImage getImage(){
-		return this.img;
+		return this.sprite;
 	}
-	
-	//public abstract void loadImage();
 }

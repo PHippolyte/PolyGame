@@ -24,6 +24,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 		this.states.put(ATTACK, new Attack(this,this.cursor));
 		this.states.put(MOVE, new Move(this,this.cursor));
 		this.states.put(DEFAULTACTION, new DefaultAction(this,this.cursor));
+		this.states.put(HEAL, new Heal(this,this.cursor));
 	}
 	
 	@Override
@@ -76,7 +77,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 	public DefaultAction getDefaultAction(){
 		return (DefaultAction)this.states.get(DEFAULTACTION);
 	}
-	//fonction de déplacement du curseur
+	//fonction de dï¿½placement du curseur
 	
 	@Override
 	public void doAction() {

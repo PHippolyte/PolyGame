@@ -15,6 +15,8 @@ public abstract class Character extends MapObject{
 	protected int maxHealth;
 	protected int health;
 	
+	protected int precisionMagic;
+	protected int resistance;
 	protected int block;
 	protected int critique;
 	protected int heal;
@@ -64,6 +66,13 @@ public abstract class Character extends MapObject{
 		}
 	}
 	
+	public void getHeal(int heal){
+		this.health += heal;
+		if (this.health > this.maxHealth){
+			this.health = this.maxHealth;
+		}	
+	}
+	
 	public int getHealth(){
 		return this.health;
 	}
@@ -99,6 +108,13 @@ public abstract class Character extends MapObject{
 
 	public int getHeal() {
 		return heal;
+	}
+	public int getPrecisionMagic() {
+		return precisionMagic;
+	}
+
+	public int getResistance() {
+		return resistance;
 	}
 
 }

@@ -5,9 +5,8 @@ import gameObject.Tile;
 public class ForestTile extends Tile{
 	
 	public ForestTile(int x, int y){
-		super(x,y);
+		super(x,y, 0, 0, 0, 0, 0, 0, 0, 2, TypeTile.FOREST); //attack, attackMAgic defense defenseMagic precision dodge range consommation type);
 		this.load("ressources/tiles/Forest.png");
-		this.consomation = 2;
 	}
 	
 	public String getInfo(){

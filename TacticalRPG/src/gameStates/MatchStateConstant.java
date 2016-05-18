@@ -7,4 +7,5 @@ public interface MatchStateConstant {
 	public static final int ATTACK = 2;
 	public static final int MOVE = 3;
 	public static final int DEFAULTACTION = 4;
+	public static final int HEAL = 5;
 }

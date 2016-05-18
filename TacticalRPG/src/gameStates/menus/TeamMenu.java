@@ -18,7 +18,6 @@ public class TeamMenu extends Menu{
 	public void initState() {
 		// TODO Auto-generated method stub
 		this.cursor.setPosition(0, 0);
-		this.nbButton = 10;//provisoire
 		
 	}
 
@@ -86,25 +85,35 @@ public class TeamMenu extends Menu{
 	@Override
 	public void moveCursorUp() {
 		// TODO Auto-generated method stub
+		if (this.cursor.getY() > 0){
+			this.cursor.moveUp();
+		} else {
+			this.cursor.setY(this.nbButton-1);
+		}
 		
 	}
 
 	@Override
 	public void moveCursorDown() {
 		// TODO Auto-generated method stub
+		if (this.cursor.getY() == this.nbButton-1){
+			this.cursor.setY(0);
+		} else {
+			this.cursor.moveDown();
+		}
 		
 	}
 
 	@Override
 	public void moveCursorRight() {
 		// TODO Auto-generated method stub
-		
+		this.moveCursorDown();
 	}
 
 	@Override
 	public void moveCursorLeft() {
 		// TODO Auto-generated method stub
-		
+		this.moveCursorUp();
 	}
 
 }

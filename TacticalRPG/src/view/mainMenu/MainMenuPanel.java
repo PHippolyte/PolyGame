@@ -26,7 +26,7 @@ public class MainMenuPanel extends GamePanel{
 	public MainMenuPanel(){
 		this.loadBackground("ressources/menu/mainMenu/Background.jpg");
 		this.paintBg = true;
-		this.paintCursor = true;
+		//this.paintCursor = true;
 
 		//ajout du layout
 		this.layout = new GridBagLayout();
@@ -62,10 +62,10 @@ public class MainMenuPanel extends GamePanel{
 			this.paintBg = false;
 		}
 
-		this.paintComponent(g);
+		//this.repaintComponent();
 	}
 
-	public void paintComponent(Graphics g){
+	public void repaintComponent(){
 		this.modeButton.repaint();
 		this.loadButton.repaint();
 		this.exitButton.repaint();

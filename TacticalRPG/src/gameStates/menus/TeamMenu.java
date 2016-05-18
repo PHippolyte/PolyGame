@@ -8,17 +8,10 @@ import gameObject.Soldier;
 import gameObject.soldiers.*;
 
 public class TeamMenu extends Menu{
-	private ArrayList<Soldier> soldiers;
 	
 	public TeamMenu(Game game, Cursor cursor) {	
 		super(game, cursor);
-		// TODO Auto-generated constructor stub
-		this.soldiers = new ArrayList<Soldier>();
-		
-		//ajout des soldats
-		this.soldiers.add(new Archer(0,0));
-		
-		this.nbButton = this.soldiers.size();
+		this.nbButton = 9;
 	}
 
 	@Override
@@ -35,9 +28,41 @@ public class TeamMenu extends Menu{
 		switch(this.cursor.getY()){
 		case(0):
 			this.game.getMatch().addSoldierToCurrentTeam(new Archer());
-			System.out.println("Added Soldier\n"+this.game.getMatch().getCurrentTeam());
+			break;
+			
+		case(1):
+			this.game.getMatch().addSoldierToCurrentTeam(new Daguer());
+			break;
+			
+		case(2):
+			this.game.getMatch().addSoldierToCurrentTeam(new Healer());
+			break;
+			
+		case(3):
+			this.game.getMatch().addSoldierToCurrentTeam(new Knight());
+			break;
+		
+		case(4):
+			this.game.getMatch().addSoldierToCurrentTeam(new KnightArcher());
+			break;
+		
+		case(5):
+			this.game.getMatch().addSoldierToCurrentTeam(new Mage());
+			break;
+		
+		case(6):
+			this.game.getMatch().addSoldierToCurrentTeam(new Spear());
+			break;
+		
+		case(7):
+			this.game.getMatch().addSoldierToCurrentTeam(new Sword());
+			break;
+		
+		case(8):
+			this.game.getMatch().addSoldierToCurrentTeam(new Tank());
 			break;
 		}
+		
 		if (this.game.getMatch().getCurrentTeam().getNbSoldier() == this.game.getMatch().getMode().getNbMaxSoldier()){
 			if (this.game.getMatch().getCurrentTeam().getNum() != this.game.getMatch().getNbTeam()-1){
 				this.game.getMatch().setNextTeam();

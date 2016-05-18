@@ -4,22 +4,43 @@ import team.Team;
 
 public abstract class Character extends MapObject{
 	public enum Type {SOLDIER, HERO}
+	public enum TypeAttack {PHYSICAL, MAGICAL, HEAL}
 	
 	protected Team team;
 	protected Type type;
+	protected TypeAttack typeAttack;
 	
 	protected int energy;
 	
 	protected int maxHealth;
 	protected int health;
 	
+	protected int block;
+	protected int critique;
+	protected int heal;
+	
 	public Character(){
 		
 	}
 	
-	public Character(int x, int y) {
+	public Character(int x, int y, int attack, int attackMagic, int defense, int defenseMagic, int precision, int precisionMagic, int dodge, int block, int resistance, int critique, int energy, int range, int health, int heal, TypeAttack typeAttack){
 		super(x, y);
 		// TODO Auto-generated constructor stub
+		this.attack = attack;
+		this.attackMagic = attackMagic;
+		this.defense = defense;
+		this.defenseMagic = defenseMagic;
+		this.precision = precision;
+		this.precisionMagic = precisionMagic;
+		this.dodge = dodge;
+		this.block = block;
+		this.resistance = resistance;
+		this.critique = critique;
+		this.energy = energy;
+		this.range = range;
+		this.maxHealth = health;
+		this.heal = heal;
+		this.typeAttack = typeAttack;
 	}
 	
 	public String toString(){

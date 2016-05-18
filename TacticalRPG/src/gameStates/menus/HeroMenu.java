@@ -6,7 +6,7 @@ import gameObject.Hero;
 import gameObject.heros.*;
 
 public class HeroMenu extends Menu{
-	private Hero[][] heros;
+	private int[][] heros;
 	private int nbColHero;
 	private int nbRowHero;
 
@@ -18,8 +18,14 @@ public class HeroMenu extends Menu{
 	}
 	
 	private void addHero(){
+		int num = 0;
 		this.createHerosArray(9);
-		this.heros[0][0] = new HeroLyndis(0,0);
+		for (int i=0; i<this.nbColHero; i++){
+			for (int j=0; i<this.nbRowHero; i++){
+				this.heros[i][j] = num;
+				num++;
+			}
+		}
 	}
 	
 
@@ -27,7 +33,7 @@ public class HeroMenu extends Menu{
 		int n = 1;
 		while (n*n < i) n++;
 		
-		this.heros = new Hero[n][n];
+		this.heros = new int[n][n];
 		this.nbButton = i;
 		this.nbColHero = n;
 		this.nbRowHero = n;
@@ -45,8 +51,13 @@ public class HeroMenu extends Menu{
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
-		Hero selectedHero = this.heros[this.cursor.getX()][this.cursor.getY()];
-		if (selectedHero != null)this.game.getMatch().addHeroToCurrentTeam(selectedHero);
+		int numHero = this.heros[this.cursor.getX()][this.cursor.getY()];
+		
+		switch(numHero){
+		case(0):
+			this.game.getMatch().addHeroToCurrentTeam(new HeroLyndis());
+			break;
+		}
 		
 		//verification de la condition de fin
 		if (this.game.getMatch().getCurrentTeam().getNbHero() == this.game.getMatch().getMode().getNbMaxHero()){

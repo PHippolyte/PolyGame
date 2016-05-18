@@ -16,7 +16,6 @@ public class HeroLyndis extends Hero{
 	
 	private void setParameters(){
 		this.load("ressources/Heros/Lyndis.png");
-		// TODO Auto-generated constructor stub
 		this.name = "Lord Lyndis";
 		this.maxHealth = 49;
 		this.health = 49;

@@ -32,6 +32,14 @@ public class Map {
 		this.setCharacterAtTile(character, x, y);
 	}
 	
+	public void clearCharacter(){
+		for (int i=0; i<this.ncols;i++){
+			for (int j=0; j<this.nrows; j++){
+				this.getTile(i, j).setCharacter(null);
+			}
+		}
+	}
+	
 	public void printMap(){
 		String str = "";
 		for (Tile[] row : map){

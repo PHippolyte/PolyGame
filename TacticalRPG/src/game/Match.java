@@ -59,6 +59,7 @@ public class Match{
 	public void addHeroToCurrentTeam(Hero hero){
 		this.nbCurrentCharacter++;
 		this.getCurrentTeam().addHero(hero);
+		System.out.println(this.currentTeam);
 		hero.setTeam(this.getCurrentTeam());
 	}
 	public void addSoldierToCurrentTeam(Soldier soldier){

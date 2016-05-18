@@ -53,6 +53,7 @@ public abstract class Character extends MapObject{
 	
 	public void setTeam(Team team){
 		this.team = team;
+		System.out.println("Team changed"+this);
 	}
 	
 	public Type getType(){

@@ -1,7 +1,5 @@
 package gameObject;
 
-import gameObject.Character.TypeAttack;
-
 public abstract class Hero extends Character{
 
 	public Hero(){

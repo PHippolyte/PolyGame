@@ -80,4 +80,25 @@ public abstract class Character extends MapObject{
 	public Type getType(){
 		return this.type;
 	}
+
+	public TypeAttack getTypeAttack() {
+		return typeAttack;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public int getBlock() {
+		return block;
+	}
+
+	public int getCritique() {
+		return critique;
+	}
+
+	public int getHeal() {
+		return heal;
+	}
+
 }

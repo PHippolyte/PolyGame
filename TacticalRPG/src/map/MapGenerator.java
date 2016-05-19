@@ -2,6 +2,7 @@ package map;
 
 import gameObject.Tile;
 import gameObject.Tile.TypeTile;
+import gameObject.tiles.BridgeTile;
 import gameObject.tiles.BuildingTile;
 import gameObject.tiles.LandTile;
 import gameObject.tiles.MountainTile;
@@ -27,8 +28,8 @@ public class MapGenerator {
 		WaterGenerator();
 		MountainGenerator();
 		BuildingGenerator();
-		/*BridgeGenerator();
-		ForestGenerator();*/
+		BridgeGenerator();
+		//ForestGenerator();
 	}
 
 	private void BuildingGenerator() {
@@ -134,7 +135,42 @@ public class MapGenerator {
 
 	private void BridgeGenerator() {
 		// TODO Auto-generated method stub
-
+		int nbBridge=5,i,j,nb=0;
+		int build,end=0;
+		if (choice==0 || choice==1){
+			while(nb<nbBridge){
+				for(j=0;j<size;j++){
+					build=(int) (rand.nextInt(4));
+					for(i=0;i<size;i++){
+						if(map[j][i].getTypeTile()== TypeTile.WATER && build==0){
+							map[j][i]= new BridgeTile(i,j);
+							end=1;
+						}
+						else if (map[j][i].getTypeTile()== TypeTile.LAND && end==1){
+							end=0;
+							nb++;
+						}
+					}
+				}
+			}
+		}
+		else if (choice==2 || choice==3){
+			while(nb<nbBridge){
+				for(i=0;i<size;i++){
+					build=(int) (rand.nextInt(4));
+					for(j=0;j<size;j++){
+						if(map[j][i].getTypeTile()== TypeTile.WATER && build==0){
+							map[j][i]= new BridgeTile(i,j);
+							end=1;
+						}
+						else if (map[j][i].getTypeTile()== TypeTile.LAND && end==1){
+							end=0;
+							nb++;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private void ForestGenerator() {
@@ -549,6 +585,9 @@ public class MapGenerator {
 			for (i=0;i<size;i++){
 				if(map[j][i].getTypeTile()==TypeTile.WATER){
 					type='E';
+				}
+				else if(map[j][i].getTypeTile()==TypeTile.BRIDGE){
+					type='K';
 				}
 				else if(map[j][i].getTypeTile()==TypeTile.MOUNTAIN){
 					type='M';

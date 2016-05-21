@@ -116,5 +116,9 @@ public abstract class Character extends MapObject{
 	public int getResistance() {
 		return resistance;
 	}
+	
+	public int getEnergy(){
+		return energy;
+	}
 
 }

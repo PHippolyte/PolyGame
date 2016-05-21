@@ -1,5 +1,11 @@
 package map;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import gameObject.Character;
 import gameObject.Tile;
 
@@ -8,6 +14,7 @@ public class Map {
 	private int ncols;
 	private Tile[][] map;
 	private Generation generation;
+
 
 	public Map(int x, int y){
 		this.nrows = y;
@@ -25,10 +32,75 @@ public class Map {
 		this.getTile(x, y).setCharacter(character);
 		character.setPosition(x,y);
 	}
+	
+	HashSet<Tile> getFourTile(Tile T){
+		HashSet<Tile> fourTile = new HashSet<Tile>();
+		int x = T.getX();
+		int y = T.getY();
+		
+		if (x>0) fourTile.add(getTile(x-1,y));
+		if (x<getNbCols()) fourTile.add(getTile(x+1,y));
+		if (y>0) fourTile.add(getTile(x,y-1));
+		if (y<getNbRows()) fourTile.add(getTile(x,y+1));
+		
+		return fourTile;
+	}
+	
+	public Set<Tile> searchMoves(Character c){
+		
+		HashSet<Tile> moves = new HashSet<Tile>();
+		HashMap<Tile, Integer> tabEnergy = new HashMap<Tile, Integer>();
+		tabEnergy.put(getTile(c.getX(), c.getY()) ,c.getEnergy());
+		moves.add(getTile(c.getX(), c.getY()));
+		
+		HashSet<Tile> fourmoves = new HashSet<Tile>();
+		
+		List<Tile> queue = new ArrayList<Tile>();
+		
+		queue.add(getTile(c.getX(), c.getY()));
+		
+		while (!(queue.isEmpty())){
+			
+			Tile T = queue.get(0);
+			//System.out.println(T.getX() +", " +T.getY());
+			int energy = tabEnergy.get(T);
+			fourmoves = getFourTile(T);
+			
+			for(Tile Tfm: fourmoves){
+				
+				
+				
+				if ( Tfm.getConsomation() <= energy && !(moves.contains(Tfm)) ){
+					System.out.println("FM: "+Tfm.getX() +", " +Tfm.getY());
+					tabEnergy.put(Tfm, energy - Tfm.getConsomation());
+					moves.add(Tfm);
+					queue.add(Tfm);
+				}	
+				
+			}
+			System.out.println(" ");
+			fourmoves.clear();
+			queue.remove(0);
+		}
+		
+		
+		return moves;
+	}
+	
 
 	public void moveCharacter(Character character, int x, int y){
+
+//		Set<Tile> moves = new HashSet<Tile>();
+//		moves = searchMoves(character);
+//		
+//		for( Tile T: moves){
+//			System.out.println(T.getX() +" , " + T.getY());
+//		}
+		
 		this.getTile(character.getX(), character.getY()).setCharacter(null);
+	
 		this.setCharacterAtTile(character, x, y);
+
 	}
 
 	public void clearCharacter(){

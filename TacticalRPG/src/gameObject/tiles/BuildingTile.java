@@ -6,6 +6,7 @@ public class BuildingTile extends Tile {
 
 	public BuildingTile(int x, int y) {
 		super(x, y, 0, 0, 0, 0, 0, 0, 0, 1, TypeTile.BUILDING); //attack, attackMAgic defense defenseMagic precision dodge range consommation type
+		this.load("ressources/tiles/Building.png");
 	}
 
 	@Override

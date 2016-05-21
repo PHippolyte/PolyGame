@@ -67,7 +67,7 @@ public class Map {
 
 
 	public void createMap(){
-		this.map = this.generation.generate(this.nrows, this.ncols);
+		this.map = this.generation.generate(this.ncols, this.nrows);
 	}
 
 	public int getNbRows(){

@@ -1,9 +1,8 @@
 package controlers.mainMenu;
 
-import javax.swing.JPanel;
-
 import controlers.GameStateControler;
 import gameStates.menus.MainMenu;
+import view.GamePanel;
 import view.mainMenu.MainMenuPanel;
 
 public class MainMenuControler extends GameStateControler{
@@ -45,7 +44,7 @@ public class MainMenuControler extends GameStateControler{
 	}
 
 	@Override
-	public JPanel getView() {
+	public GamePanel getView() {
 		// TODO Auto-generated method stub
 		return this.view;
 	}

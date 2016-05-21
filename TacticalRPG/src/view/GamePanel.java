@@ -18,6 +18,8 @@ public abstract class GamePanel extends JPanel{
 	protected BufferedImage cursorDL;
 	protected BufferedImage cursorDR;
 
+	protected boolean init;
+	
 	public GamePanel(){
 		this.width = 640;
 		this.height = 480;
@@ -38,6 +40,19 @@ public abstract class GamePanel extends JPanel{
 
 		} catch (Exception e) {
 			System.out.println(e);
+		}
+	}
+	
+	public abstract void init();
+	
+	protected BufferedImage load(String path){
+		try {
+			BufferedImage img = ImageIO.read(new File(path));
+			return img;
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
 		}
 	}
 

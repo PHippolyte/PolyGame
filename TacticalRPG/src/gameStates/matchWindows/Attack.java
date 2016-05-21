@@ -63,13 +63,19 @@ public class Attack extends StateMatch{
 		//fonction de calcul d'attaque
 		Tile tile = this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY());
 		Character ennemy = tile.getCharacter();
-		if(!this.matchState.getMatch().getCurrentTeam().isAlly(ennemy)){
+		if(!this.matchState.getMatch().getCurrentTeam().isAlly(ennemy)){//personnage selectionné est un allié
 			if(this.selectedCharacter.getTypeAttack() == TypeAttack.PHYSICAL){
 				ennemy.doDamage(AttackPhys(ennemy, tile));
 			}else if(this.selectedCharacter.getTypeAttack() == TypeAttack.MAGICAL){
 				ennemy.doDamage(AttackMagic(ennemy, tile));
 			}
-			if (ennemy.getHealth() <= 0) this.matchState.getMatch().removeCharacter(ennemy);
+			
+			this.selectedCharacter.setDone(true);//personnage devient inactif
+			
+			
+			if (ennemy.getHealth() <= 0) {
+				this.matchState.getMatch().removeCharacter(ennemy);
+			}
 			this.matchState.setCurrentState(IDLE);
 		}else{
 			

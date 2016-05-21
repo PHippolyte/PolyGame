@@ -1,20 +1,19 @@
 package controlers.heroMenu;
 
-import javax.swing.JPanel;
-
 import controlers.GameStateControler;
 import gameStates.menus.HeroMenu;
+import view.GamePanel;
 import view.HeroMenu.HeroMenuPanel;
 
 public class HeroMenuControler extends GameStateControler{
-	private HeroMenuPanel view;
 	private HeroMenu model;
+	private HeroMenuPanel view;
 	
 	private HeroMenuObserver observer;
 	
 	public HeroMenuControler(HeroMenu model){
 		this.model = model;
-		this.view = new HeroMenuPanel(this.model.getNbCol(),this.model.getNbRow());
+		this.view = new HeroMenuPanel(this.model.getNbButton());
 		
 		this.observer = new HeroMenuObserver(this.view);
 		this.model.addObserver(this.observer);
@@ -32,11 +31,7 @@ public class HeroMenuControler extends GameStateControler{
 		}
 	}
 	
-	
-	@Override
-	public JPanel getView() {
-		// TODO Auto-generated method stub
+	public GamePanel getView(){
 		return this.view;
 	}
-
 }

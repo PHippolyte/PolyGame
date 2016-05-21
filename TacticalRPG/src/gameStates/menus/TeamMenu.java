@@ -24,41 +24,61 @@ public class TeamMenu extends Menu{
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
+		Soldier soldier;
+		int numTeam = this.game.getMatch().getCurrentTeam().getNum()+1;
 		switch(this.cursor.getY()){
 		case(0):
-			this.game.getMatch().addSoldierToCurrentTeam(new Archer());
+			soldier = new Archer();
+			soldier.load("ressources/soldier/Archer"+numTeam+".png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 			
 		case(1):
-			this.game.getMatch().addSoldierToCurrentTeam(new Daguer());
+			soldier = new  Daguer();
+			soldier.load("ressources/soldier/Daguer"+numTeam+".png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 			
 		case(2):
-			this.game.getMatch().addSoldierToCurrentTeam(new Healer());
+			soldier = new Healer();
+			soldier.load("ressources/soldier/Healer"+numTeam+".png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 			
 		case(3):
-			this.game.getMatch().addSoldierToCurrentTeam(new Knight());
+			soldier = new Knight();
+			//soldier.load("ressources/soldier/Archer.png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 		
 		case(4):
-			this.game.getMatch().addSoldierToCurrentTeam(new KnightArcher());
+			soldier = new KnightArcher();
+			//soldier.load("ressources/soldier/Archer.png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 		
 		case(5):
-			this.game.getMatch().addSoldierToCurrentTeam(new Mage());
+			soldier = new Mage();
+			//soldier.load("ressources/soldier/Archer.png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 		
 		case(6):
-			this.game.getMatch().addSoldierToCurrentTeam(new Spear());
+			soldier = new Spear();
+			//soldier.load("ressources/soldier/Archer.png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 		
 		case(7):
-			this.game.getMatch().addSoldierToCurrentTeam(new Sword());
+			soldier = new Sword();
+			//soldier.load("ressources/soldier/Archer.png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 		
 		case(8):
-			this.game.getMatch().addSoldierToCurrentTeam(new Tank());
+			soldier = new Tank();
+			//soldier.load("ressources/soldier/Archer.png");
+			this.game.getMatch().addSoldierToCurrentTeam(soldier);
 			break;
 		}
 		
@@ -73,7 +93,9 @@ public class TeamMenu extends Menu{
 				this.game.getMatch().startMatch();
 			}
 		}
-
+		
+		this.setChanged();
+		this.notifyObservers();
 		
 	}
 	
@@ -90,7 +112,8 @@ public class TeamMenu extends Menu{
 		} else {
 			this.cursor.setY(this.nbButton-1);
 		}
-		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	@Override
@@ -101,7 +124,8 @@ public class TeamMenu extends Menu{
 		} else {
 			this.cursor.moveDown();
 		}
-		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	@Override

@@ -8,16 +8,8 @@ import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
-public class GamePanelComponent extends JPanel{
+public abstract class GamePanelComponent extends JPanel{
 	protected BufferedImage bg;
-
-	protected int width;
-	protected int height;
-
-	protected GamePanelComponent(int width, int height){
-		this.width = width;
-		this.height = height;
-	}
 
 	public void loadBackground(String path){
 		try {
@@ -27,5 +19,4 @@ public class GamePanelComponent extends JPanel{
 			System.out.println(e);
 		}
 	}
-
 }

@@ -1,9 +1,8 @@
 package controlers.modeMenu;
 
-import javax.swing.JPanel;
-
 import controlers.GameStateControler;
 import gameStates.menus.ModeMenu;
+import view.GamePanel;
 import view.ModeMenu.ModeMenuPanel;
 
 public class ModeMenuControler extends GameStateControler{
@@ -23,7 +22,7 @@ public class ModeMenuControler extends GameStateControler{
 	}
 
 	@Override
-	public JPanel getView() {
+	public GamePanel getView() {
 		// TODO Auto-generated method stub
 		return this.view;
 	}

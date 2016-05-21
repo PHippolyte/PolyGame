@@ -1,7 +1,6 @@
 package view.HeroMenu;
 
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.Graphics;
 
 import view.GamePanel;
 
@@ -10,38 +9,44 @@ public class HeroMenuPanel extends GamePanel{
 	private int nbHeroPanel;
 	private int nx;
 	private int ny;
+	private int nbHero;
 	private HeroPanel[][] heros;
-	private GridLayout layout;
 	
-	public HeroMenuPanel(int nx, int ny){
-		this.setBackground(Color.ORANGE);
-		this.nx = nx;
-		this.ny = ny;
-		this.heros = new HeroPanel[nx][ny];
+	public HeroMenuPanel(int nbHero){
+		this.init = true;
 		
-		//ajout du layout
-		this.createLayout();
+		this.nbHero = nbHero;
+		this.setLayout(null);
+	
+		this.loadBackground("ressources/menu/heroMenu/Background.png");
 		
-		//contrainte du layout
 		
 		//creation des boutons
+		this.createPanels();
 		this.createHeroPanel();
 		
 		//ajout contrainte aux boutons
 		
 		//ajouts boutons
 		this.addHeroPanel();
+		
+		this.init = false;
 	}
 	
-	private void createLayout(){
-		this.layout = new GridLayout(this.ny,this.nx,10,10);
-		this.setLayout(this.layout);
+	private void createPanels(){
+		this.nx = 3;
+		this.ny = this.nbHero/this.nx;
+		if (this.nbHero%this.nx != 0) this.ny++;
+		this.heros = new HeroPanel[nx][ny];
 	}
 	
 	private void createHeroPanel(){
-		for (int j=0; j < this.nx; j++){
-			for (int k=0; k < this.ny; k++){
-				this.heros[j][k] = new HeroPanel(j,k);
+		for (int j=0; j < this.ny; j++){
+			for (int k=0; k < this.nx; k++){
+				HeroPanel panel = new HeroPanel(j,k);
+				panel.setBounds(k*210,60+j*140,210,140);
+				panel.loadBackground("ressources/Heros/FaceLyndis.png");
+				this.heros[j][k] = panel;
 			}
 		}
 		this.nbHeroPanel = nx*ny;
@@ -58,7 +63,7 @@ public class HeroMenuPanel extends GamePanel{
 	public void resetButton(){
 		for (int j=0; j < nx; j++){
 			for (int k=0; k < ny; k++){
-				this.getHero(j, k).setBackground(Color.LIGHT_GRAY);
+				this.getHero(j, k).repaint();
 			}
 		}
 	}
@@ -70,5 +75,17 @@ public class HeroMenuPanel extends GamePanel{
 	public int getNbHeroPanel(){
 		return this.nbHeroPanel;
 	}
+	
+	public void paint(Graphics g){
+		if (this.init){
+			g.drawImage(this.bg, 0, 0,this);
+		}
+		this.resetButton();
+	}
 
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		this.init = true;
+	}
 }

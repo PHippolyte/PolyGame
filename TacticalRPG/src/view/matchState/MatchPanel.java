@@ -72,7 +72,7 @@ public class MatchPanel extends GamePanel{
 		}
 		if (paintCursor){
 			Cursor cursor = this.matchState.getCursor();
-			g2.drawImage(cursor.getImage(),(cursor.getX()-screen.getX1())*this.tileWidth,(cursor.getY()-screen.getY1())*this.tileHeight, this);
+			g2.drawImage(cursor.getImage(),-2+(cursor.getX()-screen.getX1())*this.tileWidth,-2+(cursor.getY()-screen.getY1())*this.tileHeight, this);
 			this.paintCursor = false;
 		}
 		if (paintCharacterAction){

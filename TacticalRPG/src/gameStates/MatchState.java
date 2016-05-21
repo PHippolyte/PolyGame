@@ -81,13 +81,21 @@ public class MatchState extends GameState implements MatchStateConstant{
 	
 	@Override
 	public void doAction() {
-		System.out.println(this.getCurrentState());
-		System.out.println(this.cursor);
-		this.match.getMap().printInfoTile(this.cursor.getX(), this.cursor.getY());
+		this.states.get(this.currentState).doAction();//on fait l'action demandé
+		this.getMatch().getCurrentTeam().udpdate();//on met a jour l'équipe
 		
-		this.states.get(this.currentState).doAction();
 		
-		System.out.println(this.getCurrentState());
+		if (this.match.getMode().isWon()){//si partie gagné
+			System.out.println("Game Over");
+			this.game.setState(MAINMENU);
+			this.game.destroyMatch();
+		}
+		
+		if (this.match.getCurrentTeam().getDone() == true){//si l'équipe a fini de joué
+			this.match.getCurrentTeam().setTeamDone(false);
+			this.match.setNextTeam();
+		}
+		
 		this.setChanged();
 		this.notifyObservers();
 	}

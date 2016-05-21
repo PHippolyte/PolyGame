@@ -6,6 +6,8 @@ public abstract class Character extends MapObject{
 	public enum Type {SOLDIER, HERO}
 	public enum TypeAttack {PHYSICAL, MAGICAL, HEAL}
 	
+	private boolean done;
+	
 	protected Team team;
 	protected Type type;
 	protected TypeAttack typeAttack;
@@ -28,6 +30,7 @@ public abstract class Character extends MapObject{
 	public Character(int x, int y, int attack, int attackMagic, int defense, int defenseMagic, int precision, int precisionMagic, int dodge, int block, int resistance, int critique, int energy, int range, int health, int heal, TypeAttack typeAttack){
 		super(x, y);
 		// TODO Auto-generated constructor stub
+		this.done = false;
 		this.attack = attack;
 		this.attackMagic = attackMagic;
 		this.defense = defense;
@@ -57,6 +60,14 @@ public abstract class Character extends MapObject{
 				this.health = this.maxHealth;
 			}
 		}
+	}
+	
+	public void setDone(boolean done){
+		this.done = done;
+	}
+	
+	public boolean getDone(){
+		return this.done;
 	}
 	
 	public void doDamage(int damage){

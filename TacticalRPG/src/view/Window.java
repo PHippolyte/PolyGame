@@ -3,11 +3,10 @@ package view;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Window extends JFrame{
-	private JPanel panel;
+	private GamePanel panel;
 	
 	
 	public Window(){
@@ -19,15 +18,16 @@ public class Window extends JFrame{
 		this.setVisible(true);
 	}
 	
-	public void changeScreen(JPanel panel){
+	public void changeScreen(GamePanel panel){
 		this.remove(this.panel);
-		this.panel = panel;
-		this.setContentPane(panel);
-		this.pack();
+		this.setScreen(panel);
+		System.out.println("Changed Screen");
 	}
 	
-	public void setScreen(JPanel panel){
+	public void setScreen(GamePanel panel){
 		this.panel = panel;
-		this.add(panel);
+		this.panel.init();
+		this.setContentPane(panel);
+		this.pack();
 	}
 }

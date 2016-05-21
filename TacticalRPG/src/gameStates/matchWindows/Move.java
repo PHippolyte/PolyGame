@@ -26,6 +26,9 @@ public class Move extends StateMatch{
 		// TODO Auto-generated method stub
 		if (this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY()).getCharacter() == null){
 			this.matchState.getMatch().getMap().moveCharacter(this.selectedCharacter, this.cursor.getX(),this.cursor.getY());
+			
+			this.selectedCharacter.setDone(true);//personnage devient inactif
+			
 			this.matchState.setCurrentState(IDLE);
 		} else {
 			System.out.println("Opération impossible");

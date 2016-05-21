@@ -1,9 +1,13 @@
 package gameStates.modes;
 
+import game.Match;
+
 public abstract class Mode {
 	protected int nbMaxTeam;
 	protected int nbMaxSoldier;
 	protected int nbMaxHero;
+	
+	protected Match match;
 	
 	public abstract boolean isWon();
 	
@@ -15,6 +19,10 @@ public abstract class Mode {
 	}
 	public int getNbMaxTeam(){
 		return this.nbMaxTeam;
+	}
+	
+	public void setMatch(Match match){
+		this.match = match;
 	}
 	
 }

@@ -1,9 +1,8 @@
 package controlers.saveMenu;
 
-import javax.swing.JPanel;
-
 import controlers.GameStateControler;
 import gameStates.menus.SaveMenu;
+import view.GamePanel;
 import view.saveMenu.SaveMenuPanel;
 
 public class SaveMenuControler extends GameStateControler{
@@ -23,7 +22,7 @@ public class SaveMenuControler extends GameStateControler{
 	}
 
 	@Override
-	public JPanel getView() {
+	public GamePanel getView() {
 		// TODO Auto-generated method stub
 		return this.view;
 	}

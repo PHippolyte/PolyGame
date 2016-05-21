@@ -1,9 +1,6 @@
 package view.saveMenu;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
@@ -11,46 +8,51 @@ import view.GamePanel;
 
 @SuppressWarnings("serial")
 public class SaveMenuPanel extends GamePanel{
-	private JPanel save1;
-	private JPanel save2;
-	private JPanel save3;
-	
-	private GridBagLayout layout;
-	private GridBagConstraints constraints;
+	private SaveButtonPanel save1;
+	private SaveButtonPanel save2;
+	private SaveButtonPanel save3;
 	
 	public SaveMenuPanel(){
-		this.setBackground(Color.CYAN);
+		this.loadBackground("ressources/menu/saveMenu/Background.png");
 		
 		//ajout du layout
-		this.layout = new GridBagLayout();
-		this.setLayout(this.layout);
-		
-		//contraintes du layout
-		this.constraints = new GridBagConstraints();
-		this.constraints.gridx = 1;
-		this.constraints.insets.bottom = 30;
+		this.setLayout(null);
+	
 		
 		//creation des boutons
-		this.save1 = new JPanel();
-		this.save2 = new JPanel();
-		this.save3 = new JPanel();
+		this.save1 = new SaveButtonPanel();
+		this.save2 = new SaveButtonPanel();
+		this.save3 = new SaveButtonPanel();
 		
 		//configuration des boutons
-		this.save1.setPreferredSize(new Dimension(500,100));
-		this.save2.setPreferredSize(new Dimension(500,100));
-		this.save3.setPreferredSize(new Dimension(500,100));
-		
-		//contraintes des boutons
-		this.layout.setConstraints(this.save1, this.constraints);
-		this.layout.setConstraints(this.save2, this.constraints);
-		this.layout.setConstraints(this.save3, this.constraints);
+		this.save1.setBounds(70, 90, 500, 100);
+		this.save2.setBounds(70, 220, 500, 100);
+		this.save3.setBounds(70, 350, 500, 100);
 		
 		//ajouts des composents 
 		this.add(this.save1);
 		this.add(this.save2);
 		this.add(this.save3);
+		
+		this.init = false;
+	}
+	
+	public void paint(Graphics g){
+		if (this.init){
+			g.drawImage(this.bg, 0, 0, this);
+			this.init = false;
+		}
+		
+		this.save1.repaint();
+		this.save2.repaint();
+		this.save3.repaint();
+		
 	}
 
+	public void init(){
+		this.init = true;
+	}
+	
 	public JPanel getSave1() {
 		return save1;
 	}

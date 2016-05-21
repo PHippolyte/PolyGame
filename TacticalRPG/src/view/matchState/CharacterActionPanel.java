@@ -1,30 +1,47 @@
 package view.matchState;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
 
 import gameStates.matchWindows.CharacterAction;
+import view.GamePanelComponent;
 
 @SuppressWarnings("serial")
-public class CharacterActionPanel extends JPanel{
+public class CharacterActionPanel extends GamePanelComponent{
 	private CharacterAction c;
-	private int buttonWidth;
-	private int buttonHeight;
+	private BufferedImage cursor;
 	
 	public CharacterActionPanel(CharacterAction a){
-		this.setBounds(0, 0, 100, 100);
-		this.buttonWidth = 80;
-		this.buttonWidth = 80;
+		this.setBounds(0, 0, 120, 200);
+		this.loadBackground("ressources/match/CharacterAction.png");
 		this.c = a;
+		
+		try {
+			this.cursor = ImageIO.read(new File("ressources/match/WindowCursor.png"));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 	
 	public void paint(Graphics g){
-		g.setColor(Color.BLUE);
-		g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-		g.setColor(Color.GREEN);
-		g.fillRect(this.getX()+(this.getWidth()/6),this.getY()+(this.getHeight()/6),this.buttonWidth,this.buttonHeight);
+		g.drawImage(this.bg, this.getX(), this.getY(), this);
+		switch(c.getCurrentButton()){
+		case(0):
+			g.drawImage(this.cursor, this.getX()+9, this.getY()+51, this);
+			break;
+		case(1):
+			g.drawImage(this.cursor, this.getX()+9, this.getY()+90, this);
+			break;
+		case(2):
+			g.drawImage(this.cursor, this.getX()+9, this.getY()+128, this);
+			break;
+		case(3):
+			g.drawImage(this.cursor, this.getX()+9, this.getY()+164, this);
+			break;
+		}
 	}
 	
 	public void moveWindow(int x, int y){

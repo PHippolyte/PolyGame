@@ -13,7 +13,10 @@ public class Team {
 	private int nbSoldier;
 	private int num;
 	
+	private boolean done;
+	
 	public Team(int i){
+		this.done = true;
 		this.num = i;
 		this.team = new ArrayList<Character>();
 	}
@@ -65,6 +68,31 @@ public class Team {
 	
 	public ArrayList<Character> getCharacters(){
 		return this.team;
+	}
+	
+	public void setTeamDone(boolean b){
+		this.done = b;
+		for (Character c : this.team){
+			c.setDone(b);
+		}
+	}
+	
+	public boolean getDone(){
+		return this.done;
+	}
+	
+	public boolean isDone(){
+		boolean done = true;
+		for (Character c : this.team){
+			if (c.getDone() == false){
+				done = false;
+			}
+		}
+		return done;
+	}
+	
+	public void udpdate(){
+		this.done = this.isDone();
 	}
 	
 	public String toString(){

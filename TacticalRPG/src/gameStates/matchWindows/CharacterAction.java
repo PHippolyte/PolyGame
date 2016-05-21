@@ -14,7 +14,7 @@ public class CharacterAction extends StateMatch implements MatchStateConstant{
 	public CharacterAction(MatchState matchState, Cursor cursor) {
 		super(matchState, cursor);
 		// TODO Auto-generated constructor stub
-		this.nbButton = 2;
+		this.nbButton = 4;
 	}
 
 	@Override
@@ -40,8 +40,16 @@ public class CharacterAction extends StateMatch implements MatchStateConstant{
 			this.matchState.setCurrentState(ATTACK);
 			break;
 		case(1):
+			//this.matchState.getHealState().setSelectedCharacter(this.selectedCharacter);
+			//this.matchState.setCurrentState(HEAL);
+			break;
+		case(2):
 			this.matchState.getMoveState().setSelectedCharacter(this.selectedCharacter);
 			this.matchState.setCurrentState(MOVE);
+			break;
+		case(3):
+			//this.selectedCharacter.moveDefense();
+			this.matchState.setCurrentState(IDLE);
 			break;
 		}
 	}

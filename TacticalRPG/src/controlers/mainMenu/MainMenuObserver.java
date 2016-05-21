@@ -22,17 +22,6 @@ public class MainMenuObserver implements Observer{
 		MainMenu model = (MainMenu)arg0;
 		int button = model.getCursor().getY();
 
-		switch(button){
-		case(0):
-			this.view.getModeButton().setBackground(Color.GREEN);
-			break;
-		case(1):
-			this.view.getLoadButton().setBackground(Color.GREEN);
-			break;
-		case(2):
-			this.view.getExitButton().setBackground(Color.GREEN);
-			break;
-		}
 		this.view.repaint();
 
 	}

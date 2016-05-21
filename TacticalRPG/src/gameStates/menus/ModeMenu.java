@@ -28,7 +28,14 @@ public class ModeMenu extends Menu{
 	public void doAction() {
 		// TODO Auto-generated method stub
 		this.game.initMatch();
-		this.game.getMatch().setMode(this.modes.get(this.cursor.getY()));
+
+		switch(this.cursor.getY()){
+		case(0):
+			Mode mode = this.modes.get(0);
+			mode.setMatch(this.game.getMatch());
+			this.game.getMatch().setMode(mode);
+		}
+		
 		this.game.setState(HEROMENU);
 	}
 	

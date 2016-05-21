@@ -1,11 +1,11 @@
 package controlers;
 
-import javax.swing.JPanel;
+import view.GamePanel;
 
 public abstract class GameStateControler {	
 	protected KeyBoardListener keyBoard;
 	
-	public abstract JPanel getView();
+	public abstract GamePanel getView();
 	
 	
 	

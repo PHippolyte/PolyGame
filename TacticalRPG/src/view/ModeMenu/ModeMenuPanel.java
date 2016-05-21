@@ -1,9 +1,6 @@
 package view.ModeMenu;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
@@ -13,37 +10,39 @@ import view.GamePanel;
 public class ModeMenuPanel extends GamePanel{
 	private JPanel mode1;
 	
-	private GridBagLayout layout;
-	private GridBagConstraints constraints;
-	
 	public ModeMenuPanel(){
-		this.setBackground(Color.RED);
+		this.init = true;
+		
+		this.loadBackground("ressources/menu/modeMenu/Background.png");
 
 		
 		//ajout du layout
-		this.layout = new GridBagLayout();
-		this.setLayout(this.layout);
-		
-		
-		//contrainte du layout
-		this.constraints = new GridBagConstraints();
-		this.constraints.gridx = 1;
-		this.constraints.insets.bottom = 30;
+		this.setLayout(null);
 		
 		//creation des boutons
 		this.mode1 = new JPanel();
 		
 		//config bouton
-		this.mode1.setPreferredSize(new Dimension(300,100));
-		
-		//ajout contrainte aux boutons
-		this.layout.setConstraints(this.mode1,this.constraints);
+		this.mode1.setBounds(170, 220, 300, 100);
 		
 		//ajouts boutons
 		this.add(this.mode1);
+		
+		this.init = false;
 	}
-
+	public void init(){
+		this.init = true;
+	}
+	
 	public JPanel getMode1(){
 		return this.mode1;
+	}
+	
+	public void paint(Graphics g){
+		if (this.init){
+			g.drawImage(this.bg, 0, 0,this.width,this.height, this);
+			this.init = false;
+		}
+		this.mode1.repaint();
 	}
 }

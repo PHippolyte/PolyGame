@@ -1,9 +1,8 @@
 package controlers.matchState;
 
-import javax.swing.JPanel;
-
 import controlers.GameStateControler;
 import gameStates.MatchState;
+import view.GamePanel;
 import view.matchState.MatchPanel;
 
 public class MatchStateControler extends GameStateControler{
@@ -20,7 +19,7 @@ public class MatchStateControler extends GameStateControler{
 		this.model.addObserver(this.observer);
 	}
 
-	public JPanel getView() {
+	public GamePanel getView() {
 		// TODO Auto-generated method stub
 		return this.view;
 	}

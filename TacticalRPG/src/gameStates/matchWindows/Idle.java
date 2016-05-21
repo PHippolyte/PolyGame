@@ -22,7 +22,7 @@ public class Idle extends StateMatch{
 		// TODO Auto-generated method stub
 		Character c = this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY()).getCharacter();
 		if (c != null){
-			if (this.matchState.getMatch().getCurrentTeam().isAlly(c)){
+			if (this.matchState.getMatch().getCurrentTeam().isAlly(c) && c.getDone() == false){
 				this.matchState.getCharacterAction().setSelectedCharacter(c);
 				this.matchState.getCharacterAction().initWindow();
 				this.matchState.setCurrentState(CHARACTERACTION);

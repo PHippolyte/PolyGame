@@ -4,6 +4,7 @@ import gameObject.Tile;
 import gameObject.Tile.TypeTile;
 import gameObject.tiles.BridgeTile;
 import gameObject.tiles.BuildingTile;
+import gameObject.tiles.ForestTile;
 import gameObject.tiles.LandTile;
 import gameObject.tiles.MountainTile;
 import gameObject.tiles.WaterTile;
@@ -16,9 +17,11 @@ public class MapGenerator {
 	private int choice;
 	private Tile map[][];
 	private Random rand=new Random();
+	private int number;
 
 	public MapGenerator(int size){
 		this.size= size;
+		this.number=size/10;
 		this.map= new Tile[size][size];
 		GenerationTerrain();
 	}
@@ -29,16 +32,15 @@ public class MapGenerator {
 		MountainGenerator();
 		BuildingGenerator();
 		BridgeGenerator();
-		//ForestGenerator();
+		ForestGenerator();
 	}
 
 	private void BuildingGenerator() {
 		// TODO Auto-generated method stub
-		int vald=(int) (rand.nextInt(3))+1;
 		int cont,j,i,nb=0;
 		int beginx,beginy;
 
-		while(nb<vald){
+		while(nb<number){
 			int type = (int) (rand.nextInt(3));
 			cont=0;
 			int currentTilex=(int)(rand.nextInt(30));
@@ -148,6 +150,7 @@ public class MapGenerator {
 						}
 						else if (map[j][i].getTypeTile()== TypeTile.LAND && end==1){
 							end=0;
+							build=1;
 							nb++;
 						}
 					}
@@ -165,6 +168,7 @@ public class MapGenerator {
 						}
 						else if (map[j][i].getTypeTile()== TypeTile.LAND && end==1){
 							end=0;
+							build=1;
 							nb++;
 						}
 					}
@@ -175,120 +179,92 @@ public class MapGenerator {
 
 	private void ForestGenerator() {
 		// TODO Auto-generated method stub
-
+		int nb_title=size*3+(int)rand.nextInt(16);
+		int creat;
+		int nb=0;
+		int i,j;
+		while(nb<nb_title){
+			for(j=0;j<size;j++){
+				for(i=0;i<size;i++){
+					if(map[j][i].getTypeTile()==TypeTile.LAND){
+						creat = (int)rand.nextInt(6);
+						if(creat==0){
+							map[j][i] = new ForestTile(i, j);
+							nb++;
+						}
+					}
+					if(nb>=nb_title){
+						break;
+					}
+				}
+				if(nb>=nb_title){
+					break;
+				}
+			}
+		}
 	}
 
 	private void MountainGenerator() {
 		// TODO Auto-generated method stub
-		int vald=(int) (rand.nextInt(3))+1;
-		int cont,j,i,nb=0;
+		int j,i,nb=0;
 
-		while(nb<vald){
+		while(nb<number){
 			int type = (int) (rand.nextInt(2));
-			cont=0;
 			int currentTilex=(int)(rand.nextInt(30));
 			int currentTiley=(int)(rand.nextInt(30));
 			if (type==0){
-				for(j=currentTiley-2;j<=currentTiley+3;j++){
+				for(j=currentTiley-1;j<=currentTiley+2;j++){
 					int debut,max;
-					if (j==currentTiley-2 || j==currentTiley+3){
+					if (j==currentTiley-1 || j==currentTiley+2){
+						debut=currentTilex;
+						max=debut+1;
+					}
+					else{
 						debut=currentTilex-1;
 						max=debut+3;
 					}
-					else{
-						debut=currentTilex-2;
-						max=debut+5;
-					}
-					for (i=debut ; i<= max ;i++){
+					for (i=debut ; i<=max ;i++){
 						if((j>=0 & j<size)&(i>=0 & i<size)){
-							if(map[j][i].getTypeTile()!= TypeTile.LAND){
-								cont=1;
-							}
-						}
-						if (cont==1){
-							break;
-						}
-					}
-					if (cont==1){
-						break;
-					}
-				}
-				if(cont==0){
-					for(j=currentTiley-1;j<=currentTiley+2;j++){
-						int debut,max;
-						if (j==currentTiley-1 || j==currentTiley+2){
-							debut=currentTilex;
-							max=debut+1;
-						}
-						else{
-							debut=currentTilex-1;
-							max=debut+3;
-						}
-						for (i=debut ; i<=max ;i++){
-							if((j>=0 & j<size)&(i>=0 & i<size)){
+							if(map[j][i].getTypeTile()!=TypeTile.WATER){
 								map[j][i]= new MountainTile(i,j);
 							}
 						}
 					}
-					nb++;
 				}
+				nb++;
 			}
 			if (type==1){
-				for(j=currentTiley-3;j<=currentTiley+3;j++){
+				for(j=currentTiley-2;j<=currentTiley+2;j++){
 					int debut,max;
-					if (j==currentTiley-3 || j==currentTiley+3){
-						debut=currentTilex-1;
-						max=debut+2;
-					}
-					else if(j==currentTiley-2 || j==currentTiley+2){
-						debut=currentTilex-2;
-						max=debut+4;
-					}
-					else{
-						debut=currentTilex-3;
-						max=debut+6;
-					}
-					for (i=debut ; i<= max ;i++){
-						if((j>=0 & j<size)&(i>=0 & i<size)){
-							if(map[j][i].getTypeTile()!= TypeTile.LAND){
-								cont=1;
-							}
-						}
-						if (cont==1){
-							break;
-						}
-					}
-					if (cont==1){
-						break;
-					}
-				}
-				if(cont==0){
-					for(j=currentTiley-2;j<=currentTiley+2;j++){
-						int debut,max;
-						if((j==currentTiley-2 || j==currentTiley+2)&(j>=0 & j<size)&(currentTilex>=0 & currentTilex<size)){
+					if((j==currentTiley-2 || j==currentTiley+2)&(j>=0 & j<size)&(currentTilex>=0 & currentTilex<size)){
+						if(map[j][currentTilex].getTypeTile()!=TypeTile.WATER){
 							map[j][currentTilex]= new MountainTile(j, currentTilex);
 						}
-						else if (j==currentTiley-1 || j==currentTiley+1){
-							debut=currentTilex-1;
-							max=debut+2;
-							for (i=debut ; i<=max ;i++){
-								if((j>=0 & j<size)&(i>=0 & i<size)){
+					}
+					else if (j==currentTiley-1 || j==currentTiley+1){
+						debut=currentTilex-1;
+						max=debut+2;
+						for (i=debut ; i<=max ;i++){
+							if((j>=0 & j<size)&(i>=0 & i<size)){
+								if(map[j][i].getTypeTile()!=TypeTile.WATER){
 									map[j][i]= new MountainTile(i,j);
 								}
 							}
 						}
-						else{
-							debut=currentTilex-2;
-							max=debut+4;
-							for (i=debut ; i<=max ;i++){
-								if((j>=0 & j<size)&(i>=0 & i<size)){
+					}
+					else{
+						debut=currentTilex-2;
+						max=debut+4;
+						for (i=debut ; i<=max ;i++){
+							if((j>=0 & j<size)&(i>=0 & i<size)){
+								if(map[j][i].getTypeTile()!=TypeTile.WATER){
 									map[j][i]= new MountainTile(i,j);
 								}
 							}
 						}
-						nb++;
 					}
 				}
+				nb++;
 			}
 		}
 	}
@@ -597,6 +573,9 @@ public class MapGenerator {
 				}
 				else if(map[j][i].getTypeTile()==TypeTile.BUILDING){
 					type='B';
+				}
+				else if(map[j][i].getTypeTile()==TypeTile.FOREST){
+					type='F';
 				}
 				System.out.print(type);
 			}

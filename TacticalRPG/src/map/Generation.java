@@ -14,7 +14,7 @@ public class Generation {
 			}
 		}
 		for (int i=0; i<5; i++){
-			map[i][10] = new WaterTile(10,i);
+			map[i][10] = new WaterTile(i,10);
 		}
 		
 		for (int i=0; i<10; i++){

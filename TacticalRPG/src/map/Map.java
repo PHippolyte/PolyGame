@@ -33,15 +33,16 @@ public class Map {
 		character.setPosition(x,y);
 	}
 	
+	
 	HashSet<Tile> getFourTile(Tile T){
 		HashSet<Tile> fourTile = new HashSet<Tile>();
 		int x = T.getX();
 		int y = T.getY();
 		
-		if (x>0) fourTile.add(getTile(x-1,y));
-		if (x<getNbCols()) fourTile.add(getTile(x+1,y));
-		if (y>0) fourTile.add(getTile(x,y-1));
-		if (y<getNbRows()) fourTile.add(getTile(x,y+1));
+		if (x>0) fourTile.add(this.getTile(x-1,y));
+		if (x<getNbCols()) fourTile.add(this.getTile(x+1,y));
+		if (y>0) fourTile.add(this.getTile(x,y-1));
+		if (y<getNbRows()) fourTile.add(this.getTile(x,y+1));
 		
 		return fourTile;
 	}
@@ -62,7 +63,7 @@ public class Map {
 		while (!(queue.isEmpty())){
 			
 			Tile T = queue.get(0);
-			//System.out.println(T.getX() +", " +T.getY());
+			System.out.println(T.getX() +", " +T.getY());
 			int energy = tabEnergy.get(T);
 			fourmoves = getFourTile(T);
 			
@@ -90,8 +91,9 @@ public class Map {
 
 	public void moveCharacter(Character character, int x, int y){
 
-//		Set<Tile> moves = new HashSet<Tile>();
-//		moves = searchMoves(character);
+		Set<Tile> moves = new HashSet<Tile>();
+		moves = searchMoves(character);
+
 //		
 //		for( Tile T: moves){
 //			System.out.println(T.getX() +" , " + T.getY());

@@ -1,7 +1,9 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -13,10 +15,6 @@ public abstract class GamePanel extends JPanel{
 	protected int height;
 
 	protected BufferedImage bg;
-	protected BufferedImage cursorUL;
-	protected BufferedImage cursorUR;
-	protected BufferedImage cursorDL;
-	protected BufferedImage cursorDR;
 
 	protected boolean init;
 	
@@ -24,7 +22,6 @@ public abstract class GamePanel extends JPanel{
 		this.width = 640;
 		this.height = 480;
 		this.setPreferredSize(new Dimension(this.width,this.height));
-		this.loadCursor();
 	}
 
 	public int getWidth(){
@@ -55,16 +52,9 @@ public abstract class GamePanel extends JPanel{
 			return null;
 		}
 	}
-
-	private void loadCursor(){
-		try {
-			this.cursorUL = ImageIO.read(new File("ressources/cursor/CursorUL.jpg"));
-			this.cursorUR = ImageIO.read(new File("ressources/cursor/CursorUR.jpg"));
-			this.cursorDL = ImageIO.read(new File("ressources/cursor/CursorDL.jpg"));
-			this.cursorDR = ImageIO.read(new File("ressources/cursor/CursorDR.jpg"));
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+	
+	protected BufferedImage grayRender(BufferedImage img){
+		ColorConvertOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY),null);
+		return op.filter(img, null);
 	}
 }

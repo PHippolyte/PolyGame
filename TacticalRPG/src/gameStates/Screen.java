@@ -14,7 +14,7 @@ public class Screen {
 	}
 	
 	public boolean isInScreen(int x, int y){
-		return (x >= this.x1 || x <= this.x2 || y >= this.y1 || y <= this.y2);
+		return (x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2);
 	}
 	
 	public void moveRight(){
@@ -64,7 +64,7 @@ public class Screen {
 	}
 	
 	public int getHeight(){
-		return (this.y2 - this.x1+1);
+		return (this.y2 - this.y1+1);
 	}
 	
 	public void setPosition(int x, int y){
@@ -74,6 +74,16 @@ public class Screen {
 		this.x2 += dx;
 		this.y1 = y;
 		this.y2 += dy;
+	}
+	
+	public void tryCenter(int x, int y, int maxX, int maxY){
+		int aimedX = x-this.getWidth()/2;
+		int aimedY = y-this.getHeight()/2;
+		while (aimedX < 0) aimedX++;
+		while (aimedY < 0) aimedY++;
+		while (aimedX+this.getWidth() > maxX) aimedX--;
+		while (aimedY+this.getHeight() > maxY) aimedY--;
+		this.setPosition(aimedX, aimedY);
 	}
 	
 	

@@ -10,6 +10,7 @@ public class Main {
 
 		Game game = new Game();
 		GameControler controler = new GameControler(game);
+		
 	}
 
 }

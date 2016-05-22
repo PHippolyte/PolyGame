@@ -106,7 +106,9 @@ public class MatchState extends GameState implements MatchStateConstant{
 	
 	public void setCursorPosition(int x, int y){
 		this.cursor.setPosition(x, y);
-		this.screen.setPosition(x, y);
+		if (!this.screen.isInScreen(x, y)){
+			this.screen.tryCenter(x, y, this.match.getMap().getNbCols(), this.match.getMap().getNbRows());
+		}
 	}
 	
 	@Override

@@ -38,6 +38,8 @@ public class Move extends StateMatch{
 	@Override
 	public void cancel() {
 		// TODO Auto-generated method stub
+		this.matchState
+		.setCursorPosition(this.selectedCharacter.getX(), this.selectedCharacter.getY());
 		this.matchState.setCurrentState(CHARACTERACTION);
 	}
 

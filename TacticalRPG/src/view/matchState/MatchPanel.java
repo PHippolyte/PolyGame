@@ -2,6 +2,9 @@ package view.matchState;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.color.ColorSpace;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 
 import game.Cursor;
 import gameStates.MatchState;
@@ -55,7 +58,7 @@ public class MatchPanel extends GamePanel{
 			Map map = this.matchState.getMatch().getMap();
 			for (int i=screen.getX1(); i <= screen.getX2(); i++){
 				for (int j=screen.getY1(); j <= screen.getY2(); j++){
-					g2.drawImage(map.getTile(i,j).getImage(),(i-screen.getX1())*this.tileWidth,(j-screen.getY1())*this.tileHeight, this);
+					g2.drawImage(map.getTile(i,j).getImage(),this.scaleX(i-screen.getX1()),this.scaleY(j-screen.getY1()), this);
 				}
 			}
 			this.paintMap = false;
@@ -65,19 +68,41 @@ public class MatchPanel extends GamePanel{
 			gameObject.Character[] character = this.matchState.getMatch().getCharacters();
 			for (gameObject.Character c : character){
 				if (screen.isInScreen(c.getX(), c.getY())){
-					g2.drawImage(c.getImage(),(c.getX()-screen.getX1())*this.tileWidth, (c.getY()-screen.getY1())*this.tileHeight, this);
+					if (c.getDone()){ //grisement du personnage
+						g2.drawImage(this.grayRender(c.getImage()),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
+					} else {
+						g2.drawImage(c.getImage(),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
+					}
 				}
 			}
 			this.paintCharacter = false;
 		}
 		if (paintCursor){
 			Cursor cursor = this.matchState.getCursor();
-			g2.drawImage(cursor.getImage(),-2+(cursor.getX()-screen.getX1())*this.tileWidth,-2+(cursor.getY()-screen.getY1())*this.tileHeight, this);
+			g2.drawImage(cursor.getImage(),this.scaleX((this.XtoScreen(cursor.getX(), screen)))-2,this.scaleY(this.YtoScreen(cursor.getY(), screen)), this);
 			this.paintCursor = false;
 		}
 		if (paintCharacterAction){
 			Cursor cursor = this.matchState.getCursor();
-			this.characterActionpanel.moveWindow((cursor.getX()-screen.getX1()+1)*this.tileWidth,(cursor.getY()-screen.getY1())*this.tileHeight);
+			int aimedX = (cursor.getX()-screen.getX1()+2);
+			int aimedY = (cursor.getY()-screen.getY1()-2);
+			
+			while (aimedX < 0) aimedX++;
+			while (aimedY < 0) aimedY++;
+			
+			
+			if (aimedX+1+this.deScaleX(this.characterActionpanel.getWidth()) > screen.getWidth()){
+				while(aimedX+2+this.deScaleX(this.characterActionpanel.getWidth()) > this.XtoScreen(cursor.getX(), screen)) aimedX--;
+			}
+			if (aimedY+this.deScaleY(this.characterActionpanel.getHeight()) > screen.getHeight()){
+				while(aimedY+1+this.deScaleY(this.characterActionpanel.getHeight()) > screen.getHeight()) aimedY--;
+			}
+			
+			System.out.println("Screen at : ("+screen.getX1()+","+screen.getY1()+")");
+			System.out.println("CharacterPanel : ("+aimedX+","+aimedY+")");
+			
+			
+			this.characterActionpanel.moveWindow(this.scaleX(aimedX),this.scaleY(aimedY));
 			this.characterActionpanel.paint(g2);
 			this.paintCharacterAction = false;
 		}
@@ -88,9 +113,35 @@ public class MatchPanel extends GamePanel{
 			this.paintDefaultAction = false;
 		}
 	}
+	
+	
+	
 	public void init(){
 		this.tileWidth = this.getWidth()/this.matchState.getScreen().getWidth();
 		this.tileHeight = this.getHeight()/this.matchState.getScreen().getHeight();
+	}
+	
+	public int XtoScreen(int x,Screen screen){
+		return x- screen.getX1();
+	}
+	
+	public int YtoScreen(int y,Screen screen){
+		return y- screen.getY1();
+	}
+	
+	private int scaleX(int x){
+		return x*this.tileWidth;
+	}
+	private int scaleY(int y){
+		return y*this.tileHeight;
+	}
+	
+	private int deScaleX(int x){
+		return x/this.tileWidth;
+	}
+	
+	private int deScaleY(int y){
+		return y/this.tileHeight;
 	}
 	
 	public void drawCharacterAction(){
@@ -126,5 +177,4 @@ public class MatchPanel extends GamePanel{
 		this.drawMap();
 		this.drawCharacterAction();
 	}
-	
 }

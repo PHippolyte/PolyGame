@@ -187,7 +187,7 @@ public class MapGenerator {
 			for(j=0;j<size;j++){
 				for(i=0;i<size;i++){
 					if(map[j][i].getTypeTile()==TypeTile.LAND){
-						creat = (int)rand.nextInt(6);
+						creat = (int)rand.nextInt(10);
 						if(creat==0){
 							map[j][i] = new ForestTile(i, j);
 							nb++;
@@ -270,7 +270,7 @@ public class MapGenerator {
 	}
 
 	private void WaterGenerator() {
-		int nbTile=(int)(rand.nextInt(15))+35;
+		int nbTile=(int)(rand.nextInt(size))+size;
 		int currentTilex=0;
 		int currentTiley=0;
 		int x,y,choice2;

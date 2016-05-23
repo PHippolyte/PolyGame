@@ -132,4 +132,7 @@ public abstract class Character extends MapObject{
 		return energy;
 	}
 
+	public int getRange(){
+		return range;
+	}
 }

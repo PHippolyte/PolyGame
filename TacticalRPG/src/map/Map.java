@@ -75,29 +75,25 @@ public class Map {
 					tabEnergy.remove(Tfm);
 					tabEnergy.put(Tfm, energy - Tfm.getConsomation());
 				}
-				
 			}
 			fourmoves.clear();
 			queue.remove(0);
 		}
-		
-		
 		return moves;
 	}
 	
 
 	public void moveCharacter(Character character, int x, int y){
-
-		Set<Tile> moves = new HashSet<Tile>();
-		moves = searchMoves(character);
-
-//		
-//		for( Tile T: moves){
-//			System.out.println(T.getX() +" , " + T.getY());
-//		}
+		
+		HashSet<Tile> attack = new HashSet<Tile>();
+		attack = getAttackTiles(character);
+		
+		for (Tile T: attack){
+			System.out.println(T.getX() + "," + T.getY());
+		}
 		
 		this.getTile(character.getX(), character.getY()).setCharacter(null);
-	
+		
 		this.setCharacterAtTile(character, x, y);
 
 	}
@@ -110,15 +106,35 @@ public class Map {
 		}
 	}
 
-	public Tile[] getAttackTiles(){
-		//tous est a faire
-		return null;
+	public HashSet<Tile> getAttackTiles(Character c){
+		HashSet<Tile> attackTile = new HashSet<Tile>();
+		HashSet<Tile> fourTile = new HashSet<Tile>();
+		int charaX = c.getX();
+		int charaY = c.getY();
+		int tileRange;
+		
+		int range = c.getRange();
+		List<Tile> queue = new ArrayList<Tile>();
+		queue.add(getTile(c.getX(), c.getY()));
+		
+		while (!(queue.isEmpty())){
+
+			Tile T = queue.get(0);
+			fourTile = getFourTile(T);
+			for (Tile Tfm: fourTile){
+				
+				tileRange = Math.abs(Tfm.getX()-charaX) + Math.abs(Tfm.getY()-charaY);
+				if (tileRange<=range && !(attackTile.contains(Tfm))){
+					queue.add(Tfm);
+					attackTile.add(Tfm);
+				}
+			}
+			fourTile.clear();
+			queue.remove(0);			
+		}	
+		return attackTile;
 	}
 
-	public Tile[] getMoveTiles(){
-		//tous est a faire
-		return null;
-	}
 
 	public void printMap(){
 		String str = "";

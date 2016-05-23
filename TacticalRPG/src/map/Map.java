@@ -25,7 +25,7 @@ public class Map {
 	}
 
 	public Tile getTile(int x, int y){
-		return this.map[y][x];
+		return this.map[x][y];
 	}
 
 	public void setCharacterAtTile(Character character, int x, int y){
@@ -34,7 +34,7 @@ public class Map {
 	}
 	
 	
-	HashSet<Tile> getFourTile(Tile T){
+	public HashSet<Tile> getFourTile(Tile T){
 		HashSet<Tile> fourTile = new HashSet<Tile>();
 		int x = T.getX();
 		int y = T.getY();
@@ -47,15 +47,15 @@ public class Map {
 		return fourTile;
 	}
 	
-	public Set<Tile> searchMoves(Character c){
+	public HashSet<Tile> searchMoves(Character c){
 		
 		HashSet<Tile> moves = new HashSet<Tile>();
 		HashMap<Tile, Integer> tabEnergy = new HashMap<Tile, Integer>();
+		
 		tabEnergy.put(getTile(c.getX(), c.getY()) ,c.getEnergy());
 		moves.add(getTile(c.getX(), c.getY()));
-		
+
 		HashSet<Tile> fourmoves = new HashSet<Tile>();
-		
 		List<Tile> queue = new ArrayList<Tile>();
 		
 		queue.add(getTile(c.getX(), c.getY()));
@@ -63,23 +63,20 @@ public class Map {
 		while (!(queue.isEmpty())){
 			
 			Tile T = queue.get(0);
-			System.out.println(T.getX() +", " +T.getY());
 			int energy = tabEnergy.get(T);
 			fourmoves = getFourTile(T);
 			
 			for(Tile Tfm: fourmoves){
-				
-				
-				
-				if ( Tfm.getConsomation() <= energy && !(moves.contains(Tfm)) ){
-					System.out.println("FM: "+Tfm.getX() +", " +Tfm.getY());
+				if ( Tfm.getConsomation() <= energy && !(moves.contains(Tfm)) && (Tfm.getCharacter() == null || c.getTeam().isAlly(Tfm.getCharacter()))){
 					tabEnergy.put(Tfm, energy - Tfm.getConsomation());
 					moves.add(Tfm);
 					queue.add(Tfm);
-				}	
+				} else if (moves.contains(Tfm) && (tabEnergy.get(Tfm) < (energy-Tfm.getConsomation()))){
+					tabEnergy.remove(Tfm);
+					tabEnergy.put(Tfm, energy - Tfm.getConsomation());
+				}
 				
 			}
-			System.out.println(" ");
 			fourmoves.clear();
 			queue.remove(0);
 		}

@@ -26,6 +26,7 @@ public class TeamMenu extends Menu{
 		// TODO Auto-generated method stub
 		Soldier soldier;
 		int numTeam = this.game.getMatch().getCurrentTeam().getNum()+1;
+		
 		switch(this.cursor.getY()){
 		case(0):
 			soldier = new Archer();
@@ -88,7 +89,6 @@ public class TeamMenu extends Menu{
 				this.game.setState(HEROMENU);
 			} else {
 				//match finalization
-				this.game.getMatch().printTeams();
 				this.game.setState(MATCHSTATE);
 				this.game.getMatch().startMatch();
 			}

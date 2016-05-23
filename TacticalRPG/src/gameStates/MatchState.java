@@ -77,6 +77,10 @@ public class MatchState extends GameState implements MatchStateConstant{
 	public DefaultAction getDefaultAction(){
 		return (DefaultAction)this.states.get(DEFAULTACTION);
 	}
+	
+	public Heal getHealState(){
+		return (Heal)this.states.get(HEAL);
+	}
 	//fonction de d�placement du curseur
 	
 	@Override

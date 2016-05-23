@@ -1,5 +1,7 @@
 package gameStates.matchWindows;
 
+import java.util.Random;
+
 import game.Cursor;
 import gameStates.MatchState;
 import gameObject.Character;
@@ -16,31 +18,43 @@ public class Attack extends StateMatch{
 
 	public int AttackPhys(Character ennemy, Tile tile){
 		Tile posSelectedCharacter = this.matchState.getMatch().getMap().getTile(this.selectedCharacter.getX(), this.selectedCharacter.getY());
+		Random rand = new Random();
+		
 		int damage = 0;
-		int randomPrec = (int)Math.random()*(101);
+		int randomPrec = rand.nextInt(100);
+		System.out.println("prec : "+randomPrec);
+
 		if(randomPrec <= selectedCharacter.getPrecision()+posSelectedCharacter.getPrecision()){
-			int randomDef = (int)Math.random()*(101);
-			if(randomDef <= ennemy.getDodge()+tile.getDodge() || randomDef <= ennemy.getBlock()){
-				int randomCrit = (int)Math.random()*(101);
+			int randomDef = rand.nextInt(100);
+			System.out.println("def : "+randomDef);
+
+			if(randomDef >= ennemy.getDodge()+tile.getDodge() || randomDef >= ennemy.getBlock()){
+				int randomCrit = rand.nextInt(100);
 				if(randomCrit <= selectedCharacter.getCritique()){
+					System.out.println("Critique!");
 					damage =(selectedCharacter.getAttack()+posSelectedCharacter.getAttack()-ennemy.getDefense()-tile.getDefense())*2;
 				}else{
 					damage =selectedCharacter.getAttack()+posSelectedCharacter.getAttack()-ennemy.getDefense()-tile.getDefense();
 				}
 			}
 		}
+		System.out.println("Damage : "+damage);
+		if (damage == 0) damage = 1;
 		return(damage);
 	}
 	
 	
 	public int AttackMagic(Character ennemy, Tile tile){
 		Tile posSelectedCharacter = this.matchState.getMatch().getMap().getTile(this.selectedCharacter.getX(), this.selectedCharacter.getY());
+		Random rand = new Random();
+		
 		int damage = 0;
-		int randomPrec = (int)Math.random()*(101);
+		int randomPrec = rand.nextInt(100);
+		
 		if(randomPrec <= selectedCharacter.getPrecisionMagic()){
-			int randomDef = (int)Math.random()*(101);
-			if(randomDef <= selectedCharacter.getResistance()){
-				int randomCrit = (int)Math.random()*(101);
+			int randomDef = rand.nextInt(100);
+			if(randomDef >= ennemy.getResistance()){
+				int randomCrit = rand.nextInt(100);
 				if(randomCrit <= selectedCharacter.getCritique()){
 					damage =(selectedCharacter.getAttackMagic()+posSelectedCharacter.getAttackMagic()-ennemy.getDefenseMagic()-tile.getDefenseMagic())*2;
 				}else{
@@ -80,6 +94,7 @@ public class Attack extends StateMatch{
 		}else{
 			
 		}
+		System.out.println(ennemy.getName()+" : "+ennemy.getHealth()+"/"+ennemy.getMaxHealth());
 	}
 
 	@Override

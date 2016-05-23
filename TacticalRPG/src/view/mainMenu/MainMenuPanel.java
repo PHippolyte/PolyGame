@@ -49,7 +49,6 @@ public class MainMenuPanel extends GamePanel{
 		if (this.init){
 			g.drawImage(this.bg, 0, 0, this.width, this.height, this);
 			this.init = false;
-			System.out.println("Done");
 		}
 
 		this.modeButton.repaint();

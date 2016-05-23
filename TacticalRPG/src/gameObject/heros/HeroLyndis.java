@@ -5,7 +5,7 @@ import gameObject.Hero;
 public class HeroLyndis extends Hero{
 	
 	public HeroLyndis(){
-		super();
+		super(0, 0, 8, 0, 4, 5, 70, 0, 10, 0, 10, 10, 6, 3, 10, 0, TypeAttack.PHYSICAL);
 		this.load("ressources/Heros/Lyndis.png");
 		this.name = "Lyndis";
 		this.icone = "L";

@@ -28,7 +28,15 @@ public class DefaultAction extends StateMatch{
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
-		
+		switch(this.currentButton){
+		case(0):
+			this.matchState.getMatch().getCurrentTeam().setTeamDone(true);
+			this.matchState.setCurrentState(IDLE);
+			break;
+		case(1):
+			this.cancel();
+			break;
+		}
 	}
 
 	public void cancel() {

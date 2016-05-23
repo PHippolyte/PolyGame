@@ -5,8 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
+import java.awt.AlphaComposite;
+import java.awt.Color;
 
 import game.Cursor;
+import gameObject.Tile;
+import gameObject.Character;
 import gameStates.MatchState;
 import gameStates.Screen;
 import map.Map;
@@ -53,6 +57,8 @@ public class MatchPanel extends GamePanel{
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
 		Screen screen = this.matchState.getScreen();
+		
+		//AFFICHAGE DES CASES
 		if (paintMap){
 			//painting the map
 			Map map = this.matchState.getMatch().getMap();
@@ -63,25 +69,45 @@ public class MatchPanel extends GamePanel{
 			}
 			this.paintMap = false;
 		}
+		
+		//AFFICHAGE DES MOUVEMENTS
+		if (this.paintMove){
+			for (Tile t : this.matchState.getMoveState().getMoves()){
+				g2.setColor(Color.CYAN);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(0.4,1.0f)));
+				g2.fillRect(this.scaleX(this.XtoScreen(t.getX(), screen))+2, this.scaleY(this.YtoScreen(t.getY(), screen))+2, tileWidth-4, tileHeight-4);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(1,1.0f)));
+			}
+			this.paintMove = false;
+		}
+		
+		
+		//AFFICHAGE DES PERSONNAGES
 		if (paintCharacter){
 			//painting character
 			gameObject.Character[] character = this.matchState.getMatch().getCharacters();
 			for (gameObject.Character c : character){
 				if (screen.isInScreen(c.getX(), c.getY())){
+					//g2.fillRect(this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(this.YtoScreen(c.getY(), screen)), tileWidth, tileHeight);
 					if (c.getDone()){ //grisement du personnage
 						g2.drawImage(this.grayRender(c.getImage()),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
 					} else {
 						g2.drawImage(c.getImage(),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
 					}
+					this.paintLifeBar(g2, c, screen);
 				}
 			}
 			this.paintCharacter = false;
 		}
+		
+		//AFFICHAGE DU CURSEUR
 		if (paintCursor){
 			Cursor cursor = this.matchState.getCursor();
-			g2.drawImage(cursor.getImage(),this.scaleX((this.XtoScreen(cursor.getX(), screen)))-2,this.scaleY(this.YtoScreen(cursor.getY(), screen)), this);
+			g2.drawImage(cursor.getImage(),this.scaleX((this.XtoScreen(cursor.getX(), screen)))-2,this.scaleY(this.YtoScreen(cursor.getY(), screen))-2, this);
 			this.paintCursor = false;
 		}
+		
+		//AFFICHAGE DE LA FENETRE DES ACTIONS PERSONNAGE
 		if (paintCharacterAction){
 			Cursor cursor = this.matchState.getCursor();
 			int aimedX = (cursor.getX()-screen.getX1()+2);
@@ -96,22 +122,41 @@ public class MatchPanel extends GamePanel{
 			}
 			if (aimedY+this.deScaleY(this.characterActionpanel.getHeight()) > screen.getHeight()){
 				while(aimedY+1+this.deScaleY(this.characterActionpanel.getHeight()) > screen.getHeight()) aimedY--;
-			}
-			
-			System.out.println("Screen at : ("+screen.getX1()+","+screen.getY1()+")");
-			System.out.println("CharacterPanel : ("+aimedX+","+aimedY+")");
-			
+			}			
 			
 			this.characterActionpanel.moveWindow(this.scaleX(aimedX),this.scaleY(aimedY));
 			this.characterActionpanel.paint(g2);
 			this.paintCharacterAction = false;
 		}
+		
+		//AFFICHAGE DES ACTIONS PAR DEFAUT 
 		if (paintDefaultAction){
 			Cursor cursor = this.matchState.getCursor();
-			this.defaultActionpanel.moveWindow((cursor.getX()-screen.getX1()+1)*this.tileWidth, (cursor.getY()-screen.getY1())*this.tileHeight);
+			int aimedX = (cursor.getX()-screen.getX1()+2);
+			int aimedY = (cursor.getY()-screen.getY1()-2);
+			
+			while (aimedX < 0) aimedX++;
+			while (aimedY < 0) aimedY++;
+			
+			
+			if (aimedX+1+this.deScaleX(this.defaultActionpanel.getWidth()) > screen.getWidth()){
+				while(aimedX+2+this.deScaleX(this.defaultActionpanel.getWidth()) > this.XtoScreen(cursor.getX(), screen)) aimedX--;
+			}
+			if (aimedY+this.deScaleY(this.defaultActionpanel.getHeight()) > screen.getHeight()){
+				while(aimedY+1+this.deScaleY(this.defaultActionpanel.getHeight()) > screen.getHeight()) aimedY--;
+			}			
+			
+			this.defaultActionpanel.moveWindow(this.scaleX(aimedX),this.scaleY(aimedY));
 			this.defaultActionpanel.paint(g2);
 			this.paintDefaultAction = false;
 		}
+	}
+	
+	private void paintLifeBar(Graphics g, Character c, Screen s){
+		g.setColor(Color.BLACK);
+		g.fillRect(this.scaleX(this.XtoScreen(c.getX(), s))+1, this.scaleY(this.YtoScreen(c.getY(),s))+27, tileWidth-2, tileHeight-27);
+		g.setColor(Color.GREEN);
+		g.fillRect(this.scaleX(this.XtoScreen(c.getX(), s))+2, this.scaleY(this.YtoScreen(c.getY(),s))+28, (int) (tileWidth*((float)c.getHealth()/c.getMaxHealth())-4), tileHeight-29);
 	}
 	
 	

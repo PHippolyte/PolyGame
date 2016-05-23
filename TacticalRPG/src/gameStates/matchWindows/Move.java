@@ -1,11 +1,15 @@
 package gameStates.matchWindows;
 
+import java.util.HashSet;
+
 import game.Cursor;
 import gameStates.MatchState;
 import gameObject.Character;
+import gameObject.Tile;
 
 public class Move extends StateMatch{
 	private Character selectedCharacter;
+	private HashSet<Tile> moves;
 	
 	public Move(MatchState matchState, Cursor cursor) {
 		super(matchState, cursor);
@@ -19,12 +23,18 @@ public class Move extends StateMatch{
 	
 	public void setSelectedCharacter(Character character){
 		this.selectedCharacter = character;
+		this.moves = this.matchState.getMatch().getMap().searchMoves(this.selectedCharacter);
+	}
+	
+	public HashSet<Tile> getMoves(){
+		return this.moves;
 	}
 
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
-		if (this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY()).getCharacter() == null){
+		Tile tile = this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY());
+		if (tile.getCharacter() == null && this.moves.contains(tile)){
 			this.matchState.getMatch().getMap().moveCharacter(this.selectedCharacter, this.cursor.getX(),this.cursor.getY());
 			
 			this.selectedCharacter.setDone(true);//personnage devient inactif

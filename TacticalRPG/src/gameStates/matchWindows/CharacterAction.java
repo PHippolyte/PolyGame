@@ -40,8 +40,8 @@ public class CharacterAction extends StateMatch implements MatchStateConstant{
 			this.matchState.setCurrentState(ATTACK);
 			break;
 		case(1):
-			//this.matchState.getHealState().setSelectedCharacter(this.selectedCharacter);
-			//this.matchState.setCurrentState(HEAL);
+			this.matchState.getHealState().setSelectedCharacter(this.selectedCharacter);
+			this.matchState.setCurrentState(HEAL);
 			break;
 		case(2):
 			this.matchState.getMoveState().setSelectedCharacter(this.selectedCharacter);

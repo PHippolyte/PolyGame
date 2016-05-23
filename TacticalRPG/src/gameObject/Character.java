@@ -43,6 +43,7 @@ public abstract class Character extends MapObject{
 		this.critique = critique;
 		this.energy = energy;
 		this.range = range;
+		this.health = health;
 		this.maxHealth = health;
 		this.heal = heal;
 		this.typeAttack = typeAttack;
@@ -94,7 +95,6 @@ public abstract class Character extends MapObject{
 	
 	public void setTeam(Team team){
 		this.team = team;
-		System.out.println("Team changed"+this);
 	}
 	
 	public Type getType(){

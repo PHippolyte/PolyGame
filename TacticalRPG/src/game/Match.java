@@ -24,6 +24,7 @@ public class Match{
 		this.currentTeam = 0;
 		this.createMap();//PROVISOIRE!!
 		
+		
 	}
 	
 	public void createMap(){

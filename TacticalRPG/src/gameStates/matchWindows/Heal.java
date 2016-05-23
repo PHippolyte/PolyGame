@@ -1,5 +1,7 @@
 package gameStates.matchWindows;
 
+import java.util.Random;
+
 import game.Cursor;
 import gameObject.Character;
 import gameStates.MatchState;
@@ -13,10 +15,11 @@ public class Heal extends StateMatch {
 	}
 	
 	public int heal(){
+		Random rand = new Random();
 		int heal = 0;
-		int randomPrec = (int)Math.random()*(101);
+		int randomPrec = rand.nextInt(100);
 		if(randomPrec <= selectedCharacter.getPrecisionMagic()){
-			int randomCrit = (int)Math.random()*(101);
+			int randomCrit = rand.nextInt(100);
 			if(randomCrit <= selectedCharacter.getCritique()){
 				heal =selectedCharacter.getHeal()*2;
 			}else{

@@ -17,11 +17,7 @@ public class LandTile extends Tile{
 	}
 	
 	public String toString(){
-		if (this.character != null){
-			return this.character.getIcone();
-		} else {
-			return "L";
-		}
+		return "("+this.x+","+this.y+")";
 	}
 
 }

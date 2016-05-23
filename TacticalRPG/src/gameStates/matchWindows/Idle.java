@@ -26,6 +26,9 @@ public class Idle extends StateMatch{
 				this.matchState.getCharacterAction().setSelectedCharacter(c);
 				this.matchState.getCharacterAction().initWindow();
 				this.matchState.setCurrentState(CHARACTERACTION);
+			} else {
+				this.matchState.getDefaultAction().initWindow();
+				this.matchState.setCurrentState(DEFAULTACTION);
 			}
 		} else {
 			this.matchState.getDefaultAction().initWindow();

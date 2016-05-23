@@ -21,7 +21,6 @@ public class Window extends JFrame{
 	public void changeScreen(GamePanel panel){
 		this.remove(this.panel);
 		this.setScreen(panel);
-		System.out.println("Changed Screen");
 	}
 	
 	public void setScreen(GamePanel panel){

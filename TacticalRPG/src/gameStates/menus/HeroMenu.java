@@ -62,10 +62,7 @@ public class HeroMenu extends Menu{
 		//verification de la condition de fin
 		if (this.game.getMatch().getCurrentTeam().getNbHero() == this.game.getMatch().getMode().getNbMaxHero()){
 			this.game.setState(TEAMMENU);
-		}
-		
-		System.out.println("Added Hero\n" + this.game.getMatch().getCurrentTeam());
-		
+		}		
 		this.setChanged();
 		this.notifyObservers();
 	}

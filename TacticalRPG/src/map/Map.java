@@ -14,13 +14,16 @@ public class Map {
 	private int ncols;
 	private Tile[][] map;
 	private Generation generation;
+	private MapGenerator mapGen;
 
 
 	public Map(int x, int y){
 		this.nrows = y;
 		this.ncols = x;
+		
 		this.generation = new Generation();
-
+		this.mapGen = new MapGenerator(x);
+		
 		this.createMap();
 	}
 
@@ -84,14 +87,6 @@ public class Map {
 	
 
 	public void moveCharacter(Character character, int x, int y){
-		
-		HashSet<Tile> attack = new HashSet<Tile>();
-		attack = getAttackTiles(character);
-		
-		for (Tile T: attack){
-			System.out.println(T.getX() + "," + T.getY());
-		}
-		
 		this.getTile(character.getX(), character.getY()).setCharacter(null);
 		
 		this.setCharacterAtTile(character, x, y);
@@ -131,7 +126,8 @@ public class Map {
 			}
 			fourTile.clear();
 			queue.remove(0);			
-		}	
+		}
+		attackTile.remove(this.getTile(c.getX(), c.getY()));
 		return attackTile;
 	}
 
@@ -154,7 +150,8 @@ public class Map {
 
 
 	public void createMap(){
-		this.map = this.generation.generate(this.ncols, this.nrows);
+		//this.map = this.generation.generate(this.ncols, this.nrows);
+		this.map = this.mapGen.getMap();
 	}
 
 	public int getNbRows(){

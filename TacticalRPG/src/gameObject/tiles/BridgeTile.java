@@ -6,7 +6,7 @@ public class BridgeTile extends Tile{
 
 	public BridgeTile(int x, int y) {
 		super(x, y, 0, 0, 0, 0, 0, 0, 0, 1, TypeTile.BRIDGE); //attack, attackMAgic defense defenseMagic precision dodge range consommation type););
-		this.load("ressources/tiles/Bridge.png");
+		this.load("ressources/tiles/bridge1.png");
 	}
 
 	@Override

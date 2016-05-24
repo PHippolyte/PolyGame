@@ -28,11 +28,17 @@ public class MapGenerator {
 
 	private void GenerationTerrain() {
 		LandGenerator();
+		System.out.println("Land generated");
 		WaterGenerator();
+		System.out.println("Water generated");
 		MountainGenerator();
+		System.out.println("Moutain generated");
 		BuildingGenerator();
+		System.out.println("Building generated");
 		BridgeGenerator();
+		System.out.println("Bridge generated");
 		ForestGenerator();
+		System.out.println("Forest generated");
 	}
 
 	private void BuildingGenerator() {
@@ -51,7 +57,7 @@ public class MapGenerator {
 				for(j=beginy;j<=beginy+3;j++){
 					for(i=beginx;i<=beginx+2;i++){
 						if((j>=0 & j<size)&(i>=0 & i<size)){
-							if(map[j][i].getTypeTile()!= TypeTile.LAND){
+							if(map[i][j].getTypeTile()!= TypeTile.LAND){
 								cont=1;
 							}
 						}
@@ -67,7 +73,7 @@ public class MapGenerator {
 					for(j=beginy;j<=beginy+2;j++){
 						for(i=beginx;i<=beginx+1;i++){
 							if((j>=0 & j<size)&(i>=0 & i<size)){
-								map[j][i]= new BuildingTile(i,j);
+								map[i][j]= new BuildingTile(i,j);
 							}
 						}
 					}
@@ -80,7 +86,7 @@ public class MapGenerator {
 				for(j=beginy;j<=beginy+3;j++){
 					for(i=beginx;i<=beginx+4;i++){
 						if((j>=0 & j<size)&(i>=0 & i<size)){
-							if(map[j][i].getTypeTile()!= TypeTile.LAND){
+							if(map[i][j].getTypeTile()!= TypeTile.LAND){
 								cont=1;
 							}
 						}
@@ -96,7 +102,7 @@ public class MapGenerator {
 					for(j=beginy;j<=beginy+1;j++){
 						for(i=beginx;i<=beginx+2;i++){
 							if((j>=0 & j<size)&(i>=0 & i<size)){
-								map[j][i]= new BuildingTile(i,j);
+								map[i][j]= new BuildingTile(i,j);
 							}
 						}
 					}
@@ -109,7 +115,7 @@ public class MapGenerator {
 				for(j=beginy;j<=beginy+3;j++){
 					for(i=beginx;i<=beginx+3;i++){
 						if((j>=0 & j<size)&(i>=0 & i<size)){
-							if(map[j][i].getTypeTile()!= TypeTile.LAND){
+							if(map[i][j].getTypeTile()!= TypeTile.LAND){
 								cont=1;
 							}
 						}
@@ -125,7 +131,7 @@ public class MapGenerator {
 					for(j=beginy;j<=beginy+1;j++){
 						for(i=beginx;i<=beginx+1;i++){
 							if((j>=0 & j<size)&(i>=0 & i<size)){
-								map[j][i]= new BuildingTile(i,j);
+								map[i][j]= new BuildingTile(i,j);
 							}
 						}
 					}
@@ -144,11 +150,11 @@ public class MapGenerator {
 				for(j=0;j<size;j++){
 					build=(int) (rand.nextInt(4));
 					for(i=0;i<size;i++){
-						if(map[j][i].getTypeTile()== TypeTile.WATER && build==0){
-							map[j][i]= new BridgeTile(i,j);
+						if(map[i][j].getTypeTile()== TypeTile.WATER && build==0){
+							map[i][j]= new BridgeTile(i,j);
 							end=1;
 						}
-						else if (map[j][i].getTypeTile()== TypeTile.LAND && end==1){
+						else if (map[i][j].getTypeTile()== TypeTile.LAND && end==1){
 							end=0;
 							build=1;
 							nb++;
@@ -162,11 +168,11 @@ public class MapGenerator {
 				for(i=0;i<size;i++){
 					build=(int) (rand.nextInt(4));
 					for(j=0;j<size;j++){
-						if(map[j][i].getTypeTile()== TypeTile.WATER && build==0){
-							map[j][i]= new BridgeTile(i,j);
+						if(map[i][j].getTypeTile()== TypeTile.WATER && build==0){
+							map[i][j]= new BridgeTile(i,j);
 							end=1;
 						}
-						else if (map[j][i].getTypeTile()== TypeTile.LAND && end==1){
+						else if (map[i][j].getTypeTile()== TypeTile.LAND && end==1){
 							end=0;
 							build=1;
 							nb++;
@@ -186,10 +192,10 @@ public class MapGenerator {
 		while(nb<nb_title){
 			for(j=0;j<size;j++){
 				for(i=0;i<size;i++){
-					if(map[j][i].getTypeTile()==TypeTile.LAND){
+					if(map[i][j].getTypeTile()==TypeTile.LAND){
 						creat = (int)rand.nextInt(10);
 						if(creat==0){
-							map[j][i] = new ForestTile(i, j);
+							map[i][j] = new ForestTile(i, j);
 							nb++;
 						}
 					}
@@ -225,8 +231,8 @@ public class MapGenerator {
 					}
 					for (i=debut ; i<=max ;i++){
 						if((j>=0 & j<size)&(i>=0 & i<size)){
-							if(map[j][i].getTypeTile()!=TypeTile.WATER){
-								map[j][i]= new MountainTile(i,j);
+							if(map[i][j].getTypeTile()!=TypeTile.WATER){
+								map[i][j]= new MountainTile(i,j);
 							}
 						}
 					}
@@ -246,8 +252,8 @@ public class MapGenerator {
 						max=debut+2;
 						for (i=debut ; i<=max ;i++){
 							if((j>=0 & j<size)&(i>=0 & i<size)){
-								if(map[j][i].getTypeTile()!=TypeTile.WATER){
-									map[j][i]= new MountainTile(i,j);
+								if(map[i][j].getTypeTile()!=TypeTile.WATER){
+									map[i][j]= new MountainTile(i,j);
 								}
 							}
 						}
@@ -257,8 +263,8 @@ public class MapGenerator {
 						max=debut+4;
 						for (i=debut ; i<=max ;i++){
 							if((j>=0 & j<size)&(i>=0 & i<size)){
-								if(map[j][i].getTypeTile()!=TypeTile.WATER){
-									map[j][i]= new MountainTile(i,j);
+								if(map[i][j].getTypeTile()!=TypeTile.WATER){
+									map[i][j]= new MountainTile(i,j);
 								}
 							}
 						}
@@ -293,7 +299,9 @@ public class MapGenerator {
 			currentTiley = (int)(rand.nextInt(30));
 		}
 		int i=0;
+		System.out.println("Generating water");
 		while(i<=nbTile){
+			System.out.println("current Tile : "+i);
 			choice2=rand.nextInt(2);
 			x = currentTilex;
 			y = currentTiley;
@@ -547,9 +555,9 @@ public class MapGenerator {
 	private void LandGenerator() {
 		// TODO Auto-generated method stub
 		int i,j;
-		for(j=0;j<30;j++){
-			for(i=0;i<30;i++){
-				map[j][i]= new LandTile(i, j);
+		for(j=0;j<size;j++){
+			for(i=0;i<size;i++){
+				map[i][j]= new LandTile(i, j);
 			}
 		}
 	}
@@ -559,22 +567,22 @@ public class MapGenerator {
 		char type='a';
 		for (j=0;j<size;j++){
 			for (i=0;i<size;i++){
-				if(map[j][i].getTypeTile()==TypeTile.WATER){
+				if(map[i][j].getTypeTile()==TypeTile.WATER){
 					type='E';
 				}
-				else if(map[j][i].getTypeTile()==TypeTile.BRIDGE){
+				else if(map[i][j].getTypeTile()==TypeTile.BRIDGE){
 					type='K';
 				}
-				else if(map[j][i].getTypeTile()==TypeTile.MOUNTAIN){
+				else if(map[i][j].getTypeTile()==TypeTile.MOUNTAIN){
 					type='M';
 				}
-				else if(map[j][i].getTypeTile()==TypeTile.LAND){
+				else if(map[i][j].getTypeTile()==TypeTile.LAND){
 					type='P';
 				}
-				else if(map[j][i].getTypeTile()==TypeTile.BUILDING){
+				else if(map[i][j].getTypeTile()==TypeTile.BUILDING){
 					type='B';
 				}
-				else if(map[j][i].getTypeTile()==TypeTile.FOREST){
+				else if(map[i][j].getTypeTile()==TypeTile.FOREST){
 					type='F';
 				}
 				System.out.print(type);
@@ -583,9 +591,8 @@ public class MapGenerator {
 		}
 	}
 
-	public static void main(String[] args) {
-		MapGenerator terrain= new MapGenerator(30);
-		terrain.Print();
+	public Tile[][] getMap(){
+		return this.map;
 	}
 
 }

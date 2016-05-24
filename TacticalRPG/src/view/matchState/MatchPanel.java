@@ -74,11 +74,22 @@ public class MatchPanel extends GamePanel{
 		if (this.paintMove){
 			for (Tile t : this.matchState.getMoveState().getMoves()){
 				g2.setColor(Color.CYAN);
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(0.4,1.0f)));
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(0.5,1.0f)));
 				g2.fillRect(this.scaleX(this.XtoScreen(t.getX(), screen))+2, this.scaleY(this.YtoScreen(t.getY(), screen))+2, tileWidth-4, tileHeight-4);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(1,1.0f)));
 			}
 			this.paintMove = false;
+		}
+		
+		//AFFICHAGE DES CASES D'ATTAQUE
+		if (this.paintAttack){
+			for(Tile t : this.matchState.getAttackState().getAttack()){
+				g2.setColor(Color.RED);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(0.6,1.0f)));
+				g2.fillRect(this.scaleX(this.XtoScreen(t.getX(), screen))+2, this.scaleY(this.YtoScreen(t.getY(), screen))+2, tileWidth-4, tileHeight-4);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(1,1.0f)));
+			}
+			this.paintAttack = false;
 		}
 		
 		

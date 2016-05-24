@@ -36,7 +36,7 @@ public class CharacterAction extends StateMatch implements MatchStateConstant{
 		// TODO Auto-generated method stub
 		switch(this.currentButton){
 		case(0):
-			this.matchState.getAttackState().setSelectedCharacter(this.selectedCharacter);
+			this.matchState.getAttackState().init(this.selectedCharacter);
 			this.matchState.setCurrentState(ATTACK);
 			break;
 		case(1):

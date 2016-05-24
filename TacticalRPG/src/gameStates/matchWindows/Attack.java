@@ -1,5 +1,7 @@
 package gameStates.matchWindows;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 import game.Cursor;
@@ -10,10 +12,14 @@ import gameObject.Tile;
 
 public class Attack extends StateMatch{
 	private Character selectedCharacter;
+	private HashSet<Tile> attackTiles;
+	private ArrayList<Character> attackChar;
+	private int currentChar;
 	
 	public Attack(MatchState matchState, Cursor cursor) {
 		super(matchState, cursor);
 		// TODO Auto-generated constructor stub
+		currentChar = 0;
 	}
 
 	public int AttackPhys(Character ennemy, Tile tile){
@@ -70,31 +76,48 @@ public class Attack extends StateMatch{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private ArrayList<Character> getAttackCharacter(HashSet<Tile> t){
+		ArrayList<Character> a = new ArrayList<Character>();
+		for (Tile ct : t){
+			Character c = ct.getCharacter();
+			if (c != null){
+				if (!this.selectedCharacter.getTeam().isAlly(c)){
+					a.add(c);
+				}
+			}
+		}
+		return a;
+	}
 
 	@Override
 	public void doAction() {
-		// TODO Auto-generated method stub
-		//fonction de calcul d'attaque
-		Tile tile = this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY());
-		Character ennemy = tile.getCharacter();
-		if(!this.matchState.getMatch().getCurrentTeam().isAlly(ennemy)){//personnage selectionné est un allié
-			if(this.selectedCharacter.getTypeAttack() == TypeAttack.PHYSICAL){
-				ennemy.doDamage(AttackPhys(ennemy, tile));
-			}else if(this.selectedCharacter.getTypeAttack() == TypeAttack.MAGICAL){
-				ennemy.doDamage(AttackMagic(ennemy, tile));
+		
+		if (this.attackChar.size() != 0){
+			//fonction de calcul d'attaque
+			Tile tile = this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY());
+			if (this.attackTiles.contains(tile)){
+				Character ennemy = tile.getCharacter();
+				if(!this.matchState.getMatch().getCurrentTeam().isAlly(ennemy)){//personnage selectionné est un allié
+					if(this.selectedCharacter.getTypeAttack() == TypeAttack.PHYSICAL){
+						ennemy.doDamage(AttackPhys(ennemy, tile));
+					}else if(this.selectedCharacter.getTypeAttack() == TypeAttack.MAGICAL){
+						ennemy.doDamage(AttackMagic(ennemy, tile));
+					}
+					
+					this.selectedCharacter.setDone(true);//personnage devient inactif
+					if (ennemy.getHealth() <= 0) {
+						this.matchState.getMatch().removeCharacter(ennemy);
+					}
+					this.matchState.setCurrentState(IDLE);
+				}else{
+					
+				}
+				System.out.println(ennemy.getName()+" : "+ennemy.getHealth()+"/"+ennemy.getMaxHealth());
 			}
-			
-			this.selectedCharacter.setDone(true);//personnage devient inactif
-			
-			
-			if (ennemy.getHealth() <= 0) {
-				this.matchState.getMatch().removeCharacter(ennemy);
-			}
-			this.matchState.setCurrentState(IDLE);
-		}else{
-			
+		} else {
+			this.matchState.setCurrentState(CHARACTERACTION);
 		}
-		System.out.println(ennemy.getName()+" : "+ennemy.getHealth()+"/"+ennemy.getMaxHealth());
 	}
 
 	@Override
@@ -106,50 +129,80 @@ public class Attack extends StateMatch{
 
 	@Override
 	public void moveCursorUp() {
-		// TODO Auto-generated method stub
+		/*
 		if (this.cursor.getY() > 0){
 			this.cursor.moveUp();
 			if (this.cursor.getY() < this.matchState.getScreen().getY1()){
 				this.matchState.getScreen().moveUp();
 			}
 		}
+		*/
+		this.moveCursorLeft();
 	}
 
 	@Override
 	public void moveCursorDown() {
-		// TODO Auto-generated method stub
+		/*
 		if (this.cursor.getY() < this.matchState.getMatch().getMap().getNbRows()-1){
 			this.cursor.moveDown();
 			if (this.cursor.getY() > this.matchState.getScreen().getY2()){
 				this.matchState.getScreen().moveDown();
 			}
 		}
+		*/
+		this.moveCursorRight();
 	}
 
 	@Override
 	public void moveCursorRight() {
-		// TODO Auto-generated method stub
-		if (this.cursor.getX() < this.matchState.getMatch().getMap().getNbCols()-1){
-			this.cursor.moveRight();
-			if (this.cursor.getX() > this.matchState.getScreen().getX2()){
-				this.matchState.getScreen().moveRight();
+		if (this.attackChar.size() != 0){
+			if (this.currentChar == this.attackChar.size()-1){
+				currentChar = 0;
+			} else {
+				currentChar ++;
 			}
+			this.setCursorOnCurrentCharacter();
 		}
 	}
 
 	@Override
 	public void moveCursorLeft() {
 		// TODO Auto-generated method stub
+		/*
 		if (this.cursor.getX() > 0){
 			this.cursor.moveLeft();
 			if (this.cursor.getX() < this.matchState.getScreen().getX1()){
 				this.matchState.getScreen().moveLeft();
 			}
 		}
+		*/
+		if (this.attackChar.size() != 0){
+			if (this.currentChar == 0){
+				currentChar = this.attackChar.size()-1;
+			} else {
+				currentChar --;
+			}
+			this.setCursorOnCurrentCharacter();
+		}
 	}
 	
-	public void setSelectedCharacter(Character character){
+	private void setCursorOnCurrentCharacter(){
+		this.cursor.setPosition(this.attackChar.get(currentChar).getX(), this.attackChar.get(currentChar).getY());
+	}
+	
+	public void init(Character character){
 		this.selectedCharacter = character;
+		this.attackTiles = this.matchState.getMatch().getMap().getAttackTiles(character);
+		this.attackChar = this.getAttackCharacter(this.attackTiles);
+		
+		if (this.attackChar.size() != 0){
+			this.currentChar = 0;
+			this.setCursorOnCurrentCharacter();
+		}
+	}
+	
+	public HashSet<Tile> getAttack(){
+		return this.attackTiles;
 	}
 
 }

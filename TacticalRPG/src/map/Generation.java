@@ -26,6 +26,12 @@ public class Generation {
 		newTile.load("ressources/tiles/River3.png");
 		map[10][4] = newTile;
 		
+		map[10][2] = new BridgeTile(10,2);
+		
+		Tile b = new BridgeTile(4,4);
+		b.load("ressources/tiles/bridge2.png");
+		map[4][4] = b;
+		
 		for (int i=11; i<20; i++){
 			for (int j=11; j<20; j++){
 				map[i][j] = new ForestTile(i,j);

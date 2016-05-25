@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import gameObject.Character;
 import gameObject.Tile;
+import gameObject.Tile.TypeTile;
 
 public class Map {
 	private int nrows;
@@ -152,6 +152,7 @@ public class Map {
 	public void createMap(){
 		//this.map = this.generation.generate(this.ncols, this.nrows);
 		this.map = this.mapGen.getMap();
+		this.loadSprites();
 	}
 
 	public int getNbRows(){
@@ -159,5 +160,57 @@ public class Map {
 	}
 	public int getNbCols(){
 		return this.ncols;
+	}
+	
+	
+	//FONCTION DE CHARGEMENT DES SPRITES
+	private void loadSprites(){
+		for (int x=0; x<this.ncols; x++){
+			for (int y=0; y<this.nrows; y++){
+				Tile tile = this.getTile(x, y);
+				
+				
+				switch(tile.getTypeTile()){
+				case WATER:
+					int valueW = valueWater(x, y);
+					switch(valueW){
+					case 0: case 1: case 2: case 3: case 4: case 6: case 8: case 9: case 12:
+						tile.load("ressources/tiles/water"+valueW+"_"+valueWaterDiag(x,y,valueW)+".png");
+						break;
+					default:
+						tile.load("ressources/tiles/water"+valueW+".png");
+					}
+					break;
+				case BRIDGE:
+					if (y > 0 && this.getTile(x, y-1).getTypeTile() != TypeTile.WATER && this.getTile(x, y-1).getTypeTile() != TypeTile.BRIDGE){
+						tile.load("ressources/tiles/bridge2.png");
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
+	}
+	
+	private int valueWater(int x,int y){
+		int value = 0;
+		
+		if (y > 0 && this.getTile(x, y-1).getTypeTile() != TypeTile.WATER && this.getTile(x, y-1).getTypeTile() != TypeTile.BRIDGE) value += 1;
+		if (x < this.ncols-1 && this.getTile(x+1, y).getTypeTile() != TypeTile.WATER && this.getTile(x+1, y).getTypeTile() != TypeTile.BRIDGE) value += 2;
+		if (y < this.nrows-1 && this.getTile(x, y+1).getTypeTile() != TypeTile.WATER && this.getTile(x, y+1).getTypeTile() != TypeTile.BRIDGE) value += 4;
+		if (x > 0 && this.getTile(x-1, y).getTypeTile() != TypeTile.WATER && this.getTile(x-1, y).getTypeTile() != TypeTile.BRIDGE) value += 8;
+		
+		return value;
+	}
+	
+	private int valueWaterDiag(int x, int y, int v){
+		int value = 0;
+		
+		if ((v&9)==0 && y > 0 && x > 0 && this.getTile(x-1, y-1).getTypeTile() != TypeTile.WATER) value += 1;
+		if ((v&3)==0 && y > 0 && x < this.ncols-1 && this.getTile(x+1, y-1).getTypeTile() != TypeTile.WATER) value += 2;
+		if ((v&6)==0 && y < this.nrows-1 && x < this.ncols-1 && this.getTile(x+1, y+1).getTypeTile() != TypeTile.WATER) value += 4;
+		if ((v&12)==0 && y < this.nrows-1 && x > 0 && this.getTile(x-1, y+1).getTypeTile() != TypeTile.WATER) value += 8;
+		return value;
 	}
 }

@@ -26,7 +26,8 @@ public abstract class GameObject {
 			this.sprite = ImageIO.read(new File(path));
 			
 		} catch (Exception e) {
-			System.out.println(e);
+			
+			System.out.println("Erreur lecture fichier : "+path);
 		}
 	}
 	

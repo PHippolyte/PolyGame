@@ -6,7 +6,7 @@ public class WaterTile extends Tile {
 
 	public WaterTile(int x, int y) {
 		super(x, y, 0, 0, 0, 0, 0, 0, 0, 50, TypeTile.WATER); //attack, attackMAgic defense defenseMagic precision dodge range consommation type
-		this.load("ressources/tiles/River1.png");
+		this.load("ressources/tiles/water0.png");
 	}
 
 	@Override

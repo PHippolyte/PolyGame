@@ -49,8 +49,8 @@ public class MapGenerator {
 		while(nb<number){
 			int type = (int) (rand.nextInt(3));
 			cont=0;
-			int currentTilex=(int)(rand.nextInt(30));
-			int currentTiley=(int)(rand.nextInt(30));
+			int currentTilex=(int)(rand.nextInt(size));
+			int currentTiley=(int)(rand.nextInt(size));
 			if (type==0){
 				beginy=currentTiley-1;
 				beginx=currentTilex-1;
@@ -140,7 +140,38 @@ public class MapGenerator {
 			}
 		}
 	}
-
+//*
+	private void BridgeGenerator() {
+		int nbBridge=5;
+		int bridgeX[] = new int[size*size];
+		int bridgeY[] = new int[size*size];
+		int n=0;
+		for(int x=0; x<size; x++) {
+			for(int y=0; y<size; y++) {
+				if(map[x][y].getTypeTile() == TypeTile.WATER) {
+					boolean horiz = true, vert = true;
+					if(x==0 || map[x-1][y].getTypeTile() == TypeTile.WATER) horiz=false; else vert=false;
+					if(x==size-1 || map[x+1][y].getTypeTile() == TypeTile.WATER) horiz=false; else vert=false;
+					if(y==0 || map[x][y-1].getTypeTile() == TypeTile.WATER) vert=false; else horiz=false;
+					if(y==size-1 || map[x][y+1].getTypeTile() == TypeTile.WATER) vert=false; else horiz=false;
+					
+					if(horiz || vert) {
+						bridgeX[n]=x; bridgeY[n++]=y;
+					}
+				}
+			}
+		}
+		if(nbBridge>n) nbBridge=n; 
+		for(int i=0; i<nbBridge; i++) {
+			int j = (int)(rand.nextInt(n));
+			System.out.println("Bridged");
+			map[bridgeX[j]][bridgeY[j]] = new BridgeTile(bridgeX[j],  bridgeY[j]);
+			bridgeX[j] = bridgeX[--n];
+			bridgeY[j] = bridgeY[n];
+		}
+		
+	}
+	/*/
 	private void BridgeGenerator() {
 		// TODO Auto-generated method stub
 		int nbBridge=5,i,j,nb=0;
@@ -182,10 +213,10 @@ public class MapGenerator {
 			}
 		}
 	}
-
+	//*/
 	private void ForestGenerator() {
 		// TODO Auto-generated method stub
-		int nb_title=size*3+(int)rand.nextInt(16);
+		int nb_title=size*number+(int)rand.nextInt(16);
 		int creat;
 		int nb=0;
 		int i,j;
@@ -216,8 +247,8 @@ public class MapGenerator {
 
 		while(nb<number){
 			int type = (int) (rand.nextInt(2));
-			int currentTilex=(int)(rand.nextInt(30));
-			int currentTiley=(int)(rand.nextInt(30));
+			int currentTilex=(int)(rand.nextInt(size));
+			int currentTiley=(int)(rand.nextInt(size));
 			if (type==0){
 				for(j=currentTiley-1;j<=currentTiley+2;j++){
 					int debut,max;
@@ -283,20 +314,20 @@ public class MapGenerator {
 		char dir=' ';
 		choice=rand.nextInt(4);
 		if (choice==0){
-			currentTilex = (int)(rand.nextInt(30));
+			currentTilex = (int)(rand.nextInt(size));
 			currentTiley = 0;
 		}
 		else if (choice==1){
-			currentTilex = (int)(rand.nextInt(30));
-			currentTiley = 29;
+			currentTilex = (int)(rand.nextInt(size));
+			currentTiley = size-1;
 		}
 		else if (choice==2){
 			currentTilex = 0;
-			currentTiley = (int)(rand.nextInt(30));
+			currentTiley = (int)(rand.nextInt(size));
 		}
 		else if (choice==3){
-			currentTilex = 29;
-			currentTiley = (int)(rand.nextInt(30));
+			currentTilex = size-1;
+			currentTiley = (int)(rand.nextInt(size));
 		}
 		int i=0;
 		System.out.println("Generating water");
@@ -313,7 +344,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='g';
 							currentTilex--;
-							i++;
 						}
 					}
 					else if(y==size-1){
@@ -321,14 +351,12 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='g';
 							currentTilex--;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='g';
 						currentTilex--;
-						i++;
 					}
 				}
 				else if(choice2==1 && dir!='g' && x!=size-1){
@@ -337,7 +365,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='d';
 							currentTilex++;
-							i++;
 						}
 					}
 					else if(y==size-1){
@@ -345,21 +372,18 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='d';
 							currentTilex++;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='d';
 						currentTilex++;
-						i++;
 					}
 				}
 				else{
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 					dir=' ';
 					currentTiley++;
-					i++;
 				}
 			}
 
@@ -370,7 +394,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='g';
 							currentTilex--;
-							i++;
 						}
 					}
 					else if(y==0){
@@ -378,14 +401,12 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='g';
 							currentTilex--;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='g';
 						currentTilex--;
-						i++;
 					}
 				}
 				else if(choice2==1 && dir!='g' && x!=size-1){
@@ -394,7 +415,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='d';
 							currentTilex++;
-							i++;
 						}
 					}
 					else if(y==0){
@@ -402,21 +422,18 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='d';
 							currentTilex++;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='d';
 						currentTilex++;
-						i++;
 					}
 				}
 				else if(y!=0){
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 					dir=' ';
 					currentTiley--;
-					i++;
 				}
 			}
 			else if(choice==2){
@@ -426,7 +443,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='h';
 							currentTiley--;
-							i++;
 						}
 					}
 					else if(x==size-1){
@@ -434,14 +450,12 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='h';
 							currentTiley--;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='h';
 						currentTiley--;
-						i++;
 					}
 				}
 				else if(choice2==1 && dir!='h' && y!=size-1){
@@ -450,7 +464,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='b';
 							currentTiley++;
-							i++;
 						}
 					}
 					else if(x==size-1){
@@ -458,21 +471,18 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='b';
 							currentTiley++;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='b';
 						currentTiley++;
-						i++;
 					}
 				}
 				else if(x!=size-1){
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 					dir=' ';
 					currentTilex++;
-					i++;
 				}
 			}
 			else if(choice==3){
@@ -482,7 +492,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='h';
 							currentTiley--;
-							i++;
 						}
 					}
 					else if(x==0){
@@ -490,14 +499,12 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='h';
 							currentTiley--;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='h';
 						currentTiley--;
-						i++;
 					}
 				}
 				else if(choice2==1 && dir!='h' && y!=size-1){
@@ -506,7 +513,6 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='b';
 							currentTiley++;
-							i++;
 						}
 					}
 					else if(x==0){
@@ -514,21 +520,18 @@ public class MapGenerator {
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 							dir='b';
 							currentTiley++;
-							i++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 						dir='b';
 						currentTiley++;
-						i++;
 					}
 				}
 				else if(x!=0){
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
 					dir=' ';
 					currentTilex--;
-					i++;
 				}
 			}
 			//&& map[y][x++].getTypeTile()!=TypeTile.WATER
@@ -549,6 +552,7 @@ public class MapGenerator {
 			currentTiley++;
 			i++;
 		}*/
+			i++;
 		}
 	}
 

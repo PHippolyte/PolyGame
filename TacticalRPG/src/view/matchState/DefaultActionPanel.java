@@ -24,7 +24,7 @@ public class DefaultActionPanel extends JPanel{
 		g.setColor(Color.RED);
 		g.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 		g.setColor(Color.YELLOW);
-		g.fillRect(this.getX()+((this.getWidth()+this.buttonWidth)/2),(this.getY()+10)+(this.action.getCurrentButton()*(this.getHeight()+5)) ,this.buttonWidth ,this.getHeight()-20 );
+		g.fillRect(this.getX()+5, this.getY()+5 + this.action.getCurrentButton()*(this.getHeight()/2), this.getWidth()-10, (this.getHeight()/2)-10);
 	}
 	
 	public void moveWindow(int x, int y){

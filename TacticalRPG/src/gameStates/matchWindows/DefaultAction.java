@@ -17,7 +17,7 @@ public class DefaultAction extends StateMatch{
 	@Override
 	public void initWindow() {
 		// TODO Auto-generated method stub
-		//this.cursor.setPosition(0, 0);
+		this.currentButton = 0;
 		
 	}
 	

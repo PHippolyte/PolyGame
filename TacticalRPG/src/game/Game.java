@@ -3,6 +3,7 @@ package game;
 import java.util.HashMap;
 import java.util.Observable;
 
+import Sound.soundManager;
 import gameStates.GameState;
 import gameStates.GameStateConstant;
 import gameStates.MatchState;
@@ -13,11 +14,12 @@ public class Game extends Observable implements GameStateConstant{
 	private HashMap<Integer, GameState> gameStates;
 	private Cursor cursor;
 	private Match match;
-	
+	private soundManager menuSound;
 	
 	public Game(){
 		this.gameStates = new HashMap<Integer , GameState>();
 		this.cursor = new Cursor(0,0);
+		menuSound = new soundManager(2);
 		this.initGame();
 	}
 	
@@ -34,6 +36,7 @@ public class Game extends Observable implements GameStateConstant{
 	public void setState(int state){
 		this.currentState = state;
 		this.gameStates.get(this.currentState).initState();
+		this.menuSound.play(0);
 		this.setChanged();
 		this.notifyObservers();
 	}

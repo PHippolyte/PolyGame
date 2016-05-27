@@ -2,16 +2,19 @@ package gameStates;
 
 import java.util.Observable;
 
+import Sound.soundManager;
 import game.Cursor;
 import game.Game;
 
 public abstract class GameState extends Observable implements GameStateConstant{
 	protected Game game;
 	protected Cursor cursor;
+	private soundManager sounds;
 	
 	public GameState(Game game, Cursor cursor){
 		this.game = game;
 		this.cursor = cursor;
+		this.sounds = new soundManager(0);
 		this.initState();
 	}
 	
@@ -23,11 +26,16 @@ public abstract class GameState extends Observable implements GameStateConstant{
 		return this.cursor;
 	}
 	
+	public soundManager getSoundManager(){
+		return this.sounds;
+	}
+	
 	public int getCurrentButton(){
 		return this.cursor.getY();
 	}
 	
 	public void setCurrentButton(int i){
+		
 		this.cursor.setY(i);
 		this.setChanged();
 		this.notifyObservers();

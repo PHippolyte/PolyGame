@@ -1,5 +1,6 @@
 package gameObject;
 
+import Sound.soundManager;
 import team.Team;
 
 public abstract class Character extends MapObject{
@@ -22,6 +23,7 @@ public abstract class Character extends MapObject{
 	protected int block;
 	protected int critique;
 	protected int heal;
+	protected soundManager sounds;
 	
 	public Character(){
 		
@@ -47,6 +49,7 @@ public abstract class Character extends MapObject{
 		this.maxHealth = health;
 		this.heal = heal;
 		this.typeAttack = typeAttack;
+		this.sounds = new soundManager(1);
 	}
 	
 	public String toString(){
@@ -72,6 +75,7 @@ public abstract class Character extends MapObject{
 	}
 	
 	public void doDamage(int damage){
+		this.sounds.play(0);
 		this.health -= damage;
 		if (this.health < 0){
 			this.health = 0;
@@ -79,6 +83,7 @@ public abstract class Character extends MapObject{
 	}
 	
 	public void getHeal(int heal){
+		this.sounds.play(2);
 		this.health += heal;
 		if (this.health > this.maxHealth){
 			this.health = this.maxHealth;
@@ -134,5 +139,9 @@ public abstract class Character extends MapObject{
 
 	public int getRange(){
 		return range;
+	}
+	
+	public soundManager getSoundManager(){
+		return this.sounds;
 	}
 }

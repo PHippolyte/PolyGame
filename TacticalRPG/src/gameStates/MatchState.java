@@ -2,6 +2,7 @@ package gameStates;
 
 import java.util.HashMap;
 
+import Sound.soundManager;
 import game.Cursor;
 import game.Game;
 import game.Match;
@@ -11,6 +12,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 	private Match match;
 	private Screen screen;
 	private int currentState;
+	
 	
 	private HashMap<Integer, StateMatch> states;
 	
@@ -25,6 +27,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 		this.states.put(MOVE, new Move(this,this.cursor));
 		this.states.put(DEFAULTACTION, new DefaultAction(this,this.cursor));
 		this.states.put(HEAL, new Heal(this,this.cursor));
+		
 	}
 	
 	@Override
@@ -87,7 +90,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 	public void doAction() {
 		this.states.get(this.currentState).doAction();//on fait l'action demandé
 		this.getMatch().getCurrentTeam().udpdate();//on met a jour l'équipe
-		
+		getSoundManager().play(1);
 		
 		if (this.match.getMode().isWon()){//si partie gagné
 			System.out.println("Game Over");
@@ -105,6 +108,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 	}
 	
 	public void cancel(){
+		getSoundManager().play(2);
 		this.getCurrentState().cancel();
 	}
 	
@@ -117,7 +121,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 	
 	@Override
 	public void moveCursorUp() {
-		// TODO Auto-generated method stub
+		getSoundManager().play(0);
 		this.getCurrentState().moveCursorUp();
 		this.setChanged();
 		this.notifyObservers();
@@ -125,7 +129,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 
 	@Override
 	public void moveCursorDown() {
-		// TODO Auto-generated method stub
+		getSoundManager().play(0);
 		this.getCurrentState().moveCursorDown();
 		this.setChanged();
 		this.notifyObservers();
@@ -133,7 +137,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 
 	@Override
 	public void moveCursorRight() {
-		// TODO Auto-generated method stub
+		getSoundManager().play(0);
 		this.getCurrentState().moveCursorRight();
 		this.setChanged();
 		this.notifyObservers();
@@ -141,7 +145,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 
 	@Override
 	public void moveCursorLeft() {
-		// TODO Auto-generated method stub
+		getSoundManager().play(0);
 		this.getCurrentState().moveCursorLeft();
 		this.setChanged();
 		this.notifyObservers();

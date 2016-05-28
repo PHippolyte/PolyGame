@@ -36,7 +36,7 @@ public class Game extends Observable implements GameStateConstant{
 	public void setState(int state){
 		this.currentState = state;
 		this.gameStates.get(this.currentState).initState();
-		this.menuSound.play(0);
+		this.menuSound.play("menu");
 		this.setChanged();
 		this.notifyObservers();
 	}

@@ -88,7 +88,7 @@ public class Map {
 
 	public void moveCharacter(Character character, int x, int y){
 		
-		character.getSoundManager().play(1);
+		character.getSoundManager().play("move");
 		this.getTile(character.getX(), character.getY()).setCharacter(null);
 		this.setCharacterAtTile(character, x, y);
 

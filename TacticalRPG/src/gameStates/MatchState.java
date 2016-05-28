@@ -12,12 +12,13 @@ public class MatchState extends GameState implements MatchStateConstant{
 	private Match match;
 	private Screen screen;
 	private int currentState;
-	
+	private boolean cancelsound; 
 	
 	private HashMap<Integer, StateMatch> states;
 	
 	public MatchState(Game game, Cursor cursor){
 		super(game,cursor);
+		this.cancelsound = false;
 		this.states = new HashMap<Integer, StateMatch>();
 		
 		this.screen = new Screen();
@@ -52,6 +53,11 @@ public class MatchState extends GameState implements MatchStateConstant{
 	}
 	
 	public void setCurrentState(int state){
+		
+		if ((currentState == ATTACK || currentState == MOVE )&& state == IDLE){
+			cancelsound = true;
+		}
+		
 		this.currentState = state;
 		this.setChanged();
 		this.notifyObservers();
@@ -73,7 +79,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 		return (Attack)this.states.get(ATTACK);
 	}
 	
-	public Move getMoveState(){
+	public Move getMoveState(){	
 		return (Move)this.states.get(MOVE);
 	}
 	
@@ -90,7 +96,10 @@ public class MatchState extends GameState implements MatchStateConstant{
 	public void doAction() {
 		this.states.get(this.currentState).doAction();//on fait l'action demandé
 		this.getMatch().getCurrentTeam().udpdate();//on met a jour l'équipe
-		getSoundManager().play(1);
+		
+		if (!cancelsound){
+			this.getSoundManager().play("enter");
+		}else cancelsound = false;
 		
 		if (this.match.getMode().isWon()){//si partie gagné
 			System.out.println("Game Over");
@@ -108,7 +117,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 	}
 	
 	public void cancel(){
-		getSoundManager().play(2);
+		getSoundManager().play("cancel");
 		this.getCurrentState().cancel();
 	}
 	
@@ -121,7 +130,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 	
 	@Override
 	public void moveCursorUp() {
-		getSoundManager().play(0);
+		getSoundManager().play("cursor");
 		this.getCurrentState().moveCursorUp();
 		this.setChanged();
 		this.notifyObservers();
@@ -129,7 +138,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 
 	@Override
 	public void moveCursorDown() {
-		getSoundManager().play(0);
+		getSoundManager().play("cursor");
 		this.getCurrentState().moveCursorDown();
 		this.setChanged();
 		this.notifyObservers();
@@ -137,7 +146,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 
 	@Override
 	public void moveCursorRight() {
-		getSoundManager().play(0);
+		getSoundManager().play("cursor");
 		this.getCurrentState().moveCursorRight();
 		this.setChanged();
 		this.notifyObservers();
@@ -145,7 +154,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 
 	@Override
 	public void moveCursorLeft() {
-		getSoundManager().play(0);
+		getSoundManager().play("cursor");
 		this.getCurrentState().moveCursorLeft();
 		this.setChanged();
 		this.notifyObservers();

@@ -75,7 +75,15 @@ public abstract class Character extends MapObject{
 	}
 	
 	public void doDamage(int damage){
-		this.sounds.play(0);
+		
+		if(this.typeAttack == TypeAttack.PHYSICAL){
+			this.sounds.play("attack");
+		}
+		
+		if (this.typeAttack == TypeAttack.MAGICAL){
+			this.sounds.play("mattack");
+		}
+		
 		this.health -= damage;
 		if (this.health < 0){
 			this.health = 0;
@@ -83,7 +91,7 @@ public abstract class Character extends MapObject{
 	}
 	
 	public void getHeal(int heal){
-		this.sounds.play(2);
+		this.sounds.play("heal");
 		this.health += heal;
 		if (this.health > this.maxHealth){
 			this.health = this.maxHealth;

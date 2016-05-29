@@ -28,7 +28,7 @@ public class ModeMenu extends Menu{
 	public void doAction() {
 		// TODO Auto-generated method stub
 		this.game.initMatch();
-
+		this.getSoundManager().play("enter");
 		switch(this.cursor.getY()){
 		case(0):
 			Mode mode = this.modes.get(0);
@@ -45,6 +45,7 @@ public class ModeMenu extends Menu{
 
 	@Override
 	public void moveCursorUp() {
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getY() > 0){
 			this.cursor.moveUp();
 		} else {
@@ -56,7 +57,7 @@ public class ModeMenu extends Menu{
 	}
 	@Override
 	public void moveCursorDown() {
-		// TODO Auto-generated method stub
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getY() < this.nbButton-1){
 			this.cursor.moveDown();
 		} else {

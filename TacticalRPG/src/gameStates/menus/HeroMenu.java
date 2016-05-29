@@ -53,7 +53,7 @@ public class HeroMenu extends Menu{
 		// TODO Auto-generated method stub
 		int numHero = this.heros[this.cursor.getX()][this.cursor.getY()];
 		int numTeam = this.game.getMatch().getCurrentTeam().getNum()+1;
-		
+		this.getSoundManager().play("enter");
 		switch(numHero){
 		case(0):
 			Hero hero = new HeroLyndis();
@@ -77,6 +77,7 @@ public class HeroMenu extends Menu{
 
 	@Override
 	public void moveCursorUp() {
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getY() > 0){
 			this.cursor.moveUp();
 		} else {
@@ -90,7 +91,7 @@ public class HeroMenu extends Menu{
 
 	@Override
 	public void moveCursorDown() {
-		// TODO Auto-generated method stub
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getY() < this.nbRowHero-1){
 			this.cursor.moveDown();
 		} else {
@@ -103,7 +104,7 @@ public class HeroMenu extends Menu{
 
 	@Override
 	public void moveCursorRight() {
-		// TODO Auto-generated method stub
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getX() < this.nbColHero-1){
 			this.cursor.moveRight();
 		} else {
@@ -116,7 +117,7 @@ public class HeroMenu extends Menu{
 
 	@Override
 	public void moveCursorLeft() {
-		// TODO Auto-generated method stub
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getX() > 0){
 			this.cursor.moveLeft();
 		} else {
@@ -127,12 +128,10 @@ public class HeroMenu extends Menu{
 	}
 
 	public int getNbCol() {
-		// TODO Auto-generated method stub
 		return this.nbColHero;
 	}
 
 	public int getNbRow() {
-		// TODO Auto-generated method stub
 		return this.nbRowHero;
 	}
 

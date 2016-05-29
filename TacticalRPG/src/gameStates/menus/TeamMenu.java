@@ -44,7 +44,7 @@ public class TeamMenu extends Menu{
 		// TODO Auto-generated method stub
 		Soldier soldier;
 		int numTeam = this.game.getMatch().getCurrentTeam().getNum()+1;
-		
+		this.getSoundManager().play("enter");
 		switch(this.cursor.getY()){
 		case(0):
 			soldier = new Archer();
@@ -131,7 +131,7 @@ public class TeamMenu extends Menu{
 
 	@Override
 	public void moveCursorUp() {
-		// TODO Auto-generated method stub
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getY() > 0){
 			this.cursor.moveUp();
 		} else {
@@ -143,7 +143,7 @@ public class TeamMenu extends Menu{
 
 	@Override
 	public void moveCursorDown() {
-		// TODO Auto-generated method stub
+		this.getSoundManager().play("cursor");
 		if (this.cursor.getY() == this.nbButton-1){
 			this.cursor.setY(0);
 		} else {

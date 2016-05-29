@@ -38,7 +38,7 @@ public class Move extends StateMatch{
 			this.matchState.getMatch().getMap().moveCharacter(this.selectedCharacter, this.cursor.getX(),this.cursor.getY());
 			
 			this.selectedCharacter.setDone(true);//personnage devient inactif
-			
+			matchState.getSoundManager().play("move");
 			this.matchState.setCurrentState(IDLE);
 		} else {
 			System.out.println("Opération impossible");

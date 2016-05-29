@@ -31,7 +31,6 @@ public abstract class Character extends MapObject{
 	protected int critique;
 	protected int heal;
 	
-	protected soundManager sounds;
 	
 	protected BufferedImage grayImage;
 	
@@ -59,7 +58,6 @@ public abstract class Character extends MapObject{
 		this.maxHealth = health;
 		this.heal = heal;
 		this.typeAttack = typeAttack;
-		this.sounds = new soundManager(1);
 	}
 	
 	public String toString(){
@@ -86,14 +84,6 @@ public abstract class Character extends MapObject{
 	
 	public void doDamage(int damage){
 		
-		if(this.typeAttack == TypeAttack.PHYSICAL){
-			this.sounds.play("attack");
-		}
-		
-		if (this.typeAttack == TypeAttack.MAGICAL){
-			this.sounds.play("mattack");
-		}
-		
 		this.health -= damage;
 		if (this.health < 0){
 			this.health = 0;
@@ -101,7 +91,6 @@ public abstract class Character extends MapObject{
 	}
 	
 	public void getHeal(int heal){
-		this.sounds.play("heal");
 		this.health += heal;
 		if (this.health > this.maxHealth){
 			this.health = this.maxHealth;
@@ -177,10 +166,6 @@ public abstract class Character extends MapObject{
 
 	public int getRange(){
 		return range;
-	}
-	
-	public soundManager getSoundManager(){
-		return this.sounds;
 	}
 
 	public BufferedImage getGrayImage() {

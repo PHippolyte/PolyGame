@@ -25,7 +25,7 @@ public class Attack extends StateMatch{
 	public int AttackPhys(Character ennemy, Tile tile){
 		Tile posSelectedCharacter = this.matchState.getMatch().getMap().getTile(this.selectedCharacter.getX(), this.selectedCharacter.getY());
 		Random rand = new Random();
-		
+		matchState.getSoundManager().play("attack");
 		int damage = 0;
 		int randomPrec = rand.nextInt(100);
 		System.out.println("prec : "+randomPrec);
@@ -53,7 +53,7 @@ public class Attack extends StateMatch{
 	public int AttackMagic(Character ennemy, Tile tile){
 		Tile posSelectedCharacter = this.matchState.getMatch().getMap().getTile(this.selectedCharacter.getX(), this.selectedCharacter.getY());
 		Random rand = new Random();
-		
+		matchState.getSoundManager().play("mattack");
 		int damage = 0;
 		int randomPrec = rand.nextInt(100);
 		

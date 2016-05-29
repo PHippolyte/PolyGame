@@ -39,10 +39,6 @@ public class soundManager{
 				cancel.open(inputStreamCancel);
 				soundList.put("cancel",cancel);
 				
-			}
-			
-			if (choice == 1){
-				
 				File attf = new File("ressources/sounds/sound_attack.wav");
 				att = AudioSystem.getClip();
 				AudioInputStream inputStreamAtt = AudioSystem.getAudioInputStream(attf);

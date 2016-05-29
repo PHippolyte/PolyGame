@@ -41,6 +41,7 @@ public class Heal extends StateMatch {
 		Character ally = this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY()).getCharacter();
 		if(this.matchState.getMatch().getCurrentTeam().isAlly(ally)){
 			ally.getHeal(heal());
+			matchState.getSoundManager().play("heal");
 		}else{
 			
 		}

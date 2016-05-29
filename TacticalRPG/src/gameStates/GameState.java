@@ -35,7 +35,7 @@ public abstract class GameState extends Observable implements GameStateConstant{
 	}
 	
 	public void setCurrentButton(int i){
-		
+		sounds.play("cursor");
 		this.cursor.setY(i);
 		this.setChanged();
 		this.notifyObservers();

@@ -14,12 +14,12 @@ public class Game extends Observable implements GameStateConstant{
 	private HashMap<Integer, GameState> gameStates;
 	private Cursor cursor;
 	private Match match;
-	private soundManager menuSound;
+	private soundManager sounds;
 	
 	public Game(){
 		this.gameStates = new HashMap<Integer , GameState>();
 		this.cursor = new Cursor(0,0);
-		menuSound = new soundManager(2);
+		sounds = new soundManager();
 		this.initGame();
 	}
 	
@@ -36,9 +36,13 @@ public class Game extends Observable implements GameStateConstant{
 	public void setState(int state){
 		this.currentState = state;
 		this.gameStates.get(this.currentState).initState();
-		this.menuSound.play("menu");
+		this.sounds.play("menu");
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public soundManager getSoundManager(){
+		return this.sounds;
 	}
 	
 	public GameState getCurrentState(){

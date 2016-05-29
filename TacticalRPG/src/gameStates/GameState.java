@@ -14,7 +14,7 @@ public abstract class GameState extends Observable implements GameStateConstant{
 	public GameState(Game game, Cursor cursor){
 		this.game = game;
 		this.cursor = cursor;
-		this.sounds = new soundManager(0);
+		
 	}
 	
 	public void setCursor(Cursor cursor){
@@ -26,7 +26,7 @@ public abstract class GameState extends Observable implements GameStateConstant{
 	}
 	
 	public soundManager getSoundManager(){
-		return this.sounds;
+		return this.game.getSoundManager();
 	}
 	
 	public int getCurrentButton(){
@@ -34,7 +34,7 @@ public abstract class GameState extends Observable implements GameStateConstant{
 	}
 	
 	public void setCurrentButton(int i){
-		sounds.play("cursor");
+		this.game.getSoundManager().play("cursor");
 		this.cursor.setY(i);
 		this.setChanged();
 		this.notifyObservers();

@@ -7,10 +7,10 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import gameStates.matchWindows.CharacterAction;
-import view.GamePanelComponent;
+import view.GameComponent;
 
 @SuppressWarnings("serial")
-public class CharacterActionPanel extends GamePanelComponent{
+public class CharacterActionPanel extends GameComponent{
 	private CharacterAction c;
 	private BufferedImage cursor;
 	

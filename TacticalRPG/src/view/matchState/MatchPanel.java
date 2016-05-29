@@ -30,6 +30,8 @@ public class MatchPanel extends GamePanel{
 	private boolean paintMove;
 	private boolean paintDefaultAction;
 	
+	//PILE D'IMAGE A AFFICHER
+	
 	//dimension des cases de l'écran
 	private int tileWidth;
 	private int tileHeight;
@@ -101,7 +103,7 @@ public class MatchPanel extends GamePanel{
 				if (screen.isInScreen(c.getX(), c.getY())){
 					//g2.fillRect(this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(this.YtoScreen(c.getY(), screen)), tileWidth, tileHeight);
 					if (c.getDone()){ //grisement du personnage
-						g2.drawImage(this.grayRender(c.getImage()),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
+						g2.drawImage(c.getGrayImage(),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
 					} else {
 						g2.drawImage(c.getImage(),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
 					}

@@ -1,5 +1,12 @@
 package gameObject;
 
+import java.awt.color.ColorSpace;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 import Sound.soundManager;
 import team.Team;
 
@@ -23,7 +30,10 @@ public abstract class Character extends MapObject{
 	protected int block;
 	protected int critique;
 	protected int heal;
+	
 	protected soundManager sounds;
+	
+	protected BufferedImage grayImage;
 	
 	public Character(){
 		
@@ -98,6 +108,26 @@ public abstract class Character extends MapObject{
 		}	
 	}
 	
+	public void load(String path){
+		try {
+			this.sprite = ImageIO.read(new File(path));
+			this.grayImage = this.grayRender(this.sprite);
+			
+		} catch (Exception e) {
+			
+			System.out.println("Erreur lecture fichier : "+path);
+		}
+	}
+	
+	protected BufferedImage grayRender(BufferedImage img){
+		if (img != null){
+			ColorConvertOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY),null);
+			return op.filter(img, null);
+		} else {
+			return null;
+		}
+	}
+	
 	public int getHealth(){
 		return this.health;
 	}
@@ -151,5 +181,9 @@ public abstract class Character extends MapObject{
 	
 	public soundManager getSoundManager(){
 		return this.sounds;
+	}
+
+	public BufferedImage getGrayImage() {
+		return this.grayImage;
 	}
 }

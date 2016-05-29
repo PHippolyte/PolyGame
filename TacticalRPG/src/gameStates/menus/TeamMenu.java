@@ -1,6 +1,8 @@
 package gameStates.menus;
 
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+
+import java.util.HashMap;
 
 import game.Cursor;
 import game.Game;
@@ -8,17 +10,33 @@ import gameObject.Soldier;
 import gameObject.soldiers.*;
 
 public class TeamMenu extends Menu{
+	private HashMap<Integer,Soldier> soldiers;
 	
 	public TeamMenu(Game game, Cursor cursor) {	
 		super(game, cursor);
-		this.nbButton = 9;
+		//AJOUT DES SOLDATS
+		this.soldiers = new HashMap<Integer,Soldier>();
+		
+		this.soldiers.put(0,new Archer());
+		this.soldiers.put(1,new Daguer());
+		this.soldiers.put(2,new Healer());
+		this.soldiers.put(3,new Knight());
+		this.soldiers.put(4,new KnightArcher());
+		this.soldiers.put(5,new Mage());
+		this.soldiers.put(6,new Spear());
+		this.soldiers.put(7,new Sword());
+		this.soldiers.put(8,new Tank());
+	
+		this.nbButton = this.soldiers.size();
 	}
 
 	@Override
 	public void initState() {
 		// TODO Auto-generated method stub
 		this.cursor.setPosition(0, 0);
-		
+		this.loadIcone();
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	@Override
@@ -32,56 +50,66 @@ public class TeamMenu extends Menu{
 			soldier = new Archer();
 			soldier.load("ressources/soldier/Archer"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 			
 		case(1):
 			soldier = new  Daguer();
 			soldier.load("ressources/soldier/Daguer"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 			
 		case(2):
 			soldier = new Healer();
 			soldier.load("ressources/soldier/Healer"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 			
 		case(3):
 			soldier = new Knight();
-			//soldier.load("ressources/soldier/Archer.png");
+			soldier.load("ressources/soldier/Knight"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 		
 		case(4):
 			soldier = new KnightArcher();
-			//soldier.load("ressources/soldier/Archer.png");
+			soldier.load("ressources/soldier/KnightArcher"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 		
 		case(5):
 			soldier = new Mage();
-			//soldier.load("ressources/soldier/Archer.png");
+			soldier.load("ressources/soldier/Mage"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 		
 		case(6):
 			soldier = new Spear();
-			//soldier.load("ressources/soldier/Archer.png");
+			soldier.load("ressources/soldier/Spear"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 		
 		case(7):
 			soldier = new Sword();
-			//soldier.load("ressources/soldier/Archer.png");
+			soldier.load("ressources/soldier/Sword"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 		
 		case(8):
 			soldier = new Tank();
-			//soldier.load("ressources/soldier/Archer.png");
+			soldier.load("ressources/soldier/Tank"+numTeam+".png");
 			this.game.getMatch().addSoldierToCurrentTeam(soldier);
+			this.setChanged();
 			break;
 		}
+		this.notifyObservers();
 		
 		if (this.game.getMatch().getCurrentTeam().getNbSoldier() == this.game.getMatch().getMode().getNbMaxSoldier()){
 			if (this.game.getMatch().getCurrentTeam().getNum() != this.game.getMatch().getNbTeam()-1){
@@ -93,9 +121,6 @@ public class TeamMenu extends Menu{
 				this.game.getMatch().startMatch();
 			}
 		}
-		
-		this.setChanged();
-		this.notifyObservers();
 		
 	}
 	
@@ -139,5 +164,19 @@ public class TeamMenu extends Menu{
 		// TODO Auto-generated method stub
 		this.moveCursorUp();
 	}
-
+	
+	private void loadIcone(){
+		for(int i=0; i<this.soldiers.size(); i++){
+			Soldier s = this.soldiers.get(i);
+			s.load("ressources/soldier/"+s.getName()+(this.game.getMatch().getCurrentTeam().getNum()+1)+".png");
+		}
+	}
+	
+	public BufferedImage[] getIcones(){
+		BufferedImage[] icones = new BufferedImage[this.soldiers.size()];
+		for (int i=0; i<this.soldiers.size(); i++){
+			icones[i] = this.soldiers.get(i).getImage();
+		}
+		return icones;
+	}
 }

@@ -4,14 +4,14 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import view.GameComponent;
 import view.GamePanel;
-import view.GamePanelComponent;
 
 @SuppressWarnings("serial")
 public class MainMenuPanel extends GamePanel{
-	private GamePanelComponent modeButton;
-	private GamePanelComponent loadButton;
-	private GamePanelComponent exitButton;
+	private GameComponent modeButton;
+	private GameComponent loadButton;
+	private GameComponent exitButton;
 
 	private Boolean paintCursor;
 
@@ -51,9 +51,9 @@ public class MainMenuPanel extends GamePanel{
 			this.init = false;
 		}
 
-		this.modeButton.repaint();
-		this.loadButton.repaint();
-		this.exitButton.repaint();
+		this.modeButton.paint(g);
+		this.loadButton.paint(g);
+		this.exitButton.paint(g);
 	}
 	
 	public void init(){

@@ -4,17 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import view.GamePanelComponent;
+import view.GameComponent;
 
 @SuppressWarnings("serial")
-public class HeroPanel extends GamePanelComponent{
+public class HeroPanel extends GameComponent{
 	private int x;
 	private int y;
 	
 	public HeroPanel(int x, int y){
 		this.x = x;
 		this.y = y;
-		this.setBackground(Color.LIGHT_GRAY);
 	}
 	
 	

@@ -15,7 +15,6 @@ public abstract class GameState extends Observable implements GameStateConstant{
 		this.game = game;
 		this.cursor = cursor;
 		this.sounds = new soundManager(0);
-		this.initState();
 	}
 	
 	public void setCursor(Cursor cursor){

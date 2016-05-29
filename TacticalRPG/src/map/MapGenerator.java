@@ -164,7 +164,6 @@ public class MapGenerator {
 		if(nbBridge>n) nbBridge=n; 
 		for(int i=0; i<nbBridge; i++) {
 			int j = (int)(rand.nextInt(n));
-			System.out.println("Bridged");
 			map[bridgeX[j]][bridgeY[j]] = new BridgeTile(bridgeX[j],  bridgeY[j]);
 			bridgeX[j] = bridgeX[--n];
 			bridgeY[j] = bridgeY[n];
@@ -332,7 +331,6 @@ public class MapGenerator {
 		int i=0;
 		System.out.println("Generating water");
 		while(i<=nbTile){
-			System.out.println("current Tile : "+i);
 			choice2=rand.nextInt(2);
 			x = currentTilex;
 			y = currentTiley;

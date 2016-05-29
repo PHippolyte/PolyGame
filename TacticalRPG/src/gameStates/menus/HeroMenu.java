@@ -52,10 +52,13 @@ public class HeroMenu extends Menu{
 	public void doAction() {
 		// TODO Auto-generated method stub
 		int numHero = this.heros[this.cursor.getX()][this.cursor.getY()];
+		int numTeam = this.game.getMatch().getCurrentTeam().getNum()+1;
 		
 		switch(numHero){
 		case(0):
-			this.game.getMatch().addHeroToCurrentTeam(new HeroLyndis());
+			Hero hero = new HeroLyndis();
+			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			this.game.getMatch().addHeroToCurrentTeam(hero);
 			break;
 		}
 		

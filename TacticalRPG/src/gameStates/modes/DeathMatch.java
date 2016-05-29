@@ -1,12 +1,11 @@
 package gameStates.modes;
 
-import game.Match;
 import team.Team;
 
 public class DeathMatch extends Mode{
 	
 	public DeathMatch() {
-		this.nbMaxSoldier = 1;
+		this.nbMaxSoldier = 2;
 		this.nbMaxTeam = 2;
 		this.nbMaxHero = 1;
 	}

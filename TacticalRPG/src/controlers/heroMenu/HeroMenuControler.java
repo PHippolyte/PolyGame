@@ -18,9 +18,7 @@ public class HeroMenuControler extends GameStateControler{
 		this.observer = new HeroMenuObserver(this.view);
 		this.model.addObserver(this.observer);
 		
-		this.addListener();
-		
-		
+		this.addListener();	
 	}
 	
 	private void addListener(){

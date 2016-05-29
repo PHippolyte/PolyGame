@@ -3,21 +3,26 @@ package controlers.teamMenu;
 import controlers.GameStateControler;
 import gameStates.menus.TeamMenu;
 import view.GamePanel;
+import view.teamMenu.SoldierPanel;
 import view.teamMenu.TeamMenuPanel;
 
 public class TeamMenuControler extends GameStateControler{
 	private TeamMenuPanel view;
 	private TeamMenu model;
 	
-	private teamMenuObserver observer;
-	//private TeamMenuObserver observer;
+	private TeamMenuObserver observer;
 	
 	public TeamMenuControler(TeamMenu model){
 		this.model = model;
-		this.view = new TeamMenuPanel();
+		this.view = new TeamMenuPanel(model.getNbButton());
 		
-		this.observer = new teamMenuObserver(this.view);
+		this.observer = new TeamMenuObserver(this.view);
 		this.model.addObserver(this.observer);
+		
+		for (int i=0; i<this.model.getNbButton(); i++){
+			SoldierPanel panel = this.view.getSelectSoldierPanel().getSoldierPanel(i);
+			panel.addMouseListener(new SoldierPanelListener(this.model,panel));
+		}
 	}
 
 	@Override

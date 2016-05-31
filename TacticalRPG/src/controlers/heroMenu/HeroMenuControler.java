@@ -32,4 +32,14 @@ public class HeroMenuControler extends GameStateControler{
 	public GamePanel getView(){
 		return this.view;
 	}
+	
+	public void init(){
+		
+	}
+
+	@Override
+	public void updateObserver() {
+		// TODO Auto-generated method stub
+		
+	}
 }

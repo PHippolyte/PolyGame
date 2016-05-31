@@ -35,6 +35,7 @@ public class TeamMenu extends Menu{
 		// TODO Auto-generated method stub
 		this.cursor.setPosition(0, 0);
 		this.loadIcone();
+		this.loadName();
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -172,11 +173,26 @@ public class TeamMenu extends Menu{
 		}
 	}
 	
+	private void loadName(){
+		for (int i=0; i<this.soldiers.size(); i++){
+			Soldier s = this.soldiers.get(i);
+			s.loadName();
+		}
+	}
+	
 	public BufferedImage[] getIcones(){
 		BufferedImage[] icones = new BufferedImage[this.soldiers.size()];
 		for (int i=0; i<this.soldiers.size(); i++){
 			icones[i] = this.soldiers.get(i).getImage();
 		}
 		return icones;
+	}
+	
+	public BufferedImage[] getNames(){
+		BufferedImage[] names = new BufferedImage[this.soldiers.size()];
+		for (int i=0; i<this.soldiers.size(); i++){
+			names[i] = this.soldiers.get(i).getNameImage();
+		}
+		return names;
 	}
 }

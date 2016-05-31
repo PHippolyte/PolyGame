@@ -54,13 +54,11 @@ public class TeamMenuSoldierPanel extends GameComponent{
 		for (int i=0; i<size; i++){
 			this.soldierPanel.add(new SoldierPanel(i));
 		}
-		
+		//DIMENSION DES PANELS
+		this.initPanels();
 		
 		//AJOUTS DES PANELS
 		this.addSoldierPanels();
-		
-		//DIMENSION DES PANELS
-		this.initPanels();
 	}
 	
 	private void addSoldierPanels(){
@@ -89,6 +87,15 @@ public class TeamMenuSoldierPanel extends GameComponent{
 		for (int i=0; i<imgs.length ; i++){
 			this.soldierPanel.get(i).setIcone(imgs[i]);
 		}
+	}
+	
+	public void addNameImage(BufferedImage[] imgs){
+		int err = 0;
+		for (int i=0; i<imgs.length ; i++){
+			if (imgs[i] == null) err++;
+			this.soldierPanel.get(i).setNameImage(imgs[i]);
+		}
+		System.out.println("FCT [addNameImage] ERREURS : "+err);
 	}
 	
 	public SoldierPanel getSoldierPanel(int i){

@@ -33,6 +33,7 @@ public abstract class Character extends MapObject{
 	
 	
 	protected BufferedImage grayImage;
+	protected BufferedImage nameImage;
 	
 	public Character(){
 		
@@ -108,6 +109,14 @@ public abstract class Character extends MapObject{
 		}
 	}
 	
+	public void loadName(){
+		try {
+			this.nameImage = ImageIO.read(new File("ressources/soldier/"+this.name+"Name.png"));
+		} catch (Exception e){
+			System.out.println("Erreur lecteur du nom de "+this.name);
+		}
+	}
+	
 	protected BufferedImage grayRender(BufferedImage img){
 		if (img != null){
 			ColorConvertOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY),null);
@@ -170,5 +179,9 @@ public abstract class Character extends MapObject{
 
 	public BufferedImage getGrayImage() {
 		return this.grayImage;
+	}
+	
+	public BufferedImage getNameImage() {
+		return this.nameImage;
 	}
 }

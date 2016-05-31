@@ -30,4 +30,12 @@ public class TeamMenuControler extends GameStateControler{
 		// TODO Auto-generated method stub
 		return this.view;
 	}
+	
+	public void updateObserver(){
+		this.observer.update(model, null);
+	}
+	
+	public void init(){
+		this.observer.setInit(true);
+	}
 }

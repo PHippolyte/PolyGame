@@ -12,5 +12,4 @@ public abstract class Soldier extends Character{
 		// TODO Auto-generated constructor stub
 		this.type = Type.SOLDIER;
 	}
-
 }

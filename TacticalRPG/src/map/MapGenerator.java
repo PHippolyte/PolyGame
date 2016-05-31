@@ -28,17 +28,11 @@ public class MapGenerator {
 
 	private void GenerationTerrain() {
 		LandGenerator();
-		System.out.println("Land generated");
 		WaterGenerator();
-		System.out.println("Water generated");
 		MountainGenerator();
-		System.out.println("Moutain generated");
 		BuildingGenerator();
-		System.out.println("Building generated");
 		BridgeGenerator();
-		System.out.println("Bridge generated");
 		ForestGenerator();
-		System.out.println("Forest generated");
 	}
 
 	private void BuildingGenerator() {
@@ -329,7 +323,6 @@ public class MapGenerator {
 			currentTiley = (int)(rand.nextInt(size));
 		}
 		int i=0;
-		System.out.println("Generating water");
 		while(i<=nbTile){
 			choice2=rand.nextInt(2);
 			x = currentTilex;
@@ -587,9 +580,7 @@ public class MapGenerator {
 				else if(map[i][j].getTypeTile()==TypeTile.FOREST){
 					type='F';
 				}
-				System.out.print(type);
 			}
-			System.out.println();
 		}
 	}
 

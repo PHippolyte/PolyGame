@@ -39,7 +39,10 @@ public class GameStateObserver implements Observer, GameStateConstant{
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		Game game = (Game)arg0;
-		this.view.changeScreen(this.controlers.get(game.getCurrentIntState()).getView());
+		GameStateControler c = this.controlers.get(game.getCurrentIntState());
+		c.init();
+		c.updateObserver();
+		this.view.changeScreen(c.getView());
 	}
 	
 }

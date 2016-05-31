@@ -23,4 +23,14 @@ public class MatchStateControler extends GameStateControler{
 		// TODO Auto-generated method stub
 		return this.view;
 	}
+	
+	public void init(){
+		
+	}
+
+	@Override
+	public void updateObserver() {
+		// TODO Auto-generated method stub
+		
+	}
 }

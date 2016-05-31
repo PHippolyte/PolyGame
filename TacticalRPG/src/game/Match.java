@@ -4,11 +4,14 @@ import map.Map;
 import team.Team;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import gameObject.*;
 import gameObject.Character;
 import gameObject.Character.Type;
+import gameObject.Tile.TypeTile;
+
 import gameStates.modes.*;
 
 public class Match{
@@ -108,21 +111,40 @@ public class Match{
 	
 	public void placeTeams(){
 		Random rand = new Random();
-		int placed =0;
-		int x = 0, y = 0;
+		boolean characterSet = false;
+		HashMap<Integer, ArrayList<Integer>> tilesUsed = new HashMap<Integer, ArrayList<Integer>>();
+		int posX, posY;
+		int sizeTeamZoneX = 10;
+		int sizeTeamZoneY = 10;
+		
 		for (Team team : this.teams){
 			for (Character c : team.getCharacters()){
-				while (this.map.getTile(x, y).getCharacter() != null){
-					if (rand.nextBoolean() == true) x++;
-					else y++;
+				while (!characterSet){
+					posX = rand.nextInt(sizeTeamZoneX);
+					posY = rand.nextInt(sizeTeamZoneY);
+					
+					if (!(tilesUsed.containsKey(posX)) ){
+						tilesUsed.put(posX, new ArrayList<Integer>());
+					}
+					
+					if (!(tilesUsed.get(posX).contains(posY))){
+						if (!(this.map.getTile(posX, posY).getTypeTile() == TypeTile.WATER)){
+							if (c.getTeam().getNum() == 0){
+								this.map.setCharacterAtTile(c, posX, posY);
+							}else {
+								this.map.setCharacterAtTile(c, posX + this.map.getNbCols()-sizeTeamZoneX, posY + this.map.getNbRows()-sizeTeamZoneY);
+							}
+							tilesUsed.get(posX).add(posY);
+							characterSet = true;
+						}
+					}
+					
 				}
-				this.map.setCharacterAtTile(c, x, y);
+				characterSet = false;
 			}
-			placed++;
-			x += placed*3;
-			y += placed *3;
 		}
 	}
+
 	
 	public int getNbTeam(){
 		return this.teams.size();

@@ -43,9 +43,9 @@ public class Map {
 		int y = T.getY();
 		
 		if (x>0) fourTile.add(this.getTile(x-1,y));
-		if (x<getNbCols()) fourTile.add(this.getTile(x+1,y));
+		if (x<getNbCols()-1) fourTile.add(this.getTile(x+1,y));
 		if (y>0) fourTile.add(this.getTile(x,y-1));
-		if (y<getNbRows()) fourTile.add(this.getTile(x,y+1));
+		if (y<getNbRows()-1) fourTile.add(this.getTile(x,y+1));
 		
 		return fourTile;
 	}

@@ -83,13 +83,13 @@ public class soundManager{
 	public void play(String name){
 		Clip sound = this.soundList.get(name);
 		
-			if(sound.isActive()){
-				sound.stop();
-			}
-			
-			sound.setFramePosition(0);
-			sound.start();
-			
+		if(sound.isActive()){
+			sound.stop();
+		}
+		
+		sound.setFramePosition(0);
+		sound.start();
+		
 	}
 	
 	public HashMap<String,Clip > getSoundList(){

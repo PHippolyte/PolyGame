@@ -123,18 +123,22 @@ public class Match{
 					posX = rand.nextInt(sizeTeamZoneX);
 					posY = rand.nextInt(sizeTeamZoneY);
 					
+					if (c.getTeam().getNum() == 1){
+						 posX += this.map.getNbCols()-sizeTeamZoneX;
+						 posY += this.map.getNbRows()-sizeTeamZoneY;						
+					}
+					
 					if (!(tilesUsed.containsKey(posX)) ){
 						tilesUsed.put(posX, new ArrayList<Integer>());
 					}
 					
 					if (!(tilesUsed.get(posX).contains(posY))){
-						if (!(this.map.getTile(posX, posY).getTypeTile() == TypeTile.WATER)){
-							if (c.getTeam().getNum() == 0){
-								this.map.setCharacterAtTile(c, posX, posY);
-							}else {
-								this.map.setCharacterAtTile(c, posX + this.map.getNbCols()-sizeTeamZoneX, posY + this.map.getNbRows()-sizeTeamZoneY);
-							}
+
+						if (this.map.getTile(posX,posY).getTypeTile() == TypeTile.WATER){
 							tilesUsed.get(posX).add(posY);
+						}else{
+							tilesUsed.get(posX).add(posY);
+							this.map.setCharacterAtTile(c, posX, posY);
 							characterSet = true;
 						}
 					}
@@ -144,6 +148,7 @@ public class Match{
 			}
 		}
 	}
+	
 
 	
 	public int getNbTeam(){

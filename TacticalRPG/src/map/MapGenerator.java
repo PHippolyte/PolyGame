@@ -303,7 +303,8 @@ public class MapGenerator {
 		int nbTile=(int)(rand.nextInt(size))+size;
 		int currentTilex=0;
 		int currentTiley=0;
-		int x,y,choice2;
+		int x,y,choice2,count=0;
+		boolean test1 = true,test2=true;
 		char dir=' ';
 		choice=rand.nextInt(4);
 		if (choice==0){
@@ -329,200 +330,230 @@ public class MapGenerator {
 			y = currentTiley;
 			// && map[y][x--].getTypeTile()!=TypeTile.WATER
 			if(choice==0){
-				if(choice2==0 && dir!='d' && x!=0){
+				if(choice2==0 && test1 && x!=0){
 					if(y>0 && y<size-1){
 						if( map[y--][x--].getTypeTile()!=TypeTile.WATER && map[y++][x--].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='g';
+							test2=false;
 							currentTilex--;
 						}
 					}
 					else if(y==size-1){
 						if( map[y--][x--].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='g';
+							test2=false;
 							currentTilex--;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='g';
+						test2=false;
 						currentTilex--;
 					}
+					count=0;
 				}
-				else if(choice2==1 && dir!='g' && x!=size-1){
+				else if(choice2==1 && test2 && x!=size-1){
 					if(y>0 && y<size-1){
 						if( map[y--][x++].getTypeTile()!=TypeTile.WATER && map[y++][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='d';
+							test1=false;
 							currentTilex++;
 						}
 					}
 					else if(y==size-1){
 						if( map[y--][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='d';
+							test1=false;
 							currentTilex++;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='d';
+						test1=false;
 						currentTilex++;
 					}
+					count=0;
 				}
 				else{
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-					dir=' ';
 					currentTiley++;
+					count++;
+					if(count>=2){
+						test1=test2=true;
+					}
 				}
 			}
 
 			else if(choice==1){
-				if(choice2==0 && dir!='d' && x!=0){
+				if(choice2==0 && test1 && x!=0){
 					if(y>0 && y<size-1){
 						if( map[y--][x--].getTypeTile()!=TypeTile.WATER && map[y++][x--].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='g';
+							test2=false;
 							currentTilex--;
+							count=0;
 						}
 					}
 					else if(y==0){
 						if( map[y++][x--].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='g';
+							test2=false;
 							currentTilex--;
+							count=0;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='g';
+						test2=false;
 						currentTilex--;
+						count=0;
 					}
 				}
-				else if(choice2==1 && dir!='g' && x!=size-1){
+				else if(choice2==1 && test2 && x!=size-1){
 					if(y>0 && y<size-1){
 						if( map[y--][x++].getTypeTile()!=TypeTile.WATER && map[y++][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='d';
+							test1=false;
 							currentTilex++;
+							count=0;
 						}
 					}
 					else if(y==0){
 						if( map[y++][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='d';
+							test1=false;
 							currentTilex++;
+							count=0;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='d';
+						test1=false;
 						currentTilex++;
+						count=0;
 					}
 				}
 				else if(y!=0){
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-					dir=' ';
 					currentTiley--;
+					count++;
+					if(count>=2){
+						test1=test2=true;
+					}
 				}
 			}
 			else if(choice==2){
-				if(choice2==0 && dir!='b' && y!=0){
+				if(choice2==0 && test1 && y!=0){
 					if(x>0 && x<size-1){
 						if( map[y--][x--].getTypeTile()!=TypeTile.WATER && map[y--][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='h';
+							test2=false;
 							currentTiley--;
+							count=0;
 						}
 					}
 					else if(x==size-1){
 						if( map[y--][x--].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='h';
+							test2=false;
 							currentTiley--;
+							count=0;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='h';
+						test2=false;
 						currentTiley--;
+						count=0;
 					}
 				}
-				else if(choice2==1 && dir!='h' && y!=size-1){
+				else if(choice2==1 && test2 && y!=size-1){
 					if(x>0 && x<size-1){
 						if( map[y++][x--].getTypeTile()!=TypeTile.WATER && map[y++][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='b';
+							test1=false;
 							currentTiley++;
+							count=0;
 						}
 					}
 					else if(x==size-1){
 						if( map[y++][x--].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='b';
+							test1=false;
 							currentTiley++;
+							count=0;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='b';
+						test1=false;
 						currentTiley++;
+						count=0;
 					}
 				}
 				else if(x!=size-1){
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-					dir=' ';
 					currentTilex++;
+					if(count>=2){
+						test1=test2=true;
+					}
 				}
 			}
 			else if(choice==3){
-				if(choice2==0 && dir!='b' && y!=0){
+				if(choice2==0 && test1 && y!=0){
 					if(x>0 && x<size-1){
 						if( map[y--][x--].getTypeTile()!=TypeTile.WATER && map[y--][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='h';
+							test2=false;
 							currentTiley--;
+							count=0;
 						}
 					}
 					else if(x==0){
 						if( map[y--][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='h';
+							test2=false;
 							currentTiley--;
+							count=0;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='h';
+						test2=false;
 						currentTiley--;
+						count=0;
 					}
 				}
-				else if(choice2==1 && dir!='h' && y!=size-1){
+				else if(choice2==1 && test2 && y!=size-1){
 					if(x>0 && x<size-1){
 						if( map[y++][x--].getTypeTile()!=TypeTile.WATER && map[y++][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='b';
+							test1=false;
 							currentTiley++;
+							count=0;
 						}
 					}
 					else if(x==0){
 						if( map[y++][x++].getTypeTile()!=TypeTile.WATER){
 							map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-							dir='b';
+							test1=false;
 							currentTiley++;
+							count=0;
 						}
 					}
 					else{
 						map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-						dir='b';
+						test1=false;
 						currentTiley++;
+						count=0;
 					}
 				}
 				else if(x!=0){
 					map[currentTiley][currentTilex]=new WaterTile(currentTilex, currentTiley);
-					dir=' ';
 					currentTilex--;
+					if(count>=2){
+						test1=test2=true;
+					}
 				}
 			}
 			//&& map[y][x++].getTypeTile()!=TypeTile.WATER

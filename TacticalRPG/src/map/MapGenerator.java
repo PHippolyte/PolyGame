@@ -305,7 +305,6 @@ public class MapGenerator {
 		int currentTiley=0;
 		int x,y,choice2,count=0;
 		boolean test1 = true,test2=true;
-		char dir=' ';
 		choice=rand.nextInt(4);
 		if (choice==0){
 			currentTilex = (int)(rand.nextInt(size));

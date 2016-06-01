@@ -10,7 +10,8 @@ import javax.sound.sampled.Clip;
 public class soundManager{
 
 	private Clip cur, cancel, enter, att, def, move, heal, menu, matt, error, turn;
-	private Clip spellArrow, spellBoost, spellFireball, spellHeal, spellMeteore, spellResurect, spellRoot, spellShield, spellSprint;
+	private Clip spellArrow, spellBoost, spellFireball, spellHeal, spellMeteore,
+		spellResurect, spellRoot, spellShield, spellSprint, spellIceField, spellLessAction;
 	private HashMap<String, Clip> soundList;
 
 	
@@ -107,7 +108,7 @@ public class soundManager{
 			spellArrow = AudioSystem.getClip();
 			AudioInputStream inputStreamSArrow = AudioSystem.getAudioInputStream(arrowf);
 			spellArrow.open(inputStreamSArrow);
-			soundList.put("spellArrow",spellArrow);
+			soundList.put("spellMultiArrow",spellArrow);
 			
 			File boostf = new File("ressources/sounds/sound_spellBoost.wav");
 			spellBoost = AudioSystem.getClip();
@@ -137,7 +138,7 @@ public class soundManager{
 			spellResurect = AudioSystem.getClip();
 			AudioInputStream inputStreamSResurect = AudioSystem.getAudioInputStream(resurectf);
 			spellResurect.open(inputStreamSResurect);
-			soundList.put("spellResurect",spellResurect);
+			soundList.put("spellReanimation",spellResurect);
 			
 			File rootf = new File("ressources/sounds/sound_spellRoot.wav");
 			spellRoot = AudioSystem.getClip();
@@ -149,13 +150,25 @@ public class soundManager{
 			spellShield = AudioSystem.getClip();
 			AudioInputStream inputStreamSShield = AudioSystem.getAudioInputStream(shieldf);
 			spellShield.open(inputStreamSShield);
-			soundList.put("spellShield",spellShield);
+			soundList.put("spellDivineShield",spellShield);
 			
 			File sprintf = new File("ressources/sounds/sound_spellSprint.wav");
 			spellSprint = AudioSystem.getClip();
 			AudioInputStream inputStreamSSprint = AudioSystem.getAudioInputStream(sprintf);
 			spellSprint.open(inputStreamSSprint);
-			soundList.put("spellRoot",spellSprint);
+			soundList.put("spellSprint",spellSprint);
+			
+			File icef = new File("ressources/sounds/sound_spellIceField.wav");
+			spellIceField = AudioSystem.getClip();
+			AudioInputStream inputStreamSIce = AudioSystem.getAudioInputStream(icef);
+			spellIceField.open(inputStreamSIce);
+			soundList.put("spellIceField",spellSprint);
+			
+			File lessf = new File("ressources/sounds/sound_spellLessAction.wav");
+			spellLessAction = AudioSystem.getClip();
+			AudioInputStream inputStreamSLess = AudioSystem.getAudioInputStream(lessf);
+			spellLessAction.open(inputStreamSLess);
+			soundList.put("spellLessAction",spellLessAction);
 			
 
 		}catch(Exception e){

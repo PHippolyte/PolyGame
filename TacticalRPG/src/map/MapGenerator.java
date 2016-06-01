@@ -134,9 +134,9 @@ public class MapGenerator {
 			}
 		}
 	}
-	//*
+
 	private void BridgeGenerator() {
-		int nbBridge=5;
+		int nbBridge=size/2;
 		int bridgeX[] = new int[size*size];
 		int bridgeY[] = new int[size*size];
 		int n=0;
@@ -164,49 +164,7 @@ public class MapGenerator {
 		}
 
 	}
-	/*/
-	private void BridgeGenerator() {
-		// TODO Auto-generated method stub
-		int nbBridge=5,i,j,nb=0;
-		int build,end=0;
-		if (choice==0 || choice==1){
-			while(nb<nbBridge){
-				for(j=0;j<size;j++){
-					build=(int) (rand.nextInt(4));
-					for(i=0;i<size;i++){
-						if(map[i][j].getTypeTile()== TypeTile.WATER && build==0){
-							map[i][j]= new BridgeTile(i,j);
-							end=1;
-						}
-						else if (map[i][j].getTypeTile()== TypeTile.LAND && end==1){
-							end=0;
-							build=1;
-							nb++;
-						}
-					}
-				}
-			}
-		}
-		else if (choice==2 || choice==3){
-			while(nb<nbBridge){
-				for(i=0;i<size;i++){
-					build=(int) (rand.nextInt(4));
-					for(j=0;j<size;j++){
-						if(map[i][j].getTypeTile()== TypeTile.WATER && build==0){
-							map[i][j]= new BridgeTile(i,j);
-							end=1;
-						}
-						else if (map[i][j].getTypeTile()== TypeTile.LAND && end==1){
-							end=0;
-							build=1;
-							nb++;
-						}
-					}
-				}
-			}
-		}
-	}
-	//*/
+
 	private void ForestGenerator() {
 		// TODO Auto-generated method stub
 		int nb_title=size*number+(int)rand.nextInt(16);
@@ -305,133 +263,135 @@ public class MapGenerator {
 		int currentTiley=0;
 		int x,y,choice2,count=0;
 		boolean test1 = true,test2=true;
-		choice=rand.nextInt(4);
-		if (choice==0){
-			currentTilex = (int)(rand.nextInt(size));
-			currentTiley = 0;
-		}
-		else if (choice==1){
-			currentTilex = (int)(rand.nextInt(size));
-			currentTiley = size-1;
-		}
-		else if (choice==2){
-			currentTilex = 0;
-			currentTiley = (int)(rand.nextInt(size));
-		}
-		else if (choice==3){
-			currentTilex = size-1;
-			currentTiley = (int)(rand.nextInt(size));
-		}
-		int i=0;
-		while(i<=nbTile){
-			choice2=rand.nextInt(2);
-			x = currentTilex;
-			y = currentTiley;
-			// && map[y][x--].getTypeTile()!=TypeTile.WATER
-			if(choice==0){
-				if(choice2==0 && test1 && x!=0){
+		int j;
+		for(j=0;j<number;j++){
+			choice=rand.nextInt(4);
+			if (choice==0){
+				currentTilex = (int)(rand.nextInt(size));
+				currentTiley = 0;
+			}
+			else if (choice==1){
+				currentTilex = (int)(rand.nextInt(size));
+				currentTiley = size-1;
+			}
+			else if (choice==2){
+				currentTilex = 0;
+				currentTiley = (int)(rand.nextInt(size));
+			}
+			else if (choice==3){
+				currentTilex = size-1;
+				currentTiley = (int)(rand.nextInt(size));
+			}
+			int i=0;
+			while(i<=nbTile){
+				choice2=rand.nextInt(2);
+				x = currentTilex;
+				y = currentTiley;
+				if(choice==0){
+					if(choice2==0 && test1 && x!=0){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test2=false;
-					currentTilex--;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test2=false;
+						currentTilex--;
 
-					count=0;
-				}
-				else if(choice2==1 && test2 && x!=size-1){
+						count=0;
+					}
+					else if(choice2==1 && test2 && x!=size-1){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test1=false;
-					currentTilex++;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test1=false;
+						currentTilex++;
 
-					count=0;
-				}
-				else{
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					currentTiley++;
-					count++;
-					if(count>=2){
-						test1=test2=true;
+						count=0;
+					}
+					else{
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						currentTiley++;
+						count++;
+						if(count>=2){
+							test1=test2=true;
+						}
 					}
 				}
-			}
 
-			else if(choice==1){
-				if(choice2==0 && test1 && x!=0){
+				else if(choice==1){
+					if(choice2==0 && test1 && x!=0){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test2=false;
-					currentTilex--;
-					count=0;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test2=false;
+						currentTilex--;
+						count=0;
 
-				}
-				else if(choice2==1 && test2 && x!=size-1){
+					}
+					else if(choice2==1 && test2 && x!=size-1){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test1=false;
-					currentTilex++;
-					count=0;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test1=false;
+						currentTilex++;
+						count=0;
 
-				}
-				else if(y!=0){
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					currentTiley--;
-					count++;
-					if(count>=2){
-						test1=test2=true;
+					}
+					else if(y!=0){
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						currentTiley--;
+						count++;
+						if(count>=2){
+							test1=test2=true;
+						}
 					}
 				}
-			}
-			else if(choice==2){
-				if(choice2==0 && test1 && y!=0){
+				else if(choice==2){
+					if(choice2==0 && test1 && y!=0){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test2=false;
-					currentTiley--;
-					count=0;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test2=false;
+						currentTiley--;
+						count=0;
 
-				}
-				else if(choice2==1 && test2 && y!=size-1){
+					}
+					else if(choice2==1 && test2 && y!=size-1){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test1=false;
-					currentTiley++;
-					count=0;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test1=false;
+						currentTiley++;
+						count=0;
 
-				}
-				else if(x!=size-1){
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					currentTilex++;
-					if(count>=2){
-						test1=test2=true;
+					}
+					else if(x!=size-1){
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						currentTilex++;
+						if(count>=2){
+							test1=test2=true;
+						}
 					}
 				}
-			}
-			else if(choice==3){
-				if(choice2==0 && test1 && y!=0){
+				else if(choice==3){
+					if(choice2==0 && test1 && y!=0){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test2=false;
-					currentTiley--;
-					count=0;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test2=false;
+						currentTiley--;
+						count=0;
 
-				}
-				else if(choice2==1 && test2 && y!=size-1){
+					}
+					else if(choice2==1 && test2 && y!=size-1){
 
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					test1=false;
-					currentTiley++;
-					count=0;
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						test1=false;
+						currentTiley++;
+						count=0;
 
-				}
-				else if(x!=0){
-					map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
-					currentTilex--;
-					if(count>=2){
-						test1=test2=true;
+					}
+					else if(x!=0){
+						map[currentTilex][currentTiley]=new WaterTile(currentTilex, currentTiley);
+						currentTilex--;
+						if(count>=2){
+							test1=test2=true;
+						}
 					}
 				}
+				i++;
 			}
-			i++;
 		}
 	}
 

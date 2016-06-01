@@ -1,42 +1,43 @@
 package view.mainMenu;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-import javax.swing.JPanel;
-
-import view.GameComponent;
+import view.GameElementPanel;
 import view.GamePanel;
 
 @SuppressWarnings("serial")
 public class MainMenuPanel extends GamePanel{
-	private GameComponent modeButton;
-	private GameComponent loadButton;
-	private GameComponent exitButton;
-
-	private Boolean paintCursor;
+	private GameElementPanel modeButton;
+	private GameElementPanel loadButton;
+	private GameElementPanel exitButton;
 
 	public MainMenuPanel(){
 		this.init = true;
 		
-		this.loadBackground("ressources/menu/mainMenu/Background.jpg");
-		//this.paintCursor = true;
-
 		//ajout du layout
 		this.setLayout(null);
 
 		//creation des boutons
-		this.modeButton = new ModeButtonPanel();
-		this.loadButton = new ModeButtonPanel();
-		this.exitButton = new ModeButtonPanel();
+		this.modeButton = new ModeButtonPanel("ressources/menu/mainMenu/modeButton.png");
+		this.loadButton = new ModeButtonPanel("ressources/menu/mainMenu/loadButton.png");
+		this.exitButton = new ModeButtonPanel("ressources/menu/mainMenu/exitButton.png");
 		
 		this.modeButton.setBounds(220, 60, 200, 80);
 		this.loadButton.setBounds(220, 200, 200, 80);
 		this.exitButton.setBounds(220, 340, 200, 80);
 
-		//config des boutons
-		this.modeButton.loadBackground("ressources/menu/mainMenu/NewGame.jpg");
-		this.loadButton.loadBackground("ressources/menu/mainMenu/LoadGame.jpg");
-		this.exitButton.loadBackground("ressources/menu/mainMenu/ExitGame.jpg");
+		//chargement des images
+		BufferedImage buttonBg = this.load("ressources/menu/mainMenu/buttonBackground.png");
+		BufferedImage buttonSelectBg = this.load("ressources/menu/mainMenu/buttonSelected.png");
+		
+		this.modeButton.setBackgroundImage(buttonBg);
+		this.loadButton.setBackgroundImage(buttonBg);
+		this.exitButton.setBackgroundImage(buttonBg);
+		
+		this.modeButton.setBgSelected(buttonSelectBg);
+		this.loadButton.setBgSelected(buttonSelectBg);
+		this.exitButton.setBgSelected(buttonSelectBg);
 
 		//ajouts des composents
 		this.add(this.modeButton);
@@ -59,16 +60,22 @@ public class MainMenuPanel extends GamePanel{
 	public void init(){
 		this.init = true;
 	}
+	
+	public void resetPanel(){
+		this.modeButton.setSelected(false);
+		this.loadButton.setSelected(false);
+		this.exitButton.setSelected(false);
+	}
 
-	public JPanel getModeButton() {
+	public GameElementPanel getModeButton() {
 		return modeButton;
 	}
 
-	public JPanel getLoadButton() {
+	public GameElementPanel getLoadButton() {
 		return loadButton;
 	}
 
-	public JPanel getExitButton() {
+	public GameElementPanel getExitButton() {
 		return exitButton;
 	}
 }

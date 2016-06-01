@@ -3,16 +3,13 @@ package view.teamMenu;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import view.GameComponent;
+import view.GameElementPanel;
 
 @SuppressWarnings("serial")
-public class SoldierPanel extends GameComponent{
-	private boolean selected;
+public class SoldierPanel extends GameElementPanel{
 	private BufferedImage soldierIcone;
 	private BufferedImage soldierName;
 	private int num;
-	
-	private BufferedImage bgSelected;
 	
 	public SoldierPanel(int num){
 		this.selected = false;
@@ -41,10 +38,6 @@ public class SoldierPanel extends GameComponent{
 		g.drawImage(this.soldierName, this.getX()+this.soldierIcone.getWidth()+30, this.getY()+dy2, this);
 	}
 	
-	public void setSelected(boolean b){
-		this.selected = b;
-	}
-	
 	public void setIcone(BufferedImage img){
 		this.soldierIcone = img;
 	}
@@ -55,9 +48,5 @@ public class SoldierPanel extends GameComponent{
 	
 	public int getNum(){
 		return this.num;
-	}
-	
-	public void setBgSelected(BufferedImage img){
-		this.bgSelected = img;
 	}
 }

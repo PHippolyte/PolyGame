@@ -186,6 +186,9 @@ public class Map {
 						tile.load("ressources/tiles/bridge2.png");
 					}
 					break;
+				case FOREST:
+					tile.load("ressources/tiles/forest"+this.valueForest(x, y)+".png");
+					break;
 				default:
 					break;
 				}
@@ -211,6 +214,17 @@ public class Map {
 		if ((v&3)==0 && y > 0 && x < this.ncols-1 && this.getTile(x+1, y-1).getTypeTile() != TypeTile.WATER) value += 2;
 		if ((v&6)==0 && y < this.nrows-1 && x < this.ncols-1 && this.getTile(x+1, y+1).getTypeTile() != TypeTile.WATER) value += 4;
 		if ((v&12)==0 && y < this.nrows-1 && x > 0 && this.getTile(x-1, y+1).getTypeTile() != TypeTile.WATER) value += 8;
+		return value;
+	}
+	
+	private int valueForest(int x, int y){
+		int value = 0;
+		
+		if (y > 0 && this.getTile(x, y-1).getTypeTile() != TypeTile.FOREST) value += 1;
+		if (x < this.ncols-1 && this.getTile(x+1, y).getTypeTile() != TypeTile.FOREST) value += 2;
+		if (y < this.nrows-1 && this.getTile(x, y+1).getTypeTile() != TypeTile.FOREST) value += 4;
+		if (x > 0 && this.getTile(x-1, y).getTypeTile() != TypeTile.FOREST) value += 8;
+		
 		return value;
 	}
 }

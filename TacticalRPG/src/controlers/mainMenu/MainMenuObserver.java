@@ -21,6 +21,19 @@ public class MainMenuObserver implements Observer{
 		// TODO Auto-generated method stub
 		MainMenu model = (MainMenu)arg0;
 		int button = model.getCursor().getY();
+		
+		view.resetPanel();
+		switch(button){
+		case 0:
+			view.getModeButton().setSelected(true);
+			break;
+		case 1:
+			view.getLoadButton().setSelected(true);
+			break;
+		case 2:
+			view.getExitButton().setSelected(true);
+			break;
+		}
 
 		this.view.repaint();
 

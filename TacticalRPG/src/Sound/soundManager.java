@@ -11,7 +11,7 @@ import javax.sound.sampled.Clip;
 
 public class soundManager{
 
-	private Clip cur, cancel, enter, att, def, move, heal, menu, matt;
+	private Clip cur, cancel, enter, att, def, move, heal, menu, matt, error, turn;
 	private HashMap<String, Clip> soundList;
 
 	
@@ -72,7 +72,19 @@ public class soundManager{
 			menu = AudioSystem.getClip();
 			AudioInputStream inputStreamMenu = AudioSystem.getAudioInputStream(menuf);
 			menu.open(inputStreamMenu);
-			soundList.put("menu",menu);	
+			soundList.put("menu",menu);
+			
+			File errorf = new File("ressources/sounds/sound_erreur.wav");
+			error = AudioSystem.getClip();
+			AudioInputStream inputStreamError = AudioSystem.getAudioInputStream(errorf);
+			error.open(inputStreamError);
+			soundList.put("error",error);	
+			
+			File turnf = new File("ressources/sounds/sound_endturn.wav");
+			turn = AudioSystem.getClip();
+			AudioInputStream inputStreamTurn = AudioSystem.getAudioInputStream(turnf);
+			turn.open(inputStreamTurn);
+			soundList.put("turn",turn);	
 			
 		}catch(Exception e){
 			System.out.println(e.getMessage());

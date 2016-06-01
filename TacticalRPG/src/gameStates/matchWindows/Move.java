@@ -41,6 +41,8 @@ public class Move extends StateMatch{
 			matchState.getSoundManager().play("move");
 			this.matchState.setCurrentState(IDLE);
 		} else {
+			matchState.getSoundManager().play("error");
+			this.matchState.switchCancelSound();
 			System.out.println("Opération impossible");
 		}
 	}

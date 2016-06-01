@@ -90,16 +90,16 @@ public class MatchState extends GameState implements MatchStateConstant{
 	public Heal getHealState(){
 		return (Heal)this.states.get(HEAL);
 	}
+	
+	public void switchCancelSound(){
+		cancelsound = !cancelsound;
+	}
 	//fonction de d�placement du curseur
 	
 	@Override
 	public void doAction() {
 		this.states.get(this.currentState).doAction();//on fait l'action demandé
 		this.getMatch().getCurrentTeam().udpdate();//on met a jour l'équipe
-		
-		if (!cancelsound){
-			this.getSoundManager().play("enter");
-		}else cancelsound = false;
 		
 		if (this.match.getMode().isWon()){//si partie gagné
 			System.out.println("Game Over");
@@ -108,9 +108,15 @@ public class MatchState extends GameState implements MatchStateConstant{
 		}
 		
 		if (this.match.getCurrentTeam().isDone()){//si l'équipe a fini de joué
+			this.getSoundManager().play("turn");
 			this.match.getCurrentTeam().setTeamDone(false);
 			this.match.setNextTeam();
+			this.cancelsound = true;
 		}
+		
+		if (!cancelsound){
+			this.getSoundManager().play("enter");
+		}else cancelsound = false;
 		
 		this.setChanged();
 		this.notifyObservers();

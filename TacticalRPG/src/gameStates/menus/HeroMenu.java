@@ -19,6 +19,7 @@ public class HeroMenu extends Menu{
 		//ENREGISTREMENT DE TOUT LES HEROS
 		this.h = new HashMap<Integer,Hero>();
 		
+		//AJOUTS DES HEROS
 		this.h.put(0, new HeroLyndis());
 		
 		this.nbButton = this.h.size();
@@ -68,11 +69,16 @@ public class HeroMenu extends Menu{
 	@Override
 	public void moveCursorUp() {
 		this.getSoundManager().play("cursor");
-		if (this.cursor.getY() > 0){
+		int num = this.cursor.getX()+(this.nbColHero*(this.cursor.getY()-1));
+		
+		if (num >= 0){
 			this.cursor.moveUp();
 		} else {
-			this.cursor.setY(this.nbRowHero-1);
+			int aimedY = cursor.getY()+1;
+			while (this.cursor.getX()+(this.nbColHero*aimedY) > this.h.size()-1) aimedY--;
+			this.cursor.setY(aimedY);
 		}
+		
 		this.setChanged();
 		this.notifyObservers();
 		
@@ -82,11 +88,12 @@ public class HeroMenu extends Menu{
 	@Override
 	public void moveCursorDown() {
 		this.getSoundManager().play("cursor");
-		if (this.cursor.getY() < this.nbRowHero-1){
+		int num = this.cursor.getX()+(this.nbColHero*(this.cursor.getY()+1));
+		
+		if (num < this.h.size()){
 			this.cursor.moveDown();
-		} else {
-			this.cursor.setY(0);
-		}
+		} else this.cursor.setY(0);
+		
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -95,11 +102,14 @@ public class HeroMenu extends Menu{
 	@Override
 	public void moveCursorRight() {
 		this.getSoundManager().play("cursor");
-		if (this.cursor.getX() < this.nbColHero-1){
+		int num = this.cursor.getX()+(this.nbColHero*(this.cursor.getY()))+1;
+		
+		if (this.cursor.getX() < this.nbColHero-1 && num < this.h.size()){
 			this.cursor.moveRight();
 		} else {
-			this.cursor.setX(0);
+			this.cursor.setX(0);	
 		}
+		
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -108,10 +118,13 @@ public class HeroMenu extends Menu{
 	@Override
 	public void moveCursorLeft() {
 		this.getSoundManager().play("cursor");
+
 		if (this.cursor.getX() > 0){
 			this.cursor.moveLeft();
 		} else {
-			this.cursor.setX(this.nbColHero-1);
+			int aimedX = cursor.getX()+this.nbColHero-1;
+			while (aimedX+(this.nbColHero*this.cursor.getY()) > this.h.size()-1) aimedX--;
+			this.cursor.setX(aimedX);
 		}
 		this.setChanged();
 		this.notifyObservers();

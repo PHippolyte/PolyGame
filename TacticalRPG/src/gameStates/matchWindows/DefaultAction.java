@@ -63,7 +63,6 @@ public class DefaultAction extends StateMatch{
 		} else {
 			this.currentButton = 0;
 		}
-		System.out.println(this.getCurrentButton());
 	}
 
 

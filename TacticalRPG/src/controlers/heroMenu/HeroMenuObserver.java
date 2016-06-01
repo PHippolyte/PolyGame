@@ -1,6 +1,5 @@
 package controlers.heroMenu;
 
-import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,8 +17,12 @@ public class HeroMenuObserver implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		HeroMenu model = (HeroMenu)arg0;
+		int num = model.getCursor().getX()+(model.getNbCol()*model.getCursor().getY());
 		
-		this.view.resetPanel();
+		view.resetPanel();	
+		view.getHero(num).setSelected(true);
+		
+		this.view.repaint();
 		
 	}
 

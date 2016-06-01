@@ -1,6 +1,7 @@
 package view.HeroMenu;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import view.GamePanel;
@@ -16,7 +17,10 @@ public class HeroMenuPanel extends GamePanel{
 		this.init = true;
 		
 		this.heros = new ArrayList<HeroPanel>();
+		
 		this.nbHero = nbHero;
+		this.ny = 3;
+		
 		this.setLayout(null);
 	
 		this.loadBackground("ressources/menu/heroMenu/Background.png");
@@ -34,14 +38,31 @@ public class HeroMenuPanel extends GamePanel{
 	}
 	
 	private void positionPanel(){
-		int width = this.getWidth()/3;
-		int height = this.getHeight()/(1+this.nbHero%3);
-		System.out.println(width+','+height);
+		int width = this.getWidth()/ny;
+		int height = (this.getHeight()-60)/3;
+		int x = 0;
+		int y = 60;
+		int counter = 0;
+		for (HeroPanel p : this.heros){
+			p.setBounds(x, y, width, height);
+			x+=width;
+			counter++;
+			if (counter == ny){
+				counter = 0;
+				y+=height;
+				x = 0;
+			}
+		}
 	}
 	
 	private void createPanels(){
+		BufferedImage heroBg = this.load("ressources/menu/heroMenu/HeroBackground.png");
+		BufferedImage heroSelect = this.load("ressources/menu/heroMenu/HeroSelected.png");
 		for (int i=0; i<this.nbHero; i++){
-			this.heros.add(new HeroPanel(i));
+			HeroPanel p = new HeroPanel(i);
+			p.setBackgroundImage(heroBg);
+			p.setBgSelected(heroSelect);
+			this.heros.add(p);
 		}
 	}
 	
@@ -67,16 +88,25 @@ public class HeroMenuPanel extends GamePanel{
 		if (this.init){
 			g.drawImage(this.bg, 0, 0,this);
 		}
-		this.resetPanel();
+		
+		this.paintPanels(g);
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 		this.init = true;
 	}
 	
+	public void paintPanels(Graphics g){
+		for (HeroPanel p : this.heros){
+			p.paint(g);
+		}
+	}
+	
+	
 	public void resetPanel(){
-		
+		for (HeroPanel p : this.heros){
+			p.setSelected(false);
+		}
 	}
 }

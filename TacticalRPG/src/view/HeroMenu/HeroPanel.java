@@ -3,10 +3,10 @@ package view.HeroMenu;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import view.GameComponent;
+import view.GameElementPanel;
 
 @SuppressWarnings("serial")
-public class HeroPanel extends GameComponent{
+public class HeroPanel extends GameElementPanel{
 	private int num;
 	private BufferedImage text;
 	
@@ -21,6 +21,7 @@ public class HeroPanel extends GameComponent{
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(this.bg, 0, 0, this);
+		if (this.selected) g.drawImage(this.bgSelected, this.getX(), this.getY(), this.getWidth(), this.getHeight(), this);
+		else g.drawImage(this.bg, this.getX(), this.getY(), this.getWidth(), this.getHeight(), this);
 	}
 }

@@ -7,11 +7,11 @@ import java.util.List;
 public class Charge extends spellEffect.Spell{
 
 	public Charge() {
-		super(150, 3, 3);
+		super(150, 3, 3, TypeSpell.CHARGE);
 		// TODO Auto-generated constructor stub
 	}
 
-	void throwAttack(List<Character> List){
+	public void charge(List<Character> List){
 		for(gameObject.Character character : List){
 			character.doDamage(this.damage);
 		}

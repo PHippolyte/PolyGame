@@ -4,14 +4,16 @@ import gameObject.Character;
 
 import java.util.List;
 
+import spellEffect.Spell.TypeSpell;
+
 public class MultiArrow extends spellEffect.Spell{
 
 	public MultiArrow(List<Character> List) {
-		super(150, 3, 3);
+		super(150, 3, 3, TypeSpell.MULTIARROW);
 		// TODO Auto-generated constructor stub
 	}
 
-	void multi(List<Character> List){
+	public void multi(List<Character> List){
 		for(gameObject.Character character : List){
 			character.doDamage(this.damage);
 		}

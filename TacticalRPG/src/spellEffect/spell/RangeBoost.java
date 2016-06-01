@@ -5,16 +5,17 @@ import gameObject.Character;
 import java.util.List;
 
 import spellEffect.Effect;
+import spellEffect.Spell.TypeSpell;
 import spellEffect.effect.RangeBoostEffect;
 
 public class RangeBoost extends spellEffect.Spell{
 
 	public RangeBoost () {
-		super(150, 0, 0);
+		super(150, 0, 0, TypeSpell.RANGEBOOST);
 		
 	}
 	
-	void dodge(Character character){
+	public void rBoost(Character character){
 		Effect effect = new RangeBoostEffect(character);
 		((RangeBoostEffect) effect).range();
 	}

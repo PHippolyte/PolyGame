@@ -8,4 +8,5 @@ public interface MatchStateConstant {
 	public static final int MOVE = 3;
 	public static final int DEFAULTACTION = 4;
 	public static final int HEAL = 5;
+	public static final int SPELL = 6;
 }

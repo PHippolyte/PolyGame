@@ -28,6 +28,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 		this.states.put(MOVE, new Move(this,this.cursor));
 		this.states.put(DEFAULTACTION, new DefaultAction(this,this.cursor));
 		this.states.put(HEAL, new Heal(this,this.cursor));
+		this.states.put(SPELL, new Heal(this,this.cursor));
 		
 	}
 	

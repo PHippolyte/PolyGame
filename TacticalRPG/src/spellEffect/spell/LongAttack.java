@@ -4,14 +4,16 @@ import gameObject.Character;
 
 import java.util.List;
 
+import spellEffect.Spell.TypeSpell;
+
 public class LongAttack extends spellEffect.Spell {
 
 	public LongAttack() {
-		super(300, 10, 8);
+		super(300, 10, 8, TypeSpell.LONGATTACK);
 		// TODO Auto-generated constructor stub
 	}
 
-	void LongDamage(int caseAx, int caseAy, int caseBx, int caseBy, List<Character> List){
+	public void LongDamage(int caseAx, int caseAy, int caseBx, int caseBy, List<Character> List){
 		int max = Math.abs(caseAx-caseBx);
 		if(max<Math.abs(caseAy-caseBy)){
 			max = Math.abs(caseAy-caseBy);

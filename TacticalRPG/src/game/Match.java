@@ -53,6 +53,7 @@ public class Match{
 	}
 	
 	public void setNextTeam(){
+		this.resetTeam();
 		if (this.currentTeam != this.getNbTeam()-1){
 			this.currentTeam += 1;
 		} else {
@@ -62,6 +63,12 @@ public class Match{
 	
 	public ArrayList<Team> getTeams(){
 		return this.teams;
+	}
+	
+	private void resetTeam(){
+		for (Team t : this.teams){
+			t.reset();
+		}
 	}
 	
 	public void addHeroToCurrentTeam(Hero hero){

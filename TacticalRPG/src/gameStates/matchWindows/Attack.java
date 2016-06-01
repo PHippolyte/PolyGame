@@ -105,7 +105,7 @@ public class Attack extends StateMatch{
 						ennemy.doDamage(AttackMagic(ennemy, tile));
 					}
 					
-					this.selectedCharacter.setDone(true);//personnage devient inactif
+					this.selectedCharacter.action();//personnage s'épuise
 					if (ennemy.getHealth() <= 0) {
 						this.matchState.getMatch().removeCharacter(ennemy);
 					}

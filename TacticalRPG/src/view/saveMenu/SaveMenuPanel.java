@@ -53,6 +53,10 @@ public class SaveMenuPanel extends GamePanel{
 		this.init = true;
 	}
 	
+	public void resetPanel(){
+		
+	}
+	
 	public JPanel getSave1() {
 		return save1;
 	}

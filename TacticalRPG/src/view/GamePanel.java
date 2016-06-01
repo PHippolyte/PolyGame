@@ -23,4 +23,5 @@ public abstract class GamePanel extends GameComponent{
 	}
 	
 	public abstract void init();
+	public abstract void resetPanel();
 }

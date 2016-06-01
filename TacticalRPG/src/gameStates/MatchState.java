@@ -107,7 +107,7 @@ public class MatchState extends GameState implements MatchStateConstant{
 			this.game.destroyMatch();
 		}
 		
-		if (this.match.getCurrentTeam().getDone() == true){//si l'équipe a fini de joué
+		if (this.match.getCurrentTeam().isDone()){//si l'équipe a fini de joué
 			this.match.getCurrentTeam().setTeamDone(false);
 			this.match.setNextTeam();
 		}

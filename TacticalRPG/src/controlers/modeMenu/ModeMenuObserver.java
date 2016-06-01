@@ -1,6 +1,5 @@
 package controlers.modeMenu;
 
-import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,11 +18,10 @@ public class ModeMenuObserver implements Observer{
 		ModeMenu model = (ModeMenu)arg0;
 		int button = model.getCursor().getY();
 		
-		
-		this.view.getMode1().setBackground(Color.LIGHT_GRAY);
+		this.view.resetPanel();
 		switch(button){
 		case(0):
-			this.view.getMode1().setBackground(Color.GREEN);
+			this.view.getMode1().setSelected(true);
 		}
 	}
 

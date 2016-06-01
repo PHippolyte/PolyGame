@@ -15,6 +15,8 @@ public abstract class Character extends MapObject{
 	public enum TypeAttack {PHYSICAL, MAGICAL, HEAL}
 	
 	private boolean done;
+	private int nbActionMax;
+	private int nbAction;
 	
 	protected Team team;
 	protected Type type;
@@ -59,6 +61,9 @@ public abstract class Character extends MapObject{
 		this.maxHealth = health;
 		this.heal = heal;
 		this.typeAttack = typeAttack;
+		
+		this.nbActionMax = 2;
+		this.nbAction = this.nbActionMax;
 	}
 	
 	public String toString(){
@@ -75,12 +80,25 @@ public abstract class Character extends MapObject{
 		}
 	}
 	
-	public void setDone(boolean done){
-		this.done = done;
+	public void action(){
+		this.nbAction--;
+		if (this.nbAction == 0) this.done = true;
 	}
 	
-	public boolean getDone(){
+	public boolean isDone(){
 		return this.done;
+	}
+	
+	public void setDone(Boolean b){
+		this.done = b;
+		if (done = true){
+			this.nbAction = 0;
+		} else this.nbAction = this.nbActionMax;
+	}
+	
+	public void reset(){
+		this.nbAction = this.nbActionMax;
+		this.done = false;
 	}
 	
 	public void doDamage(int damage){

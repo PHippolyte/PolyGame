@@ -44,6 +44,10 @@ public class TeamMenuPanel extends GamePanel{
 		this.repaint();
 	}
 	
+	public void resetPanel(){
+		
+	}
+	
 	public void paint(Graphics g){
 		if (this.init){
 			g.drawImage(this.bg, 0, 0, this);

@@ -84,11 +84,17 @@ public class Team {
 	public boolean isDone(){
 		boolean done = true;
 		for (Character c : this.team){
-			if (c.getDone() == false){
+			if (c.isDone() == false){
 				done = false;
 			}
 		}
 		return done;
+	}
+	
+	public void reset(){
+		for (Character c : this.team){
+			c.reset();
+		}
 	}
 	
 	public void udpdate(){

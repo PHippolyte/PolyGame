@@ -4,6 +4,7 @@ import controlers.GameStateControler;
 import gameStates.menus.HeroMenu;
 import view.GamePanel;
 import view.HeroMenu.HeroMenuPanel;
+import view.HeroMenu.HeroPanel;
 
 public class HeroMenuControler extends GameStateControler{
 	private HeroMenu model;
@@ -22,10 +23,8 @@ public class HeroMenuControler extends GameStateControler{
 	}
 	
 	private void addListener(){
-		for (int i=0; i<this.model.getNbCol(); i++){
-			for (int j=0; j<this.model.getNbRow(); j++){
-				this.view.getHero(i, j).addMouseListener(new HeroPaneListener(this.model,this.view.getHero(i, j)));
-			}
+		for (HeroPanel p : this.view.getHeroPanels()){
+			p.addMouseListener(new HeroPaneListener(model, p));
 		}
 	}
 	

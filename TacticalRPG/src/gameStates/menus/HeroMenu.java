@@ -1,43 +1,32 @@
 package gameStates.menus;
 
+import java.util.HashMap;
+
 import game.Cursor;
 import game.Game;
 import gameObject.Hero;
 import gameObject.heros.*;
 
 public class HeroMenu extends Menu{
-	private int[][] heros;
 	private int nbColHero;
 	private int nbRowHero;
 
+	private HashMap<Integer,Hero> h;
+	
 	public HeroMenu(Game game, Cursor cursor) {
 		super(game, cursor);
-		// TODO Auto-generated constructor stub
-		this.addHero();
 		
+		//ENREGISTREMENT DE TOUT LES HEROS
+		this.h = new HashMap<Integer,Hero>();
+		
+		this.h.put(0, new HeroLyndis());
+		
+		this.nbButton = this.h.size();
+		
+		this.nbColHero = 3;
+		this.nbRowHero = 3;
 	}
-	
-	private void addHero(){
-		int num = 0;
-		this.createHerosArray(9);
-		for (int i=0; i<this.nbColHero; i++){
-			for (int j=0; i<this.nbRowHero; i++){
-				this.heros[i][j] = num;
-				num++;
-			}
-		}
-	}
-	
 
-	private void createHerosArray(int i){
-		int n = 1;
-		while (n*n < i) n++;
-		
-		this.heros = new int[n][n];
-		this.nbButton = i;
-		this.nbColHero = n;
-		this.nbRowHero = n;
-	}
 	
 	@Override
 	public void initState() {
@@ -51,9 +40,10 @@ public class HeroMenu extends Menu{
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
-		int numHero = this.heros[this.cursor.getX()][this.cursor.getY()];
+		int numHero = this.cursor.getX()+this.cursor.getY()*this.nbColHero;
 		int numTeam = this.game.getMatch().getCurrentTeam().getNum()+1;
 		this.getSoundManager().play("enter");
+		
 		switch(numHero){
 		case(0):
 			Hero hero = new HeroLyndis();

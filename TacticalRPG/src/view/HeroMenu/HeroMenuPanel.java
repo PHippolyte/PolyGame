@@ -1,20 +1,21 @@
 package view.HeroMenu;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import view.GamePanel;
 
 @SuppressWarnings("serial")
 public class HeroMenuPanel extends GamePanel{
-	private int nbHeroPanel;
 	private int nx;
 	private int ny;
 	private int nbHero;
-	private HeroPanel[][] heros;
+	private ArrayList<HeroPanel> heros;
 	
 	public HeroMenuPanel(int nbHero){
 		this.init = true;
 		
+		this.heros = new ArrayList<HeroPanel>();
 		this.nbHero = nbHero;
 		this.setLayout(null);
 	
@@ -23,9 +24,8 @@ public class HeroMenuPanel extends GamePanel{
 		
 		//creation des boutons
 		this.createPanels();
-		this.createHeroPanel();
+		this.positionPanel();
 		
-		//ajout contrainte aux boutons
 		
 		//ajouts boutons
 		this.addHeroPanel();
@@ -33,59 +33,50 @@ public class HeroMenuPanel extends GamePanel{
 		this.init = false;
 	}
 	
-	private void createPanels(){
-		this.nx = 3;
-		this.ny = this.nbHero/this.nx;
-		if (this.nbHero%this.nx != 0) this.ny++;
-		this.heros = new HeroPanel[nx][ny];
+	private void positionPanel(){
+		int width = this.getWidth()/3;
+		int height = this.getHeight()/(1+this.nbHero%3);
+		System.out.println(width+','+height);
 	}
 	
-	private void createHeroPanel(){
-		for (int j=0; j < this.ny; j++){
-			for (int k=0; k < this.nx; k++){
-				HeroPanel panel = new HeroPanel(j,k);
-				panel.setBounds(k*210,60+j*140,210,140);
-				panel.loadBackground("ressources/Heros/FaceLyndis.png");
-				this.heros[j][k] = panel;
-			}
+	private void createPanels(){
+		for (int i=0; i<this.nbHero; i++){
+			this.heros.add(new HeroPanel(i));
 		}
-		this.nbHeroPanel = nx*ny;
 	}
 	
 	private void addHeroPanel(){
-		for (int j=0; j < ny; j++){
-			for (int k=0; k < nx; k++){
-				this.add(this.heros[k][j]);
-			}
+		for (HeroPanel p : this.heros){
+			this.add(p);
 		}
 	}
 	
-	public void resetButton(){
-		for (int j=0; j < nx; j++){
-			for (int k=0; k < ny; k++){
-				this.getHero(j, k).repaint();
-			}
-		}
+	public ArrayList<HeroPanel> getHeroPanels(){
+		return this.heros;
 	}
 	
-	public HeroPanel getHero(int x, int y){
-		return this.heros[x][y];
+	public HeroPanel getHero(int num){
+		return this.heros.get(num);
 	}
 	
 	public int getNbHeroPanel(){
-		return this.nbHeroPanel;
+		return this.nbHero;
 	}
 	
 	public void paint(Graphics g){
 		if (this.init){
 			g.drawImage(this.bg, 0, 0,this);
 		}
-		this.resetButton();
+		this.resetPanel();
 	}
 
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
 		this.init = true;
+	}
+	
+	public void resetPanel(){
+		
 	}
 }

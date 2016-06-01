@@ -102,7 +102,7 @@ public class MatchPanel extends GamePanel{
 			for (gameObject.Character c : character){
 				if (screen.isInScreen(c.getX(), c.getY())){
 					//g2.fillRect(this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(this.YtoScreen(c.getY(), screen)), tileWidth, tileHeight);
-					if (c.getDone()){ //grisement du personnage
+					if (c.isDone()){ //grisement du personnage
 						g2.drawImage(c.getGrayImage(),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
 					} else {
 						g2.drawImage(c.getImage(),this.scaleX(this.XtoScreen(c.getX(), screen)), this.scaleY(c.getY()-screen.getY1()), this);
@@ -234,5 +234,9 @@ public class MatchPanel extends GamePanel{
 		this.drawCursor();
 		this.drawMap();
 		this.drawCharacterAction();
+	}
+	
+	public void resetPanel(){
+		
 	}
 }

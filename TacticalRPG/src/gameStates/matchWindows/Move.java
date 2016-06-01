@@ -37,7 +37,7 @@ public class Move extends StateMatch{
 		if (tile.getCharacter() == null && this.moves.contains(tile)){
 			this.matchState.getMatch().getMap().moveCharacter(this.selectedCharacter, this.cursor.getX(),this.cursor.getY());
 			
-			this.selectedCharacter.setDone(true);//personnage devient inactif
+			this.selectedCharacter.action();//personnage s'épuise
 			matchState.getSoundManager().play("move");
 			this.matchState.setCurrentState(IDLE);
 		} else {

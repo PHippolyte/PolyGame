@@ -19,8 +19,7 @@ public class HeroMenuObserver implements Observer{
 		// TODO Auto-generated method stub
 		HeroMenu model = (HeroMenu)arg0;
 		
-		this.view.resetButton();
-		this.view.getHero(model.getCursor().getX(),model.getCursor().getY()).setBackground(Color.GREEN);
+		this.view.resetPanel();
 		
 	}
 

@@ -31,7 +31,7 @@ public class SpellState extends StateMatch {
 	//FONCTION D'APPLICATION DU SORT
 	public void doAction() {
 		if (this.selectedSpell != null){
-			if ((Math.abs(this.selectedHero.getX()-cursor.getX())+(Math.abs(this.selectedHero.getY()-cursor.getY()))) <= this.selectedHero.getRange()){
+			if ((Math.abs(this.selectedHero.getX()-cursor.getX())+(Math.abs(this.selectedHero.getY()-cursor.getY()))) <= this.selectedSpell.getRange()){
 				for (Tile t : this.selectedTile){
 					Character c = t.getCharacter();
 					if (c != null) this.selectedSpell.action(c, this.selectedHero);

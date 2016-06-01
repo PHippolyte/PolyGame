@@ -6,9 +6,10 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import gameStates.matchWindows.DefaultAction;
+import view.GameElementPanel;
 
 @SuppressWarnings("serial")
-public class DefaultActionPanel extends JPanel{
+public class DefaultActionPanel extends GameElementPanel{
 	private DefaultAction action;
 	private int buttonWidth;
 	private int buttonHeight;

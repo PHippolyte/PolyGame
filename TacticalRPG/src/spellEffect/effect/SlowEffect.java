@@ -1,18 +1,18 @@
 package spellEffect.effect;
-
+import gameObject.Character;
 public class SlowEffect extends spellEffect.Effect{
 
-	public SlowEffect(gameObject.Character character) {
-		super(character, 2);
+	public SlowEffect() {
+		super(2);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void slow(){
-		this.character.setEnergy(this.character.getEnergy()-2);
+	public void action(Character c){
+		c.setEnergy(c.getEnergy()-2);
 	}
 	
-	public void remise(){
-		this.character.setEnergy(this.character.getEnergy()+2);
+	public void remise(Character c){
+		c.setEnergy(c.getEnergy()+2);
 	}
 	
 }

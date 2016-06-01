@@ -1,6 +1,7 @@
 package game;
 
 import map.Map;
+import spellEffect.Effect;
 import team.Team;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class Match{
 	private int currentTeam;
 	private int nbCurrentCharacter;
 	
+	private boolean started;
+	
 	private Map map;
 	private Mode mode;
 	private ArrayList<Team> teams;
@@ -25,6 +28,7 @@ public class Match{
 	public Match(){
 		this.teams = new ArrayList<Team>();
 		this.currentTeam = 0;
+		this.started = false;
 		this.createMap();//PROVISOIRE!!
 		
 		
@@ -54,6 +58,7 @@ public class Match{
 	
 	public void setNextTeam(){
 		this.resetTeam();
+		 if (started) this.endTurn();
 		if (this.currentTeam != this.getNbTeam()-1){
 			this.currentTeam += 1;
 		} else {
@@ -94,7 +99,7 @@ public class Match{
 		for (Team team : teams){
 			if (character.getType() == Type.HERO) team.removeHero(character);
 			else team.removeSoldier(character);
-		}
+	}
 		this.map.getTile(character.getX(), character.getY()).removeCharacter();
 	}
 	
@@ -156,13 +161,26 @@ public class Match{
 		}
 	}
 	
-
+	//OPERATION DE FIN DE TOUR
+	private void endTurn(){
+		for (Character c : this.getCurrentTeam().getCharacters()){
+			Effect e = c.getEffect();
+			if (e != null) {
+				e.decrement();
+				if (e.getNbTour() == 0) {
+					e.remise(c);
+					c.setEffect(null);
+				}
+			}
+		}
+	}
 	
 	public int getNbTeam(){
 		return this.teams.size();
 	}
 	public void startMatch(){
 		this.placeTeams();
+		this.started = true;
 		this.setCurrentTeam(0);
 	}
 	

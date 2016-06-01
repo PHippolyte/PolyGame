@@ -1,17 +1,17 @@
 package spellEffect.effect;
-
+import gameObject.Character;
 public class MoreActionEffect extends spellEffect.Effect{
 
-	public MoreActionEffect(gameObject.Character character) {
-		super(character, 2);
+	public MoreActionEffect() {
+		super(2);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void moreAction(){
-		this.character.setNbAction(this.character.getNbAction()+1);
+	public void action(Character c){
+		c.setNbAction(c.getNbAction()+1);
 	}
 	
-	public void remise(){
-		this.character.setNbAction(this.character.getNbAction()-1);
+	public void remise(Character c){
+		c.setNbAction(c.getNbAction()-1);
 	}
 }

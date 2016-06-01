@@ -25,11 +25,15 @@ public class MatchPanel extends GamePanel{
 	private boolean paintCursor;
 	private boolean paintMap;
 	private boolean paintCharacter;
-	private boolean paintCharacterAction;
+	
 	private boolean paintAttack;
 	private boolean paintMove;
-	private boolean paintDefaultAction;
+	private boolean paintHeal;
+	private boolean paintSpell;
 	
+	private boolean paintCharacterAction;
+	private boolean paintDefaultAction;
+	private boolean paintSpellSelection;
 	//PILE D'IMAGE A AFFICHER
 	
 	//dimension des cases de l'écran
@@ -39,19 +43,29 @@ public class MatchPanel extends GamePanel{
 	//panel des fenetres affichable pendant la partie
 	private CharacterActionPanel characterActionpanel;
 	private DefaultActionPanel defaultActionpanel;
+	private SpellSelectionPanel spellSelection;
 	
 	public MatchPanel(MatchState m){
 		this.matchState = m;
+		
 		this.paintCursor = false;
 		this.paintMap = false;
-		this.paintCharacter = false;
+		
+		this.paintAttack = false;
+		this.paintMove = false;
+		this.paintHeal = false;
+		this.paintSpell = false;
+		
 		this.paintCharacterAction = false;
+		this.paintCharacter = false;
+		this.paintSpellSelection = false;
 		
 		this.setLayout(null);
 		
 		//création des fenetres de la partie 
 		this.characterActionpanel = new CharacterActionPanel(this.matchState.getCharacterAction());
 		this.defaultActionpanel = new DefaultActionPanel(this.matchState.getDefaultAction());
+		this.spellSelection = new SpellSelectionPanel();
 	}
 	
 	
@@ -93,7 +107,32 @@ public class MatchPanel extends GamePanel{
 			}
 			this.paintAttack = false;
 		}
+		//AFFICHAGE DES CASES DE SOIN
+		if (this.paintHeal){
+			for(Tile t : this.matchState.getHealState().getTiles()){
+				g2.setColor(Color.GREEN);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(0.6,1.0f)));
+				g2.fillRect(this.scaleX(this.XtoScreen(t.getX(), screen))+2, this.scaleY(this.YtoScreen(t.getY(), screen))+2, tileWidth-4, tileHeight-4);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(1,1.0f)));
+			}
+			this.paintHeal = false;
+		}
 		
+		if (this.paintSpell){
+			for(Tile t : this.matchState.getSpellState().getRangeTiles()){
+				g2.setColor(Color.RED);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(0.6,1.0f)));
+				g2.fillRect(this.scaleX(this.XtoScreen(t.getX(), screen))+2, this.scaleY(this.YtoScreen(t.getY(), screen))+2, tileWidth-4, tileHeight-4);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(1,1.0f)));
+			}
+			for(Tile t : this.matchState.getSpellState().getTiles()){
+				g2.setColor(Color.ORANGE);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(0.6,1.0f)));
+				g2.fillRect(this.scaleX(this.XtoScreen(t.getX(), screen))+2, this.scaleY(this.YtoScreen(t.getY(), screen))+2, tileWidth-4, tileHeight-4);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float) Math.min(1,1.0f)));
+			}
+			this.paintSpell = false;
+		}
 		
 		//AFFICHAGE DES PERSONNAGES
 		if (paintCharacter){
@@ -163,6 +202,27 @@ public class MatchPanel extends GamePanel{
 			this.defaultActionpanel.paint(g2);
 			this.paintDefaultAction = false;
 		}
+		
+		if (this.paintSpellSelection){
+			Cursor cursor = this.matchState.getCursor();
+			int aimedX = (cursor.getX()-screen.getX1()+2);
+			int aimedY = (cursor.getY()-screen.getY1()-2);
+			
+			while (aimedX < 0) aimedX++;
+			while (aimedY < 0) aimedY++;
+			
+			
+			if (aimedX+1+this.deScaleX(this.spellSelection.getWidth()) > screen.getWidth()){
+				while(aimedX+2+this.deScaleX(this.spellSelection.getWidth()) > this.XtoScreen(cursor.getX(), screen)) aimedX--;
+			}
+			if (aimedY+this.deScaleY(this.spellSelection.getHeight()) > screen.getHeight()){
+				while(aimedY+1+this.deScaleY(this.spellSelection.getHeight()) > screen.getHeight()) aimedY--;
+			}			
+			
+			this.spellSelection.moveWindow(this.scaleX(aimedX),this.scaleY(aimedY));
+			this.spellSelection.paint(g2);
+			this.paintSpellSelection = false;
+		}
 	}
 	
 	private void paintLifeBar(Graphics g, Character c, Screen s){
@@ -220,8 +280,17 @@ public class MatchPanel extends GamePanel{
 	public void drawMove(){
 		this.paintMove = true;
 	}
+	public void drawHeal(){
+		this.paintHeal = true;
+	}
+	public void drawSpell(){
+		this.paintSpell = true;
+	}
 	public void drawDefaultAction(){
 		this.paintDefaultAction = true;
+	}
+	public void drawSpellSelection(){
+		this.paintSpellSelection = true;
 	}
 	
 	public void drawBasicImage(){
@@ -229,14 +298,12 @@ public class MatchPanel extends GamePanel{
 		this.drawCharacter();
 		this.drawMap();
 	}
-	public void drawAll(){
-		this.drawCharacter();
-		this.drawCursor();
-		this.drawMap();
-		this.drawCharacterAction();
-	}
 	
 	public void resetPanel(){
 		
+	}
+	
+	public SpellSelectionPanel getSpellSelectionPanel(){
+		return this.spellSelection;
 	}
 }

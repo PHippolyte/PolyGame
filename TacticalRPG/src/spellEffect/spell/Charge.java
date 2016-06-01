@@ -1,19 +1,24 @@
 package spellEffect.spell;
 
 import gameObject.Character;
+import gameObject.Hero;
+import spellEffect.Spell;
 
-import java.util.List;
 
-public class Charge extends spellEffect.Spell{
+public class Charge extends Spell{
 
 	public Charge() {
-		super(150, 3, 3, TypeSpell.CHARGE);
+		super(150, 3, 3);
+		this.type = Type.DAMAGE;
+		this.slashRange = 1;
 		// TODO Auto-generated constructor stub
 	}
 
-	public void charge(List<Character> List){
-		for(gameObject.Character character : List){
-			character.doDamage(this.damage);
-		}
+
+	@Override
+	public void action(Character c, Hero caster) {
+		// TODO Auto-generated method stub
+		c.doDamage(this.damage);
+		
 	}
 }

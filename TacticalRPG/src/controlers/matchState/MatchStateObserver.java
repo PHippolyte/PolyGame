@@ -48,6 +48,23 @@ public class MatchStateObserver implements Observer, MatchStateConstant{
 			this.view.drawBasicImage();
 			this.view.drawDefaultAction();
 			break;
+			
+		case(HEAL):
+			this.view.drawBasicImage();
+		this.view.drawHeal();
+			break;
+			
+		case(SPELLSTATE):
+			this.view.drawBasicImage();
+			this.view.drawSpell();
+			break;
+			
+		case(SPELLSELECTION):
+			this.view.getSpellSelectionPanel().setSpellsImages(model.getSpellSelection().getSpellsImage());
+			this.view.getSpellSelectionPanel().setPosCursor(model.getSpellSelection().getCurrentButton());
+			this.view.drawBasicImage();
+			this.view.drawSpellSelection();
+			break;
 	}
 		this.view.repaint();
 	}

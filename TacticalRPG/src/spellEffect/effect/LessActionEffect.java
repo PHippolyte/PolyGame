@@ -1,17 +1,19 @@
 package spellEffect.effect;
 
+import gameObject.Character;
+
 public class LessActionEffect extends spellEffect.Effect{
 
-	public LessActionEffect(gameObject.Character character) {
-		super(character, 2);
+	public LessActionEffect() {
+		super(2);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void lessAction(){
-		this.character.setNbAction(this.character.getNbAction()-1);
+	public void action(Character c){
+		c.setNbAction(c.getNbAction()-1);
 	}
 	
-	public void remise(){
-		this.character.setNbAction(this.character.getNbAction()+1);
+	public void remise(Character c){
+		c.setNbAction(c.getNbAction()+1);
 	}
 }

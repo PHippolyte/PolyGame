@@ -1,18 +1,18 @@
 package spellEffect.effect;
-
+import gameObject.Character;
 public class RangeBoostEffect extends spellEffect.Effect{
 
-	public RangeBoostEffect(gameObject.Character character) {
-		super(character, 2);
+	public RangeBoostEffect() {
+		super(2);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void range(){
-		this.character.setRange(this.character.getRange()+2);
+	public void action(Character c){
+		c.setRange(c.getRange()+2);
 	}
 	
-	public void remise(){
-		this.character.setRange(this.character.getRange()-2);
+	public void remise(Character c){
+		c.setRange(c.getRange()-2);
 	}
 	
 }

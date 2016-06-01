@@ -1,19 +1,24 @@
 package spellEffect.spell;
 
+import spellEffect.Spell;
 
-import spellEffect.Effect;
-import spellEffect.Spell.TypeSpell;
+import gameObject.Character;
+import gameObject.Hero;
 import spellEffect.effect.DodgeBoostEffect;
 
-public class DodgeBoost extends spellEffect.Spell{
+public class DodgeBoost extends Spell{
 
 	public DodgeBoost () {
-		super(150, 0, 0, TypeSpell.DODGEBOOST);
+		super(150, 0, 1);
+		this.type = Type.BLESSING;
+		this.slashRange = 0;
 	}
-	
-	public void dodge(gameObject.Character character){
-		Effect effect = new DodgeBoostEffect(character);
-		((DodgeBoostEffect) effect).dodge();
+
+	@Override
+	public void action(Character character, Hero caster) {
+		// TODO Auto-generated method stub
+		character.setEffect(new DodgeBoostEffect());
+		
 	}
 
 }

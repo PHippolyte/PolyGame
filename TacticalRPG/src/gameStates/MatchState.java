@@ -28,7 +28,8 @@ public class MatchState extends GameState implements MatchStateConstant{
 		this.states.put(MOVE, new Move(this,this.cursor));
 		this.states.put(DEFAULTACTION, new DefaultAction(this,this.cursor));
 		this.states.put(HEAL, new Heal(this,this.cursor));
-		this.states.put(SPELL, new Heal(this,this.cursor));
+		this.states.put(SPELLSTATE, new SpellState(this,this.cursor));
+		this.states.put(SPELLSELECTION, new SpellSelection(this,this.cursor));
 		
 	}
 	
@@ -90,6 +91,14 @@ public class MatchState extends GameState implements MatchStateConstant{
 	
 	public Heal getHealState(){
 		return (Heal)this.states.get(HEAL);
+	}
+	
+	public SpellState getSpellState(){
+		return (SpellState)this.states.get(SPELLSTATE);
+	}
+	
+	public SpellSelection getSpellSelection(){
+		return (SpellSelection)this.states.get(SPELLSELECTION);
 	}
 	
 	public void switchCancelSound(){

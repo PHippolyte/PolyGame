@@ -1,20 +1,26 @@
 package spellEffect.spell;
 
-import spellEffect.Effect;
-import spellEffect.Spell.TypeSpell;
+import gameObject.Character;
+import gameObject.Hero;
 import spellEffect.effect.DivineShieldEffect;
+import spellEffect.Spell;
 
-public class DivineShield extends spellEffect.Spell{
+
+public class DivineShield extends Spell{
 
 	public DivineShield() {
-		super(250, 0, 0, TypeSpell.DIVINESHIELD);
+		super(250, 0, 1);
+		this.type = Type.BLESSING;
+		this.slashRange = 0;
 		// TODO Auto-generated constructor stub
 		
 	}
-	
-	public void shield(gameObject.Character character){
-		Effect effect = new DivineShieldEffect(character);
-		((DivineShieldEffect) effect).shield();
+
+	@Override
+	public void action(Character character, Hero caster) {
+		// TODO Auto-generated method stub
+		character.setEffect(new DivineShieldEffect());
+		
 	}
 	
 }

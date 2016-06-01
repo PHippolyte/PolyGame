@@ -21,6 +21,10 @@ public class HeroMenu extends Menu{
 		
 		//AJOUTS DES HEROS
 		this.h.put(0, new HeroLyndis());
+		this.h.put(1, new HeroDagharr());
+		this.h.put(2, new HeroHiberius());
+		this.h.put(3, new HeroIsylwenn());
+		this.h.put(4, new HeroOlgred());
 		
 		this.nbButton = this.h.size();
 		
@@ -45,13 +49,34 @@ public class HeroMenu extends Menu{
 		int numTeam = this.game.getMatch().getCurrentTeam().getNum()+1;
 		this.getSoundManager().play("enter");
 		
+		Hero hero = null;
 		switch(numHero){
 		case(0):
-			Hero hero = new HeroLyndis();
+			hero = new HeroLyndis();
 			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
-			this.game.getMatch().addHeroToCurrentTeam(hero);
+			break;
+			
+		case(1):
+			hero = new HeroDagharr();
+			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			break;
+			
+		case(2):
+			hero = new HeroHiberius();
+			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			break;
+			
+		case(3):
+			hero = new HeroIsylwenn();
+			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			break;
+			
+		case(4):
+			hero = new HeroOlgred();
+			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
 			break;
 		}
+		this.game.getMatch().addHeroToCurrentTeam(hero);
 		
 		//verification de la condition de fin
 		if (this.game.getMatch().getCurrentTeam().getNbHero() == this.game.getMatch().getMode().getNbMaxHero()){

@@ -8,14 +8,15 @@ import javax.imageio.ImageIO;
 
 import gameStates.matchWindows.CharacterAction;
 import view.GameComponent;
+import view.GameElementPanel;
 
 @SuppressWarnings("serial")
-public class CharacterActionPanel extends GameComponent{
+public class CharacterActionPanel extends GameElementPanel{
 	private CharacterAction c;
 	private BufferedImage cursor;
 	
 	public CharacterActionPanel(CharacterAction a){
-		this.setBounds(0, 0, 120, 200);
+		this.setBounds(0, 0, 120, 233);
 		this.loadBackground("ressources/match/CharacterAction.png");
 		this.c = a;
 		
@@ -39,7 +40,10 @@ public class CharacterActionPanel extends GameComponent{
 			g.drawImage(this.cursor, this.getX()+9, this.getY()+128, this);
 			break;
 		case(3):
-			g.drawImage(this.cursor, this.getX()+9, this.getY()+164, this);
+			g.drawImage(this.cursor, this.getX()+9, this.getY()+174, this);
+			break;
+		case(4):
+			g.drawImage(this.cursor, this.getX()+9, this.getY()+213, this);
 			break;
 		}
 	}

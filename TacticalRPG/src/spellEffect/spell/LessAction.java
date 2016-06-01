@@ -1,22 +1,23 @@
 package spellEffect.spell;
 
-import java.util.List;
 
 import gameObject.Character;
-import spellEffect.Effect;
+import gameObject.Hero;
+import spellEffect.Spell;
 import spellEffect.effect.LessActionEffect;
 
-public class LessAction extends spellEffect.Spell{
+public class LessAction extends Spell{
 
 	public LessAction() {
-		super(300, 0, 0, TypeSpell.LESSACTION);	
+		super(300, 0, 0);	
+		this.type = Type.CURSE;
+		this.slashRange = 0;
 	}
-	
-	public void magic(List<Character> List){
-		for(gameObject.Character character : List){
-			Effect effect = new LessActionEffect(character);
-			((LessActionEffect) effect).lessAction();
-		}
+
+	@Override
+	public void action(Character character, Hero caster) {
+		// TODO Auto-generated method stub
+		character.setEffect(new LessActionEffect());
 		
 	}
 

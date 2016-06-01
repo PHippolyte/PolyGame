@@ -1,19 +1,20 @@
 package spellEffect.effect;
+import gameObject.Character;
+import spellEffect.Effect;
 
-public class DivineShieldEffect extends spellEffect.Effect{
+public class DivineShieldEffect extends Effect{
 
-	public DivineShieldEffect(gameObject.Character character) {
-		super(character, 2);
-		// TODO Auto-generated constructor stub
-	}
-	
-	public void shield(){
-		this.character.setDefense(this.character.getDefense()+2);
-		this.character.setDefenseMagic(this.character.getDefenseMagic()+2);
+	public DivineShieldEffect() {
+		super(2);
 	}
 
-	public void remise(){
-		this.character.setDefense(this.character.getDefense()-2);
-		this.character.setDefenseMagic(this.character.getDefenseMagic()-2);
+	public void action(Character character){
+		character.setDefense(character.getDefense()+2);
+		character.setDefenseMagic(character.getDefenseMagic()+2);
+	}
+
+	public void remise(Character character){
+		character.setDefense(character.getDefense()-2);
+		character.setDefenseMagic(character.getDefenseMagic()-2);
 	}
 }

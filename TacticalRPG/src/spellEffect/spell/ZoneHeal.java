@@ -1,20 +1,21 @@
 package spellEffect.spell;
 
-import java.util.List;
 
-import spellEffect.Effect;
-import spellEffect.Spell.TypeSpell;
+import gameObject.Character;
+import gameObject.Hero;
 
 public class ZoneHeal extends spellEffect.Spell{
 
 	public ZoneHeal() {
-		super(250, 2, 4, TypeSpell.ZONEHEAL);
+		super(250, 2, 4);
+		this.type = Type.HEAL;
+		this.slashRange = 2;
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void zoneHeal(List<gameObject.Character> List){
-		for(gameObject.Character character : List){
-			character.setHealth(damage);
-		}
+
+	@Override
+	public void action(Character character, Hero caster) {
+		character.heal(damage);
+		
 	}
 }

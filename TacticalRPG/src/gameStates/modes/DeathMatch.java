@@ -5,7 +5,7 @@ import team.Team;
 public class DeathMatch extends Mode{
 	
 	public DeathMatch() {
-		this.nbMaxSoldier = 15;
+		this.nbMaxSoldier = 1;
 		this.nbMaxTeam = 2;
 		this.nbMaxHero = 1;
 	}

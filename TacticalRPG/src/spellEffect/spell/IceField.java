@@ -1,24 +1,22 @@
 package spellEffect.spell;
 
-import java.util.List;
-
 import gameObject.Character;
-import spellEffect.Effect;
-import spellEffect.effect.LessActionEffect;
+import gameObject.Hero;
+import spellEffect.Spell;
 import spellEffect.effect.SlowEffect;
 
-public class IceField extends spellEffect.Spell{
+public class IceField extends Spell{
 
 	public IceField() {
-		super(250, 0, 0, TypeSpell.ICEFIELD);	
+		super(250, 0, 0);
+		this.type = Type.CURSE;
+		this.slashRange = 2;
 	}
-	
-	public void magic(List<Character> List){
-		for(gameObject.Character character : List){
-			Effect effect = new SlowEffect(character);
-			((SlowEffect) effect).slow();
-		}
-		
+
+	@Override
+	public void action(Character character, Hero caster) {
+		// TODO Auto-generated method stub
+		character.setEffect(new SlowEffect());
 	}
 
 }

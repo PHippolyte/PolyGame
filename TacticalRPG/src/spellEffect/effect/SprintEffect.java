@@ -1,18 +1,18 @@
 package spellEffect.effect;
-
+import gameObject.Character;
 public class SprintEffect extends spellEffect.Effect{
 
-	public SprintEffect(gameObject.Character character) {
-		super(character, 2);
+	public SprintEffect() {
+		super(2);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void sprint(){
-		this.character.setEnergy(this.character.getEnergy()+2);
+	public void action(Character c){
+		c.setEnergy(c.getEnergy()+2);
 	}
 	
-	public void remise(){
-		this.character.setEnergy(this.character.getEnergy()+2);
+	public void remise(Character c){
+		c.setEnergy(c.getEnergy()+2);
 	}
 	
 }

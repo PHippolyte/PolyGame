@@ -1,61 +1,56 @@
 package gameStates.matchWindows;
 
 import java.util.HashSet;
-import java.util.Random;
 
 import game.Cursor;
 import gameObject.Character;
+import gameObject.Hero;
 import gameObject.Tile;
 import gameStates.MatchState;
 
-public class Heal extends StateMatch {
-	private Character selectedCharacter;
-	private HashSet<Tile> tiles;
+import spellEffect.Spell;
+
+public class SpellState extends StateMatch {
+
+	private Hero selectedHero;
+	private HashSet<Tile> selectedTile;
+	private HashSet<Tile> rangedTile;
+	private Spell selectedSpell;
 	
-	public Heal(MatchState matchState, Cursor cursor) {
+	public SpellState(MatchState matchState, Cursor cursor) {
 		super(matchState, cursor);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public int healing(){
-		Random rand = new Random();
-		int heal = 0;
-		int randomPrec = rand.nextInt(100);
-		if(randomPrec <= selectedCharacter.getPrecisionMagic()){
-			int randomCrit = rand.nextInt(100);
-			if(randomCrit <= selectedCharacter.getCritique()){
-				heal =selectedCharacter.getHeal()*2;
-			}else{
-				heal =selectedCharacter.getHeal();
-			}
-		}
-		return(heal);
-	}
 	@Override
 	public void initWindow() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	//FONCTION D'APPLICATION DU SORT
 	public void doAction() {
-		// TODO Auto-generated method stub
-		//fonction de calcul d'attaque
-		Character ally = this.matchState.getMatch().getMap().getTile(this.cursor.getX(), this.cursor.getY()).getCharacter();
-		if(this.matchState.getMatch().getCurrentTeam().isAlly(ally)){
-			ally.heal(healing());
-			matchState.getSoundManager().play("heal");
-		}else{
-			
+		if (this.selectedSpell != null){
+			if ((Math.abs(this.selectedHero.getX()-cursor.getX())+(Math.abs(this.selectedHero.getY()-cursor.getY()))) <= this.selectedHero.getRange()){
+				for (Tile t : this.selectedTile){
+					Character c = t.getCharacter();
+					if (c != null) this.selectedSpell.action(c, this.selectedHero);
+				}
+				this.selectedHero.action();
+				this.matchState.setCurrentState(IDLE);
+			} else {
+				System.out.println("Not in range dude");
+			}
+		} else {
+			System.out.println("Spell unavailable...for now <3");
 		}
-		this.matchState.setCurrentState(IDLE);
 		
 	}
 
 	@Override
 	public void cancel() {
 		// TODO Auto-generated method stub
-		this.matchState.setCursorPosition(this.selectedCharacter.getX(), this.selectedCharacter.getY());
+		this.matchState.setCursorPosition(this.selectedHero.getX(), this.selectedHero.getY());
 		this.matchState.setCurrentState(CHARACTERACTION);
 	}
 
@@ -64,6 +59,7 @@ public class Heal extends StateMatch {
 		// TODO Auto-generated method stub
 		if (this.cursor.getY() > 0){
 			this.cursor.moveUp();
+			this.getSelectedTiles();
 			if (this.cursor.getY() < this.matchState.getScreen().getY1()){
 				this.matchState.getScreen().moveUp();
 			}
@@ -75,6 +71,7 @@ public class Heal extends StateMatch {
 		// TODO Auto-generated method stub
 		if (this.cursor.getY() < this.matchState.getMatch().getMap().getNbRows()-1){
 			this.cursor.moveDown();
+			this.getSelectedTiles();
 			if (this.cursor.getY() > this.matchState.getScreen().getY2()){
 				this.matchState.getScreen().moveDown();
 			}
@@ -86,6 +83,7 @@ public class Heal extends StateMatch {
 		// TODO Auto-generated method stub
 		if (this.cursor.getX() < this.matchState.getMatch().getMap().getNbCols()-1){
 			this.cursor.moveRight();
+			this.getSelectedTiles();
 			if (this.cursor.getX() > this.matchState.getScreen().getX2()){
 				this.matchState.getScreen().moveRight();
 			}
@@ -97,19 +95,32 @@ public class Heal extends StateMatch {
 		// TODO Auto-generated method stub
 		if (this.cursor.getX() > 0){
 			this.cursor.moveLeft();
+			this.getSelectedTiles();
 			if (this.cursor.getX() < this.matchState.getScreen().getX1()){
 				this.matchState.getScreen().moveLeft();
 			}
 		}
 	}
 	
-	public void init(Character character){
-		this.selectedCharacter = character;
-		this.tiles = this.matchState.getMatch().getMap().getRangeTile(character.getX(), character.getY(), character.getRange());
+	public void setSelectedHero(Hero hero){
+		this.selectedHero= hero; 
+	}
+	
+	public void setSpell(Spell spell){
+		this.selectedSpell = spell;
+		this.getSelectedTiles();
+		this.rangedTile = this.matchState.getMatch().getMap().getRangeTile(this.selectedHero.getX(), this.selectedHero.getY(), this.selectedSpell.getRange());
+	}
+	
+	private void getSelectedTiles(){
+		this.selectedTile = this.matchState.getMatch().getMap().getRangeTile(this.cursor.getX(), this.cursor.getY(), this.selectedSpell.getSlashRange());
 	}
 	
 	public HashSet<Tile> getTiles(){
-		return this.tiles;
+		return this.selectedTile;
+	}
+	public HashSet<Tile> getRangeTiles(){
+		return this.rangedTile;
 	}
 
 }

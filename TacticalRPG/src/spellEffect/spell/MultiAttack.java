@@ -1,21 +1,23 @@
 package spellEffect.spell;
 
 import gameObject.Character;
+import gameObject.Hero;
 
 import java.util.List;
 
-import spellEffect.Spell.TypeSpell;
 
 public class MultiAttack extends spellEffect.Spell{
 
 	public MultiAttack() {
-		super(150, 4, 1, TypeSpell.MULTIATTACK);
+		super(150, 4, 1);
+		this.slashRange = 1;
 		// TODO Auto-generated constructor stub
 	}
-
-	public void multiA(List<Character> List){
-		for(gameObject.Character character : List){
-			character.doDamage(this.damage);
-		}
+	
+	@Override
+	public void action(Character character, Hero caster) {
+		// TODO Auto-generated method stub
+		character.doDamage(this.damage);
+		
 	}
 }

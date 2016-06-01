@@ -1,14 +1,21 @@
 package spellEffect;
-
-import java.util.ArrayList;
-import java.util.List;
+import gameObject.Character;
 
 public abstract class Effect {
-	protected gameObject.Character character;
-	public int nbtour;
+	protected int nbtour;
 	
-	public Effect(gameObject.Character character, int nb){
-		this.character = character;
+	public Effect(int nb){
 		this.nbtour =nb;
 	}
+	
+	public int getNbTour(){
+		return this.nbtour;
+	}
+	
+	public void decrement(){
+		this.nbtour--;
+	}
+	
+	public abstract void action(Character c);
+	public abstract void remise(Character c);
 }

@@ -4,6 +4,8 @@ import game.Cursor;
 import gameStates.MatchState;
 import gameStates.MatchStateConstant;
 import gameObject.Character;
+import gameObject.Character.Type;
+import gameObject.Hero;
 
 public class CharacterAction extends StateMatch implements MatchStateConstant{
 	private int nbButton; 
@@ -14,7 +16,7 @@ public class CharacterAction extends StateMatch implements MatchStateConstant{
 	public CharacterAction(MatchState matchState, Cursor cursor) {
 		super(matchState, cursor);
 		// TODO Auto-generated constructor stub
-		this.nbButton = 4;
+		this.nbButton = 5;
 	}
 
 	@Override
@@ -40,14 +42,22 @@ public class CharacterAction extends StateMatch implements MatchStateConstant{
 			this.matchState.setCurrentState(ATTACK);
 			break;
 		case(1):
-			this.matchState.getHealState().setSelectedCharacter(this.selectedCharacter);
-			this.matchState.setCurrentState(HEAL);
+			if (this.selectedCharacter.canHeal()){
+				this.matchState.getHealState().init(this.selectedCharacter);
+				this.matchState.setCurrentState(HEAL);
+			}
 			break;
 		case(2):
 			this.matchState.getMoveState().setSelectedCharacter(this.selectedCharacter);
 			this.matchState.setCurrentState(MOVE);
 			break;
 		case(3):
+			if (this.selectedCharacter.getType() == Type.HERO){
+				this.matchState.getSpellSelection().setHero((Hero)this.selectedCharacter);
+				this.matchState.setCurrentState(SPELLSELECTION);
+			}
+			break;
+		case(4):
 			//this.selectedCharacter.moveDefense();
 			this.matchState.setCurrentState(IDLE);
 			break;

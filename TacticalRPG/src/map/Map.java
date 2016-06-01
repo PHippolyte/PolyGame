@@ -100,6 +100,35 @@ public class Map {
 			}
 		}
 	}
+	
+	public HashSet<Tile> getRangeTile(int x, int y, int range){
+		HashSet<Tile> attackTile = new HashSet<Tile>();
+		HashSet<Tile> fourTile = new HashSet<Tile>();
+		int charaX = x;
+		int charaY = y;
+		
+		int tileRange;
+		List<Tile> queue = new ArrayList<Tile>();
+		queue.add(getTile(x, y));
+		attackTile.add(getTile(x,y));
+		
+		while (!(queue.isEmpty())){
+			
+			Tile T = queue.get(0);
+			fourTile = getFourTile(T);
+			for (Tile Tfm: fourTile){
+				
+				tileRange = Math.abs(Tfm.getX()-charaX) + Math.abs(Tfm.getY()-charaY);
+				if (tileRange<=range && !(attackTile.contains(Tfm))){
+					queue.add(Tfm);
+					attackTile.add(Tfm);
+				}
+			}
+			fourTile.clear();
+			queue.remove(0);			
+		}
+		return attackTile;
+	}
 
 	public HashSet<Tile> getAttackTiles(Character c){
 		HashSet<Tile> attackTile = new HashSet<Tile>();

@@ -8,6 +8,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 import Sound.soundManager;
+import spellEffect.Effect;
 import team.Team;
 
 public abstract class Character extends MapObject{
@@ -37,6 +38,8 @@ public abstract class Character extends MapObject{
 	protected BufferedImage grayImage;
 	protected BufferedImage nameImage;
 	
+	protected Effect effect;
+	
 	public Character(){
 		
 	}
@@ -61,6 +64,8 @@ public abstract class Character extends MapObject{
 		this.maxHealth = health;
 		this.heal = heal;
 		this.typeAttack = typeAttack;
+		
+		this.effect = null;
 		
 		this.nbActionMax = 2;
 		this.nbAction = this.nbActionMax;
@@ -109,7 +114,7 @@ public abstract class Character extends MapObject{
 		}
 	}
 	
-	public void getHeal(int heal){
+	public void heal(int heal){
 		this.health += heal;
 		if (this.health > this.maxHealth){
 			this.health = this.maxHealth;
@@ -217,5 +222,20 @@ public abstract class Character extends MapObject{
 
 	public void setNbAction(int nbAction) {
 		this.nbAction = nbAction;
+	}
+	
+	public void setEffect(Effect effect){
+		this.effect = effect;
+		if (effect != null){
+			this.effect.action(this);
+		}
+	}
+	
+	public Effect getEffect(){
+		return this.effect;
+	}
+	
+	public boolean canHeal(){
+		return this.typeAttack == TypeAttack.HEAL;
 	}
 }

@@ -1,23 +1,21 @@
 package spellEffect.spell;
 
-import java.util.List;
 
 import gameObject.Character;
-import spellEffect.Effect;
+import gameObject.Hero;
 import spellEffect.effect.MoreActionEffect;
 
 public class MoreAction extends spellEffect.Spell{
 
 	public MoreAction() {
-		super(300, 0, 0, TypeSpell.MOREACTION);	
+		super(300, 0, 1);	
+		this.type = Type.BLESSING;
+		this.slashRange = 0;
 	}
-	
-	public void magic(List<Character> List){
-		for(gameObject.Character character : List){
-			Effect effect = new MoreActionEffect(character);
-			((MoreActionEffect) effect).moreAction();
-		}
-		
+	@Override
+	public void action(Character character, Hero caster) {
+		// TODO Auto-generated method stub
+		character.setEffect(new MoreActionEffect());
 	}
 
 }

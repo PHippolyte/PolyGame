@@ -7,7 +7,7 @@ public class LessActionEffect extends spellEffect.Effect{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void moreAction(){
+	public void lessAction(){
 		this.character.setNbAction(this.character.getNbAction()-1);
 	}
 	

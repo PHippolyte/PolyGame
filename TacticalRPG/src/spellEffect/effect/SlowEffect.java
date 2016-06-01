@@ -7,7 +7,7 @@ public class SlowEffect extends spellEffect.Effect{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void root(){
+	public void slow(){
 		this.character.setEnergy(this.character.getEnergy()-2);
 	}
 	

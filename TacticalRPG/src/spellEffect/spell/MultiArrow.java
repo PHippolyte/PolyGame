@@ -8,7 +8,7 @@ import spellEffect.Spell.TypeSpell;
 
 public class MultiArrow extends spellEffect.Spell{
 
-	public MultiArrow(List<Character> List) {
+	public MultiArrow() {
 		super(150, 3, 3, TypeSpell.MULTIARROW);
 		// TODO Auto-generated constructor stub
 	}

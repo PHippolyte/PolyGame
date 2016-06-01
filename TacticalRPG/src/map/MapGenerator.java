@@ -267,8 +267,8 @@ public class MapGenerator {
 				for(j=currentTiley-2;j<=currentTiley+2;j++){
 					int debut,max;
 					if((j==currentTiley-2 || j==currentTiley+2)&(j>=0 & j<size)&(currentTilex>=0 & currentTilex<size)){
-						if(map[j][currentTilex].getTypeTile()!=TypeTile.WATER){
-							map[j][currentTilex]= new MountainTile(j, currentTilex);
+						if(map[currentTilex][j].getTypeTile()!=TypeTile.WATER){
+							map[currentTilex][j]= new MountainTile( currentTilex,j);
 						}
 					}
 					else if (j==currentTiley-1 || j==currentTiley+1){

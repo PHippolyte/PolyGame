@@ -210,4 +210,12 @@ public abstract class Character extends MapObject{
 	public void setRange(int range) {
 		this.range = range;
 	}
+
+	public int getNbAction() {
+		return nbAction;
+	}
+
+	public void setNbAction(int nbAction) {
+		this.nbAction = nbAction;
+	}
 }

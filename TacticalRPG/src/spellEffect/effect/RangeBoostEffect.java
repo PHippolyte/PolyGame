@@ -11,4 +11,8 @@ public class RangeBoostEffect extends spellEffect.Effect{
 		this.character.setRange(this.character.getRange()+2);
 	}
 	
+	public void remise(){
+		this.character.setRange(this.character.getRange()-2);
+	}
+	
 }

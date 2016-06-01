@@ -11,6 +11,8 @@ public class MagicBoostEffect extends spellEffect.Effect{
 		this.character.setAttackMagic(this.character.getAttackMagic()+2);
 	}
 	
-	
+	public void remise(){
+		this.character.setAttackMagic(this.character.getAttackMagic()-2);
+	}
 	
 }

@@ -12,5 +12,8 @@ public class DivineShieldEffect extends spellEffect.Effect{
 		this.character.setDefenseMagic(this.character.getDefenseMagic()+2);
 	}
 
-	
+	public void remise(){
+		this.character.setDefense(this.character.getDefense()-2);
+		this.character.setDefenseMagic(this.character.getDefenseMagic()-2);
+	}
 }

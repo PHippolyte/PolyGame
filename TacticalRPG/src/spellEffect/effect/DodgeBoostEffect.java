@@ -11,6 +11,8 @@ public class DodgeBoostEffect extends spellEffect.Effect{
 		this.character.setDodge(this.character.getDodge()+2);
 	}
 	
-	
+	public void remise(){
+		this.character.setDodge(this.character.getDodge()-2);
+	}
 	
 }

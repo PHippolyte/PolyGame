@@ -1,9 +1,7 @@
 package Sound;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -12,6 +10,7 @@ import javax.sound.sampled.Clip;
 public class soundManager{
 
 	private Clip cur, cancel, enter, att, def, move, heal, menu, matt, error, turn;
+	private Clip spellArrow, spellBoost, spellFireball, spellHeal, spellMeteore, spellResurect, spellRoot, spellShield, spellSprint;
 	private HashMap<String, Clip> soundList;
 
 	
@@ -19,7 +18,13 @@ public class soundManager{
 		soundList = new HashMap<String, Clip>();
 
 		try{
-				
+			
+/*----------------------------------------------------------------------------------------------------------------------
+			
+												SONS DE BASE
+
+-----------------------------------------------------------------------------------------------------------------------*/
+			
 			File curf = new File("ressources/sounds/sound_cursor.wav");
 			cur = AudioSystem.getClip();
 			AudioInputStream inputStreamCur = AudioSystem.getAudioInputStream(curf);
@@ -37,6 +42,30 @@ public class soundManager{
 			AudioInputStream inputStreamCancel = AudioSystem.getAudioInputStream(cancelf);
 			cancel.open(inputStreamCancel);
 			soundList.put("cancel",cancel);
+			
+			File menuf = new File("ressources/sounds/sound_menu.wav");
+			menu = AudioSystem.getClip();
+			AudioInputStream inputStreamMenu = AudioSystem.getAudioInputStream(menuf);
+			menu.open(inputStreamMenu);
+			soundList.put("menu",menu);
+			
+			File errorf = new File("ressources/sounds/sound_erreur.wav");
+			error = AudioSystem.getClip();
+			AudioInputStream inputStreamError = AudioSystem.getAudioInputStream(errorf);
+			error.open(inputStreamError);
+			soundList.put("error",error);
+			
+			File turnf = new File("ressources/sounds/sound_endturn.wav");
+			turn = AudioSystem.getClip();
+			AudioInputStream inputStreamTurn = AudioSystem.getAudioInputStream(turnf);
+			turn.open(inputStreamTurn);
+			soundList.put("turn",turn);
+			
+/*----------------------------------------------------------------------------------------------------------------------
+			
+											SONS PERSONNAGES
+			
+-----------------------------------------------------------------------------------------------------------------------*/
 			
 			File attf = new File("ressources/sounds/sound_attack.wav");
 			att = AudioSystem.getClip();
@@ -68,24 +97,67 @@ public class soundManager{
 			matt.open(inputStreamAttm);
 			soundList.put("mattack",matt);
 			
-			File menuf = new File("ressources/sounds/sound_menu.wav");
-			menu = AudioSystem.getClip();
-			AudioInputStream inputStreamMenu = AudioSystem.getAudioInputStream(menuf);
-			menu.open(inputStreamMenu);
-			soundList.put("menu",menu);
+/*----------------------------------------------------------------------------------------------------------------------
 			
-			File errorf = new File("ressources/sounds/sound_erreur.wav");
-			error = AudioSystem.getClip();
-			AudioInputStream inputStreamError = AudioSystem.getAudioInputStream(errorf);
-			error.open(inputStreamError);
-			soundList.put("error",error);	
+											SONS SPELL
+
+-----------------------------------------------------------------------------------------------------------------------*/
 			
-			File turnf = new File("ressources/sounds/sound_endturn.wav");
-			turn = AudioSystem.getClip();
-			AudioInputStream inputStreamTurn = AudioSystem.getAudioInputStream(turnf);
-			turn.open(inputStreamTurn);
-			soundList.put("turn",turn);	
+			File arrowf = new File("ressources/sounds/sound_spellArrow.wav");
+			spellArrow = AudioSystem.getClip();
+			AudioInputStream inputStreamSArrow = AudioSystem.getAudioInputStream(arrowf);
+			spellArrow.open(inputStreamSArrow);
+			soundList.put("spellArrow",spellArrow);
 			
+			File boostf = new File("ressources/sounds/sound_spellBoost.wav");
+			spellBoost = AudioSystem.getClip();
+			AudioInputStream inputStreamSBoost = AudioSystem.getAudioInputStream(boostf);
+			spellBoost.open(inputStreamSBoost);
+			soundList.put("spellBoost",spellBoost);
+			
+			File fireBallf = new File("ressources/sounds/sound_spellFireBall.wav");
+			spellFireball = AudioSystem.getClip();
+			AudioInputStream inputStreamSFire = AudioSystem.getAudioInputStream(fireBallf);
+			spellFireball.open(inputStreamSFire);
+			soundList.put("spellFireBall",spellFireball);
+			
+			File shealf = new File("ressources/sounds/sound_spellHeal.wav");
+			spellHeal = AudioSystem.getClip();
+			AudioInputStream inputStreamSHeal = AudioSystem.getAudioInputStream(shealf);
+			spellHeal.open(inputStreamSHeal);
+			soundList.put("spellHeal",spellHeal);
+			
+			File meteoref = new File("ressources/sounds/sound_spellMeteore.wav");
+			spellMeteore = AudioSystem.getClip();
+			AudioInputStream inputStreamSMeteore = AudioSystem.getAudioInputStream(meteoref);
+			spellMeteore.open(inputStreamSMeteore);
+			soundList.put("spellMeteore",spellMeteore);
+			
+			File resurectf = new File("ressources/sounds/sound_spellResurect.wav");
+			spellResurect = AudioSystem.getClip();
+			AudioInputStream inputStreamSResurect = AudioSystem.getAudioInputStream(resurectf);
+			spellResurect.open(inputStreamSResurect);
+			soundList.put("spellResurect",spellResurect);
+			
+			File rootf = new File("ressources/sounds/sound_spellRoot.wav");
+			spellRoot = AudioSystem.getClip();
+			AudioInputStream inputStreamSRoot = AudioSystem.getAudioInputStream(rootf);
+			spellRoot.open(inputStreamSRoot);
+			soundList.put("spellRoot",spellRoot);
+			
+			File shieldf = new File("ressources/sounds/sound_spellShield.wav");
+			spellShield = AudioSystem.getClip();
+			AudioInputStream inputStreamSShield = AudioSystem.getAudioInputStream(shieldf);
+			spellShield.open(inputStreamSShield);
+			soundList.put("spellShield",spellShield);
+			
+			File sprintf = new File("ressources/sounds/sound_spellSprint.wav");
+			spellSprint = AudioSystem.getClip();
+			AudioInputStream inputStreamSSprint = AudioSystem.getAudioInputStream(sprintf);
+			spellSprint.open(inputStreamSSprint);
+			soundList.put("spellRoot",spellSprint);
+			
+
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -98,10 +170,8 @@ public class soundManager{
 		if(sound.isActive()){
 			sound.stop();
 		}
-		
 		sound.setFramePosition(0);
-		sound.start();
-		
+		sound.start();	
 	}
 	
 	public HashMap<String,Clip > getSoundList(){

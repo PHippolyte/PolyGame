@@ -202,4 +202,12 @@ public abstract class Character extends MapObject{
 	public BufferedImage getNameImage() {
 		return this.nameImage;
 	}
+	
+	public void setEnergy(int energy) {
+		this.energy = energy;
+	}
+	
+	public void setRange(int range) {
+		this.range = range;
+	}
 }

@@ -12,6 +12,7 @@ public class Team {
 	private int nbHero;
 	private int nbSoldier;
 	private int num;
+	private Character lastDieCharacter;
 	
 	private boolean done;
 	
@@ -107,5 +108,13 @@ public class Team {
 			str += character.toString()+"\n";
 		}
 		return str;
+	}
+	
+	public Character getLastDieCharacter() {
+		return lastDieCharacter;
+	}
+
+	public void setLastDieCharacter(Character lastDieCharacter) {
+		this.lastDieCharacter = lastDieCharacter;
 	}
 }

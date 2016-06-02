@@ -144,23 +144,38 @@ public class MapGenerator {
 			for(int y=0; y<size; y++) {
 				if(map[x][y].getTypeTile() == TypeTile.WATER) {
 					boolean horiz = true, vert = true;
-					if(x==0 || map[x-1][y].getTypeTile() == TypeTile.WATER) horiz=false; else vert=false;
-					if(x==size-1 || map[x+1][y].getTypeTile() == TypeTile.WATER) horiz=false; else vert=false;
-					if(y==0 || map[x][y-1].getTypeTile() == TypeTile.WATER) vert=false; else horiz=false;
-					if(y==size-1 || map[x][y+1].getTypeTile() == TypeTile.WATER) vert=false; else horiz=false;
+					int cx=x,cy=y;
+					if(x==0 || map[cx-1][cy].getTypeTile() == TypeTile.WATER) horiz=false; else vert=false;
+					cx=x;cy=y;
+					if(x==size-1 || map[cx+1][cy].getTypeTile() == TypeTile.WATER) horiz=false; else vert=false;
+					cx=x;cy=y;
+					if(y==0 || map[cx][cy-1].getTypeTile() == TypeTile.WATER) vert=false; else horiz=false;
+					cx=x;cy=y;
+					if(y==size-1 || map[cx][cy+1].getTypeTile() == TypeTile.WATER) vert=false; else horiz=false;
 
 					if(horiz || vert) {
-						bridgeX[n]=x; bridgeY[n++]=y;
+						bridgeX[n]=x; 
+						bridgeY[n]=y;
+						n++;
 					}
 				}
 			}
 		}
-		if(nbBridge>n) nbBridge=n; 
-		for(int i=0; i<nbBridge; i++) {
+		if(nbBridge>n) nbBridge=n;
+		boolean tab[]=new boolean[n];
+		int i=0;
+		for(i=0;i<n;i++){
+			tab[i]=true;
+		}
+		i=0;
+		while( i<nbBridge) {
 			int j = (int)(rand.nextInt(n));
-			map[bridgeX[j]][bridgeY[j]] = new BridgeTile(bridgeX[j],  bridgeY[j]);
-			bridgeX[j] = bridgeX[--n];
-			bridgeY[j] = bridgeY[n];
+			if(tab[j]){
+				System.out.println(1);
+				map[bridgeX[j]][bridgeY[j]] = new BridgeTile(bridgeX[j],  bridgeY[j]);
+				tab[j]=false;
+				i++;
+			}
 		}
 
 	}

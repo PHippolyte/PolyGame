@@ -58,22 +58,22 @@ public class HeroMenu extends Menu{
 			
 		case(1):
 			hero = new HeroDagharr();
-			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			hero.load("ressources/Heros/Dagharr"+numTeam+".png");
 			break;
 			
 		case(2):
 			hero = new HeroHiberius();
-			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			hero.load("ressources/Heros/Hiberius"+(numTeam-1)+".png");
 			break;
 			
 		case(3):
 			hero = new HeroIsylwenn();
-			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			hero.load("ressources/Heros/Isylwenn"+numTeam+".png");
 			break;
 			
 		case(4):
 			hero = new HeroOlgred();
-			hero.load("ressources/Heros/Lyndis"+numTeam+".png");
+			hero.load("ressources/Heros/Olgred"+numTeam+".png");
 			break;
 		}
 		this.game.getMatch().addHeroToCurrentTeam(hero);

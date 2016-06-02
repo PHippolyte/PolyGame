@@ -35,23 +35,24 @@ public class SpellState extends StateMatch {
 				for (Tile t : this.selectedTile){
 					Character c = t.getCharacter();
 					if (c != null) {
-						this.matchState.switchCancelSound();
+						
 						this.selectedSpell.action(c, this.selectedHero);
-						String spellname = this.selectedSpell.getClass().getSimpleName();
-						System.out.println(this.selectedSpell.getClass().getSimpleName());
-						if (spellname.equals("DodgeBoost") || spellname.equals("MoreAction") || spellname.equals("MagicBoost") || spellname.equals("RangeBoost")){
-							this.matchState.getSoundManager().play("spellBoost");
-						}else if (spellname.equals("LongAttack") || spellname.equals("UnstopableAttack")){
-							this.matchState.getSoundManager().play("attack");
-						}else if (spellname.equals("MultiAttack")){
-							this.matchState.getSoundManager().play("attack");
-							this.matchState.getSoundManager().play("attack");
-							this.matchState.getSoundManager().play("attack");
-							this.matchState.getSoundManager().play("attack");
-						}else if (spellname.equals("PowerHeal") || spellname.equals("ZoneHeal")){
-							this.matchState.getSoundManager().play("spellHeal");
-						}else this.matchState.getSoundManager().play("spell"+spellname);
 					}
+					this.matchState.switchCancelSound();
+					String spellname = this.selectedSpell.getClass().getSimpleName();
+					System.out.println(this.selectedSpell.getClass().getSimpleName());
+					if (spellname.equals("DodgeBoost") || spellname.equals("MoreAction") || spellname.equals("MagicBoost") || spellname.equals("RangeBoost")){
+						this.matchState.getSoundManager().play("spellBoost");
+					}else if (spellname.equals("LongAttack") || spellname.equals("UnstopableAttack")){
+						this.matchState.getSoundManager().play("attack");
+					}else if (spellname.equals("MultiAttack")){
+						this.matchState.getSoundManager().play("attack");
+						this.matchState.getSoundManager().play("attack");
+						this.matchState.getSoundManager().play("attack");
+						this.matchState.getSoundManager().play("attack");
+					}else if (spellname.equals("PowerHeal") || spellname.equals("ZoneHeal")){
+						this.matchState.getSoundManager().play("spellHeal");
+					}else this.matchState.getSoundManager().play("spell"+spellname);
 				}
 				this.selectedHero.action();
 				this.matchState.setCurrentState(IDLE);

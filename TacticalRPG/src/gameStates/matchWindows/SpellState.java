@@ -56,6 +56,7 @@ public class SpellState extends StateMatch {
 				this.selectedHero.action();
 				this.matchState.setCurrentState(IDLE);
 			} else {
+				this.matchState.getSoundManager().play("error");
 				System.out.println("Not in range dude");
 			}
 		} else {
